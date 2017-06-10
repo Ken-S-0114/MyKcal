@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0444B20898E9EC3BC850FADD /* Pods_MyKcal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */; };
 		B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DEC1EE989A1006E78CA /* AppDelegate.swift */; };
 		B2859DEF1EE989A1006E78CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DEE1EE989A1006E78CA /* ViewController.swift */; };
 		B2859DF21EE989A1006E78CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2859DF01EE989A1006E78CA /* Main.storyboard */; };
 		B2859DF41EE989A1006E78CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2859DF31EE989A1006E78CA /* Assets.xcassets */; };
 		B2859DF71EE989A1006E78CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */; };
+		B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DFE1EE98C0D006E78CA /* CustomCell.swift */; };
+		B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */; };
+		B29DEE4F1EEC3B4A00E8B951 /* Geotica_2012.otf in Resources */ = {isa = PBXBuildFile; fileRef = B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */; };
+		B29DEE511EEC448A00E8B951 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE501EEC448A00E8B951 /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyKcal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2859DE91EE989A1006E78CA /* MyKcal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKcal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2859DEC1EE989A1006E78CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2859DEE1EE989A1006E78CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +28,12 @@
 		B2859DF31EE989A1006E78CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B2859DF61EE989A1006E78CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2859DF81EE989A1006E78CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2859DFE1EE98C0D006E78CA /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDateDB.swift; sourceTree = "<group>"; };
+		B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Geotica_2012.otf; sourceTree = "<group>"; };
+		B29DEE501EEC448A00E8B951 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		E54018E7040979566BB7ACF5 /* Pods-MyKcal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKcal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal.debug.xcconfig"; sourceTree = "<group>"; };
+		F1DC62DA99E5BC25DBEC851D /* Pods-MyKcal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKcal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0444B20898E9EC3BC850FADD /* Pods_MyKcal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		620D7730BBC38E2B4E17D912 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B2859DE01EE989A1006E78CA = {
 			isa = PBXGroup;
 			children = (
 				B2859DEB1EE989A1006E78CA /* MyKcal */,
 				B2859DEA1EE989A1006E78CA /* Products */,
+				C0F410543C742871C373A239 /* Pods */,
+				620D7730BBC38E2B4E17D912 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +79,25 @@
 			children = (
 				B2859DEC1EE989A1006E78CA /* AppDelegate.swift */,
 				B2859DEE1EE989A1006E78CA /* ViewController.swift */,
+				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
+				B29DEE501EEC448A00E8B951 /* CustomTableViewCell.swift */,
+				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
-				B2859DF31EE989A1006E78CA /* Assets.xcassets */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
+				B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */,
+				B2859DF31EE989A1006E78CA /* Assets.xcassets */,
 				B2859DF81EE989A1006E78CA /* Info.plist */,
 			);
 			path = MyKcal;
+			sourceTree = "<group>";
+		};
+		C0F410543C742871C373A239 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E54018E7040979566BB7ACF5 /* Pods-MyKcal.debug.xcconfig */,
+				F1DC62DA99E5BC25DBEC851D /* Pods-MyKcal.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +107,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2859DFB1EE989A1006E78CA /* Build configuration list for PBXNativeTarget "MyKcal" */;
 			buildPhases = (
+				D1FC95B3D71F3B515BACEED8 /* [CP] Check Pods Manifest.lock */,
 				B2859DE51EE989A1006E78CA /* Sources */,
 				B2859DE61EE989A1006E78CA /* Frameworks */,
 				B2859DE71EE989A1006E78CA /* Resources */,
+				1AF641D65801644AD6201635 /* [CP] Embed Pods Frameworks */,
+				0B9F8830FA69684122FF9769 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -124,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29DEE4F1EEC3B4A00E8B951 /* Geotica_2012.otf in Resources */,
 				B2859DF71EE989A1006E78CA /* LaunchScreen.storyboard in Resources */,
 				B2859DF41EE989A1006E78CA /* Assets.xcassets in Resources */,
 				B2859DF21EE989A1006E78CA /* Main.storyboard in Resources */,
@@ -132,12 +172,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B9F8830FA69684122FF9769 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1AF641D65801644AD6201635 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1FC95B3D71F3B515BACEED8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B2859DE51EE989A1006E78CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B2859DEF1EE989A1006E78CA /* ViewController.swift in Sources */,
+				B29DEE511EEC448A00E8B951 /* CustomTableViewCell.swift in Sources */,
+				B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */,
+				B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */,
 				B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,7 +352,9 @@
 		};
 		B2859DFC1EE989A1006E78CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E54018E7040979566BB7ACF5 /* Pods-MyKcal.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JL94BNBL3S;
 				INFOPLIST_FILE = MyKcal/Info.plist;
@@ -274,7 +367,9 @@
 		};
 		B2859DFD1EE989A1006E78CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1DC62DA99E5BC25DBEC851D /* Pods-MyKcal.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JL94BNBL3S;
 				INFOPLIST_FILE = MyKcal/Info.plist;
@@ -304,6 +399,7 @@
 				B2859DFD1EE989A1006E78CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

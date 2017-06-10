@@ -1,14 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CK6-jp-fK5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Geotica_2012.otf">
+            <string>Geotica2012-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="5u1-wz-URR">
+            <objects>
+                <tabBarController id="CK6-jp-fK5" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="6UK-cw-1Ee">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="8NP-75-dO3"/>
+                        <segue destination="nXj-BC-wHz" kind="relationship" relationship="viewControllers" id="v7w-PK-uBh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFo-Ed-Ikf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1154" y="152"/>
+        </scene>
+        <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +44,230 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BNz-Ce-01t">
+                                <rect key="frame" x="16" y="30" width="343" height="341"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="roF-gh-LV4">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="60.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzu-r0-URS">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="24.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-rd-Op8">
+                                                <rect key="frame" x="0.0" y="24.5" width="343" height="36"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-dH-Wff">
+                                        <rect key="frame" x="0.0" y="60.5" width="343" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10I-ta-FEs">
+                                                <rect key="frame" x="0.0" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmf-FU-cOz">
+                                                <rect key="frame" x="49" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-j8-ZwY">
+                                                <rect key="frame" x="98" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwm-KY-uUV">
+                                                <rect key="frame" x="147" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDf-KN-vqf">
+                                                <rect key="frame" x="196" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ed-hL-zfY">
+                                                <rect key="frame" x="245" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-Gw-pTz">
+                                                <rect key="frame" x="294" y="0.0" width="49" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="S2A-gq-Hqa" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                        <rect key="frame" x="0.0" y="81" width="343" height="260"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="260" id="mdd-VS-gIy"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UTt-vM-7OR">
+                                            <size key="itemSize" width="108" height="99"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomCell" id="8gx-bj-Hlg" customClass="CustomCell" customModule="MyKcal" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="108" height="99"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="99"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lf2-Ss-h2p">
+                                                            <rect key="frame" x="34" y="29.5" width="40" height="40"/>
+                                                            <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="40" id="eBH-k3-J80"/>
+                                                                <constraint firstAttribute="height" constant="40" id="tRC-Pd-b3l"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdu-1M-T44">
+                                                            <rect key="frame" x="32" y="36" width="44.5" height="28"/>
+                                                            <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="23"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="Lf2-Ss-h2p" firstAttribute="centerY" secondItem="8gx-bj-Hlg" secondAttribute="centerY" id="AVx-Ek-PX6"/>
+                                                    <constraint firstItem="pdu-1M-T44" firstAttribute="centerY" secondItem="8gx-bj-Hlg" secondAttribute="centerY" id="VSh-do-qY7"/>
+                                                    <constraint firstItem="pdu-1M-T44" firstAttribute="centerX" secondItem="8gx-bj-Hlg" secondAttribute="centerX" id="Wdg-pX-Scp"/>
+                                                    <constraint firstItem="Lf2-Ss-h2p" firstAttribute="centerX" secondItem="8gx-bj-Hlg" secondAttribute="centerX" id="brD-6N-hih"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth.">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="dateLabel" destination="pdu-1M-T44" id="Vx7-5B-a4n"/>
+                                                    <outlet property="selectedView" destination="Lf2-Ss-h2p" id="Nbx-Bn-LvX"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="hQV-zk-A2A"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="dJu-pM-WfI"/>
+                                            <outlet property="ibCalendarDataSource" destination="BYZ-38-t0r" id="FNA-pt-Vnn"/>
+                                            <outlet property="ibCalendarDelegate" destination="BYZ-38-t0r" id="jy6-qP-UHU"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z9j-5v-fh9">
+                                <rect key="frame" x="16" y="381" width="343" height="227"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="kcalCell" textLabel="hyH-Gh-54h" detailTextLabel="HDu-tw-FlP" style="IBUITableViewCellStyleValue1" id="3QY-Rp-7c0" customClass="CustomTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3QY-Rp-7c0" id="oXI-LW-To4">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hyH-Gh-54h">
+                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HDu-tw-FlP">
+                                                    <rect key="frame" x="284" y="12" width="44" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="zps-cF-IpS"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="qZH-gL-1EV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="G9a-Nl-wtU"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LFd-7D-qad"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UM1-rY-g1E"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bQt-c4-EdE"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="top" secondItem="BNz-Ce-01t" secondAttribute="bottom" constant="10" id="dtP-eR-qas"/>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="g8Z-kb-zgd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="z9j-5v-fh9" secondAttribute="bottom" constant="10" id="jCo-eK-arR"/>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="uWs-Ie-61M"/>
+                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="dYD-U9-bK5"/>
+                    <connections>
+                        <outlet property="calendarView" destination="S2A-gq-Hqa" id="0JG-HQ-z7t"/>
+                        <outlet property="kcalTableView" destination="z9j-5v-fh9" id="Z2h-yj-WWl"/>
+                        <outlet property="month" destination="bW3-rd-Op8" id="ziC-K8-xcv"/>
+                        <outlet property="year" destination="Dzu-r0-URS" id="Apr-ZU-0SK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-114.40000000000001" y="-99.400299850074973"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="j7D-ei-TJk">
+            <objects>
+                <navigationController id="nXj-BC-wHz" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="8sN-Ob-IiT"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qr3-a8-HVR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RX0-I3-pnM" kind="relationship" relationship="rootViewController" id="MdY-CO-f3q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dNL-Hf-fbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114" y="770"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ulJ-Zy-ssK">
+            <objects>
+                <viewController id="RX0-I3-pnM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ckL-1f-jkJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="fEE-oe-fhB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SXt-eN-pQM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6Gs-Sf-nzV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mZR-eW-fN2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="898" y="770"/>
         </scene>
     </scenes>
 </document>
