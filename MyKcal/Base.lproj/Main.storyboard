@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -46,77 +47,74 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BNz-Ce-01t">
-                                <rect key="frame" x="16" y="30" width="343" height="341"/>
+                                <rect key="frame" x="16" y="30" width="343" height="333.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="roF-gh-LV4">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="60.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="78.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzu-r0-URS">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="24.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzu-r0-URS">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-rd-Op8">
-                                                <rect key="frame" x="0.0" y="24.5" width="343" height="36"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="30"/>
+                                                <rect key="frame" x="0.0" y="30" width="343" height="48.5"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="40"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-dH-Wff">
-                                        <rect key="frame" x="0.0" y="60.5" width="343" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="78.5" width="343" height="23"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10I-ta-FEs">
-                                                <rect key="frame" x="0.0" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmf-FU-cOz">
-                                                <rect key="frame" x="49" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="49" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-j8-ZwY">
-                                                <rect key="frame" x="98" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="98" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwm-KY-uUV">
-                                                <rect key="frame" x="147" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="147" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDf-KN-vqf">
-                                                <rect key="frame" x="196" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="196" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ed-hL-zfY">
-                                                <rect key="frame" x="245" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="245" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-Gw-pTz">
-                                                <rect key="frame" x="294" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="17"/>
+                                                <rect key="frame" x="294" y="0.0" width="49" height="23"/>
+                                                <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="S2A-gq-Hqa" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="81" width="343" height="260"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="260" id="mdd-VS-gIy"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="101.5" width="343" height="232"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UTt-vM-7OR">
                                             <size key="itemSize" width="108" height="99"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -140,8 +138,8 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdu-1M-T44">
-                                                            <rect key="frame" x="32" y="36" width="44.5" height="28"/>
-                                                            <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="23"/>
+                                                            <rect key="frame" x="28" y="34" width="52.5" height="32.5"/>
+                                                            <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="27"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -165,36 +163,34 @@
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
-                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="hQV-zk-A2A"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="dJu-pM-WfI"/>
                                             <outlet property="ibCalendarDataSource" destination="BYZ-38-t0r" id="FNA-pt-Vnn"/>
                                             <outlet property="ibCalendarDelegate" destination="BYZ-38-t0r" id="jy6-qP-UHU"/>
                                         </connections>
                                     </collectionView>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z9j-5v-fh9">
-                                <rect key="frame" x="16" y="381" width="343" height="227"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z9j-5v-fh9">
+                                <rect key="frame" x="16" y="373.5" width="343" height="233.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="kcalCell" textLabel="hyH-Gh-54h" detailTextLabel="HDu-tw-FlP" style="IBUITableViewCellStyleValue1" id="3QY-Rp-7c0" customClass="CustomTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="kcalCell" textLabel="hyH-Gh-54h" detailTextLabel="HDu-tw-FlP" rowHeight="30" style="IBUITableViewCellStyleValue1" id="3QY-Rp-7c0" customClass="CustomTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3QY-Rp-7c0" id="oXI-LW-To4">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="29.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hyH-Gh-54h">
-                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="48" height="30"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HDu-tw-FlP">
-                                                    <rect key="frame" x="284" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="69" y="0.0" width="259" height="30"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -210,14 +206,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="BNz-Ce-01t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="G9a-Nl-wtU"/>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="0jL-uQ-KXo"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1SW-HB-gJa"/>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3lO-Dp-Ojj"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="top" secondItem="BNz-Ce-01t" secondAttribute="bottom" constant="10" id="7Pi-Me-oEx"/>
+                            <constraint firstItem="BNz-Ce-01t" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="INh-dL-yBu"/>
                             <constraint firstItem="z9j-5v-fh9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LFd-7D-qad"/>
-                            <constraint firstItem="z9j-5v-fh9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UM1-rY-g1E"/>
-                            <constraint firstItem="z9j-5v-fh9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bQt-c4-EdE"/>
-                            <constraint firstItem="z9j-5v-fh9" firstAttribute="top" secondItem="BNz-Ce-01t" secondAttribute="bottom" constant="10" id="dtP-eR-qas"/>
+                            <constraint firstItem="z9j-5v-fh9" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.35" id="SOZ-Nh-aka"/>
                             <constraint firstItem="BNz-Ce-01t" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="g8Z-kb-zgd"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="z9j-5v-fh9" secondAttribute="bottom" constant="10" id="jCo-eK-arR"/>
-                            <constraint firstItem="BNz-Ce-01t" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="uWs-Ie-61M"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="dYD-U9-bK5"/>
