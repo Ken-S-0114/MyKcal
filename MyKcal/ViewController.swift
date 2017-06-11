@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   @IBOutlet weak var kcalTableView: UITableView!
   
   var kcalItem: Results<RealmDateDB>!
+  let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   let formatter = DateFormatter()
   var testCalendar = Calendar.current
@@ -42,9 +43,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     kcalItem = realm.objects(RealmDateDB.self)
   }
   
-  func realm() {
-    
-  }
   
   func setupCalendarView(){
     calendarView.minimumLineSpacing = 0
@@ -86,7 +84,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       validCell.selectedView.layer.cornerRadius =  13
       validCell.selectedView.backgroundColor = currentDateSelectedViewColor
       selectDate = cellState.date
-      print(selectDate)
     }else {
       validCell.selectedView.isHidden = true
     }
@@ -101,18 +98,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//    let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell", for: indexPath) as! CustomTableViewCell
-//    
-//    cell.setCell(timeZone: timeArray[indexPath.row], kcal: kcalTime[indexPath.row])
+    //    let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell", for: indexPath) as! CustomTableViewCell
+    //
+    //    cell.setCell(timeZone: timeArray[indexPath.row], kcal: kcalTime[indexPath.row])
     let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell")
-      cell?.textLabel?.text = timeArray[indexPath.row]
-      cell?.detailTextLabel?.text = kcalTime[indexPath.row]
+    cell?.textLabel?.text = timeArray[indexPath.row]
+    cell?.detailTextLabel?.text = kcalTime[indexPath.row]
     return cell!
   }
-//
-//  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    <#code#>
-//  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    appDelegate.indexPath = indexPath.row
+    performSegue(withIdentifier: "selectSegue", sender: nil)
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -154,10 +152,10 @@ extension ViewController: JTAppleCalendarViewDelegate {
     handleCellSelected(view: cell, cellState: cellState);
     handleCellTextColor(view: cell, cellState: cellState);
     
-//    let object = kcalItem.filter(date == cellState.date)
-//    kcalTime += [object.morning]
-//    kcalTime += [object.noon]
-//    kcalTime += [object.night]
+    //    let object = kcalItem.filter(date == cellState.date)
+    //    kcalTime += [object.morning]
+    //    kcalTime += [object.noon]
+    //    kcalTime += [object.night]
   }
   
   // 日付非選択時

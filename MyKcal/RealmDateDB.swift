@@ -14,5 +14,8 @@ class RealmDateDB: Object {
   dynamic var morning = String()
   dynamic var noon = String()
   dynamic var night = String()
-
+  
+  override static func primaryKey() -> String? {
+    return "date"
+  }
 }
