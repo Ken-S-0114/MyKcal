@@ -20,6 +20,7 @@
 		B29DEE571EED77FB00E8B951 /* RealmMenuDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */; };
 		B29DEE591EED7E6700E8B951 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE581EED7E6700E8B951 /* AddMenuView.swift */; };
 		B29DEE5B1EED835500E8B951 /* RealmKindDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */; };
+		B29DEE5D1EEEF3C100E8B951 /* SelectMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMenuDB.swift; sourceTree = "<group>"; };
 		B29DEE581EED7E6700E8B951 /* AddMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMenuView.swift; sourceTree = "<group>"; };
 		B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmKindDB.swift; sourceTree = "<group>"; };
+		B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMenuView.swift; sourceTree = "<group>"; };
 		E54018E7040979566BB7ACF5 /* Pods-MyKcal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKcal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal.debug.xcconfig"; sourceTree = "<group>"; };
 		F1DC62DA99E5BC25DBEC851D /* Pods-MyKcal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKcal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyKcal/Pods-MyKcal.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
 				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
 				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
+				B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */,
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
 				B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */,
@@ -240,6 +243,7 @@
 				B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */,
 				B29DEE591EED7E6700E8B951 /* AddMenuView.swift in Sources */,
 				B29DEE5B1EED835500E8B951 /* RealmKindDB.swift in Sources */,
+				B29DEE5D1EEEF3C100E8B951 /* SelectMenuView.swift in Sources */,
 				B29DEE551EED760700E8B951 /* MenuTableView.swift in Sources */,
 				B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */,
 			);

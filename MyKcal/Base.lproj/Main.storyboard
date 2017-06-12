@@ -26,12 +26,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="nXj-BC-wHz" kind="relationship" relationship="viewControllers" id="IXF-hc-r0y"/>
+                        <segue destination="nXj-BC-wHz" kind="relationship" relationship="viewControllers" id="cbw-B5-QA0"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFo-Ed-Ikf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1583" y="97"/>
+            <point key="canvasLocation" x="-1978" y="97"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
@@ -49,16 +49,16 @@
                                 <rect key="frame" x="16" y="74" width="343" height="327"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="roF-gh-LV4">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="67"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzu-r0-URS">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="23.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-rd-Op8">
-                                                <rect key="frame" x="0.0" y="23.5" width="343" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="36"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -66,46 +66,46 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-dH-Wff">
-                                        <rect key="frame" x="0.0" y="67" width="343" height="23"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10I-ta-FEs">
-                                                <rect key="frame" x="0.0" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmf-FU-cOz">
-                                                <rect key="frame" x="49" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="49" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddg-j8-ZwY">
-                                                <rect key="frame" x="98" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="98" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwm-KY-uUV">
-                                                <rect key="frame" x="147" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="147" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDf-KN-vqf">
-                                                <rect key="frame" x="196" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="196" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ed-hL-zfY">
-                                                <rect key="frame" x="245" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="245" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-Gw-pTz">
-                                                <rect key="frame" x="294" y="0.0" width="49" height="23"/>
+                                                <rect key="frame" x="294" y="0.0" width="49" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="S2A-gq-Hqa" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="90" width="343" height="237"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="327"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UTt-vM-7OR">
                                             <size key="itemSize" width="108" height="99"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -129,7 +129,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lf2-Ss-h2p">
-                                                            <rect key="frame" x="34" y="29.5" width="40" height="40"/>
+                                                            <rect key="frame" x="34" y="30" width="40" height="40"/>
                                                             <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="eBH-k3-J80"/>
@@ -137,7 +137,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdu-1M-T44">
-                                                            <rect key="frame" x="28" y="34" width="52.5" height="32.5"/>
+                                                            <rect key="frame" x="28" y="34" width="52.5" height="32"/>
                                                             <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="27"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -217,12 +217,12 @@
                         <outlet property="kcalTableView" destination="z9j-5v-fh9" id="Z2h-yj-WWl"/>
                         <outlet property="month" destination="bW3-rd-Op8" id="ziC-K8-xcv"/>
                         <outlet property="year" destination="Dzu-r0-URS" id="Apr-ZU-0SK"/>
-                        <segue destination="RX0-I3-pnM" kind="show" identifier="selectSegue" id="AJm-RU-L2J"/>
+                        <segue destination="ZJH-bm-sgS" kind="show" identifier="selectSegue" id="bk0-t8-VRi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="268" y="96.7016491754123"/>
+            <point key="canvasLocation" x="-198" y="97"/>
         </scene>
         <!--Item-->
         <scene sceneID="j7D-ei-TJk">
@@ -240,7 +240,96 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNL-Hf-fbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-679" y="97"/>
+            <point key="canvasLocation" x="-1065" y="97"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="uyo-kG-aii">
+            <objects>
+                <viewController id="ZJH-bm-sgS" customClass="SelectMenuView" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JiX-SJ-zeZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="sNk-FR-LEH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LFa-N9-hXv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dua-70-Znq">
+                                <rect key="frame" x="0.0" y="216" width="375" height="394"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="selectMenuCell" textLabel="a9Z-WO-hwx" detailTextLabel="qg1-Cs-7jz" style="IBUITableViewCellStyleValue1" id="9yn-bh-HzL">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9yn-bh-HzL" id="DG9-f2-dEN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a9Z-WO-hwx">
+                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qg1-Cs-7jz">
+                                                    <rect key="frame" x="316" y="12" width="44" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ZJH-bm-sgS" id="f9f-fM-v5i"/>
+                                    <outlet property="delegate" destination="ZJH-bm-sgS" id="DFL-Gp-yW0"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7Z-JN-jFk">
+                                <rect key="frame" x="325" y="182" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addMenuButton:" destination="ZJH-bm-sgS" eventType="touchUpInside" id="zya-Hi-DW3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHD-Rg-krl">
+                                <rect key="frame" x="46" y="84" width="283" height="95"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="95" id="8DM-yf-WqJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="lHD-Rg-krl" secondAttribute="trailing" constant="30" id="T9n-Xz-cBq"/>
+                            <constraint firstItem="lHD-Rg-krl" firstAttribute="leading" secondItem="LFa-N9-hXv" secondAttribute="leadingMargin" constant="30" id="UdB-DT-1C5"/>
+                            <constraint firstItem="lHD-Rg-krl" firstAttribute="centerX" secondItem="LFa-N9-hXv" secondAttribute="centerX" id="X5g-wP-AKh"/>
+                            <constraint firstItem="lHD-Rg-krl" firstAttribute="top" secondItem="JiX-SJ-zeZ" secondAttribute="bottom" constant="20" id="X7J-wf-wyN"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="5Cm-D2-yYA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="wJ4-Dg-5FT">
+                            <connections>
+                                <action selector="saveButton:" destination="ZJH-bm-sgS" id="D3A-nI-ugZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="kcalLabel" destination="lHD-Rg-krl" id="gHf-a7-6EC"/>
+                        <outlet property="selectMenuTableView" destination="dua-70-Znq" id="IVI-v9-ELp"/>
+                        <segue destination="RX0-I3-pnM" kind="show" identifier="selectMenuSegue" id="TuB-jL-nCa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CZs-Fx-f2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="661.60000000000002" y="96.7016491754123"/>
         </scene>
         <!--メニューリスト-->
         <scene sceneID="ulJ-Zy-ssK">
@@ -256,7 +345,7 @@
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="種別選択" translatesAutoresizingMaskIntoConstraints="NO" id="YLX-Re-BYB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="RX0-I3-pnM" id="EYm-ca-02v"/>
                                 </connections>
@@ -298,7 +387,7 @@
                             </tableView>
                             <searchBar contentMode="redraw" placeholder="メニュー名を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="ohP-xR-bbX">
                                 <rect key="frame" x="0.0" y="108" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="RX0-I3-pnM" id="MxE-A6-INx"/>
                                 </connections>
@@ -315,6 +404,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="メニューリスト" id="rC8-wD-nss">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="reply" id="Bva-nq-4ao">
+                            <connections>
+                                <action selector="backButton:" destination="RX0-I3-pnM" id="ROc-D1-f90"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bic-nM-L39">
                             <connections>
                                 <action selector="addMenuButton:" destination="RX0-I3-pnM" id="Kfr-5s-rdm"/>
@@ -326,12 +420,12 @@
                         <outlet property="menuSearch" destination="ohP-xR-bbX" id="bOS-WP-d5L"/>
                         <outlet property="menuTableView" destination="lf7-qs-RT8" id="BNN-65-DMe"/>
                         <segue destination="jie-a3-wOv" kind="show" identifier="addMenuSegue" id="c1K-q0-ib9"/>
-                        <segue destination="0nb-Te-Ejf" kind="show" id="WR6-AM-drQ"/>
+                        <segue destination="0nb-Te-Ejf" kind="show" identifier="editSegue" id="WR6-AM-drQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZR-eW-fN2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1337" y="97"/>
+            <point key="canvasLocation" x="1471" y="97"/>
         </scene>
         <!--編集-->
         <scene sceneID="IPf-O6-CUT">
@@ -372,7 +466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XFu-YQ-iFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2238" y="564"/>
+            <point key="canvasLocation" x="2238" y="488"/>
         </scene>
         <!--新規作成-->
         <scene sceneID="BwM-D1-qlQ">
@@ -394,12 +488,15 @@
                                     <outlet property="delegate" destination="jie-a3-wOv" id="xMM-5Z-YUf"/>
                                 </connections>
                             </pickerView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-AD-Qha">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メニュー名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-AD-Qha">
                                 <rect key="frame" x="55" y="412" width="279" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="jie-a3-wOv" id="BgH-WK-e9R"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="メニュー名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RB-9Q-Wug">
                                 <rect key="frame" x="29" y="383" width="98" height="21"/>
@@ -440,15 +537,22 @@
                                     <action selector="addKindButton:" destination="jie-a3-wOv" eventType="touchUpInside" id="QHf-8U-YfE"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztG-8O-YEW">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数値のみで入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztG-8O-YEW">
                                 <rect key="frame" x="55" y="489" width="279" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="jie-a3-wOv" id="PVW-Go-6k1"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="kDX-Pb-wbs" appends="YES" id="nK1-Qm-APb"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="新規作成" id="EPN-M2-5sV">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="wa8-iP-i09">
@@ -469,6 +573,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BhH-yV-HK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="kDX-Pb-wbs">
+                    <connections>
+                        <action selector="tapScreen:" destination="jie-a3-wOv" id="BZx-rv-9sN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2239" y="-197"/>
         </scene>

@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
   
   @IBOutlet weak var menuProgress: UIProgressView!
   @IBOutlet weak var kindPicker: UIPickerView!
@@ -26,6 +26,11 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   }
   @IBAction func saveMenuButton(_ sender: UIBarButtonItem) {
     saveMenu()
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
+  @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
+    self.view.endEditing(true)
   }
   
   var kindItem: Results<RealmKindDB>!
@@ -41,6 +46,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   override func viewDidLoad() {
     super.viewDidLoad()
     setupPickerView()
+    kcalTextField.keyboardType = .numberPad
   }
   
   override func didReceiveMemoryWarning() {
@@ -52,7 +58,6 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     
     setupPickerView()
     resetupPickerView()
-    //    print(kindItem)
   }
   
   func setupPickerView(){
@@ -85,8 +90,6 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     // 変更後の数
     let recount: Int = kindItem.count
     var i: Int = 0
-    //    print("count: \(count)")
-    //    print("recount: \(recount)")
     
     // 変更前の数と比べる
     if(recount != count){
@@ -231,11 +234,12 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   
   func saveMenu(){
     if ((menuTextField.text != "") && (kcalTextField.text != "")){
+
       // 新しいインスタンスを生成
       let newMenu = RealmMenuDB()
       // textField等に入力したデータをeditRealmDBに代入
       newMenu.menu = menuTextField.text!
-      newMenu.kcal = kcalTextField.text!
+      newMenu.kcal = Int(kcalTextField.text!)!
 
       //既にデータが他に作成してある場合
       if self.menuItem.count != 0 {
@@ -274,6 +278,12 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       present(alertController, animated: true, completion: nil)
     }
 
+  }
+  
+  // Doneボタンを押した際キーボードを閉じる
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
   }
   
 }

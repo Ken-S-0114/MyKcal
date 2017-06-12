@@ -10,12 +10,13 @@ import Foundation
 import RealmSwift
 
 class RealmDateDB: Object {
+  dynamic var id = Int()
   dynamic var date = Int()
   dynamic var morning = String()
   dynamic var noon = String()
   dynamic var night = String()
   
   override static func primaryKey() -> String? {
-    return "date"
+    return "id"
   }
 }

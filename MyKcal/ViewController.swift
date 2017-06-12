@@ -38,9 +38,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCalendarView()
+    setupRealmView()
     
-    let realm = try! Realm()
-    kcalItem = realm.objects(RealmDateDB.self)
   }
   
   
@@ -62,6 +61,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     self.month.text! = self.formatter.string(from: date)
   }
   
+  func setupRealmView(){
+    let realm = try! Realm()
+    kcalItem = realm.objects(RealmDateDB.self)
+  }
+  
   func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
     guard let validCell = view as? CustomCell else { return }
     
@@ -81,9 +85,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     if cellState.isSelected {
       validCell.selectedView.isHidden = false
-      validCell.selectedView.layer.cornerRadius =  13
+      validCell.selectedView.layer.cornerRadius =  30
       validCell.selectedView.backgroundColor = currentDateSelectedViewColor
       selectDate = cellState.date
+      print(selectDate)
+      print(cellState.date)
     }else {
       validCell.selectedView.isHidden = true
     }
@@ -108,7 +114,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    appDelegate.indexPath = indexPath.row
+    appDelegate.index = indexPath.row
     performSegue(withIdentifier: "selectSegue", sender: nil)
   }
   

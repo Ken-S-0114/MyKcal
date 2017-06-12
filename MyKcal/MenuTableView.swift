@@ -15,6 +15,11 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   @IBOutlet weak var menuSearch: UISearchBar!
   @IBOutlet weak var menuTableView: UITableView!
   
+  @IBAction func backButton(_ sender: UIBarButtonItem) {
+    appDelegate.selectId = selectId
+    _ = navigationController?.popViewController(animated: true)
+  }
+
   @IBAction func addMenuButton(_ sender: UIBarButtonItem) {
     performSegue(withIdentifier: "addMenuSegue", sender: nil)
   }
@@ -32,8 +37,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuSearch.enablesReturnKeyAutomatically = false
     // Do any additional setup after loading the view.
     
-    indexPath = appDelegate.indexPath!
-    print(indexPath)
+    indexPath = appDelegate.index!
   }
   
   override func didReceiveMemoryWarning() {
@@ -44,6 +48,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     setupRealm()
+    selectId = appDelegate.selectId
     menuTableView.reloadData()
   }
   
@@ -126,25 +131,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
       // 配列に指定した問題ID削除
       _ = selectId.remove(element: object.id)
     }
-    
   }
-  
-//  // セルの選択が外れた時に呼び出される
-//  func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//    let cell = tableView.cellForRow(at:indexPath)
-//    let object = menuItem[indexPath.row]
-//    if  cell?.accessoryType == .checkmark {
-//      // チェックマークを外す
-//      cell?.accessoryType = .none
-//      // 配列に指定した問題ID削除
-//      _ = selectId.remove(element: object.id)
-//    }else {
-//      // チェックマークを入れる
-//      cell?.accessoryType = .checkmark
-//      // 配列に指定した問題ID格納
-//      selectId.append(object.id)
-//    }
-//  }
   
 }
 

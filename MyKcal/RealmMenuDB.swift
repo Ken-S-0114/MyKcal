@@ -13,7 +13,7 @@ class RealmMenuDB: Object {
   
   dynamic var id = Int()
   dynamic var menu = String()
-  dynamic var kcal = String()
+  dynamic var kcal = Int()
   
   override static func primaryKey() -> String? {
     return "id"

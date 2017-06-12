@@ -1,0 +1,6 @@
+framework module Pods_MyKcal {
+  umbrella header "Pods-MyKcal-umbrella.h"
+
+  export *
+  module * { export * }
+}
