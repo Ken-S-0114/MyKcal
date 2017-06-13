@@ -24,18 +24,22 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   var menuItem: Results<RealmMenuDB>!
   var dateItem: Results<RealmDateDB>!
+  var dateItems: Results<RealmDateDB>?
+  
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   var selectId: [Int] = []  // 選択されたメニュー番号
   var indexPath = Int()
   var sum: Int = 0
   var i: Int = 0
-  var timeText :String = ""
+  var timeText = String()
+  var selectDate = String()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupIndex()
     setKcal()
-    setupMenuRealm()
+    setupRealm()
+    selectDate = appDelegate.selectDate!
   }
   
   override func didReceiveMemoryWarning() {
@@ -50,44 +54,93 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     sum = 0
     setupIndex()
     resetupTableView()
-    setupMenuRealm()
+    setupRealm()
     setKcal()
-    print(selectId)
-    print(menuItem)
+    selectDate = appDelegate.selectDate!
+
   }
   
-  func setupMenuRealm(){
+  func setupRealm(){
     let realm = try! Realm()
     menuItem = realm.objects(RealmMenuDB.self).sorted(byKeyPath: "id", ascending: true)
+    
+    let realmSave = try! Realm()
+    dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
+    print(dateItem)
+
   }
   
   func saveRealm(){
     let realmSave = try! Realm()
     dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
+    dateItems = dateItem.filter("date == %@", selectDate)
     let newDate = RealmDateDB()
-    // textField等に入力したデータをeditRealmDBに代入
     
-    switch indexPath {
-    case 0:
-      newDate.morning = kcalLabel.text!
-    case 1:
-      newDate.noon = kcalLabel.text!
-    case 2:
-      newDate.night = kcalLabel.text!
-    default:
-      print("時間帯が指定されていません!")
+    if(dateItems?.isEmpty == false){
+      let object = dateItems?[0]
+      // textField等に入力したデータをeditRealmDBに代入
+      newDate.date = selectDate
+      switch indexPath {
+      case 0:
+        newDate.morning = String(sum)
+        newDate.noon = (object?.noon)!
+        newDate.night = (object?.night)!
+        newDate.snack = (object?.snack)!
+//        newDate.total = sum + (Int(object?.noon)!) + (Int(object?.night)!) + (Int(object?.snack)!) + (Int(object?.snack)!)
+      case 1:
+        newDate.morning = (object?.morning)!
+        newDate.noon = String(sum)
+        newDate.night = (object?.night)!
+        newDate.snack = (object?.snack)!
+//        newDate.total = (Int(object?.morning)!) + sum + (Int(object?.night)!) + (Int(object?.snack)!) + (Int(object?.snack)!)
+      case 2:
+        newDate.morning = (object?.morning)!
+        newDate.noon = (object?.morning)!
+        newDate.night = String(sum)
+        newDate.snack = (object?.snack)!
+//        newDate.total = (Int(object?.morning)!) + (Int(object?.noon)!) + sum + (Int(object?.snack) + Int(object?.snack)!
+
+      case 3:
+        newDate.morning = (object?.morning)!
+        newDate.noon = (object?.morning)!
+        newDate.night = (object?.night)!
+        newDate.snack = String(sum)
+//        newDate.total = Int(object?.morning) + Int(object?.noon) + Int(object?.night) + sum + Int(object?.snack)
+
+      default:
+        print("時間帯が指定されていません!")
+      }
+    }else{
+      // textField等に入力したデータをeditRealmDBに代入
+      newDate.date = selectDate
+      switch indexPath {
+      case 0:
+        newDate.morning = String(sum)
+      case 1:
+        newDate.noon = String(sum)
+      case 2:
+        newDate.night = String(sum)
+      case 3:
+        newDate.snack = String(sum)
+      default:
+        print("時間帯が指定されていません!")
+      }
+      newDate.total = String(sum)
     }
-  
     //既にデータが他に作成してある場合
     if self.dateItem.count != 0 {
-      newDate.id = self.dateItem.max(ofProperty: "id")! + 1
+      if dateItems?.isEmpty != false {
+        newDate.id = self.dateItem.max(ofProperty: "id")! + 1
+      }
     }
     
     // 上記で代入したテキストデータを永続化
       try! realmSave.write({ () -> Void in
       realmSave.add(newDate, update: true)
     })
-
+    
+    appDelegate.selectId = []
+    selectId = []
   }
   
   func resetupTableView(){
@@ -112,7 +165,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       l += 1
     }
     
-    kcalLabel.text = ("\(timeText)   :   \(sum)kcal")
+    kcalLabel.text = ("\(timeText)  :  \(sum)kcal")
   }
   
   func setupIndex(){
@@ -124,6 +177,8 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       timeText = "昼食"
     case 2:
       timeText = "夕食"
+    case 3:
+      timeText = "間食"
     default:
       print("時間帯が指定されていません!")
     }

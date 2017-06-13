@@ -19,7 +19,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   @IBOutlet weak var kcalTableView: UITableView!
   
-  var kcalItem: Results<RealmDateDB>!
+  var dateItem: Results<RealmDateDB>!
+  var dateItems: Results<RealmDateDB>?
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   let formatter = DateFormatter()
@@ -31,15 +32,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   let currentDateSelectedViewColor = UIColor.cyan
   
   let timeArray: [String] = ["朝", "昼", "夜", "間食", "合計"]
-  var kcalTime: [String] = ["1", "2", "3", "4", "5"]
+  var kcalTime: [String] = ["0", "0", "0", "0", "0"]
   
-  var selectDate = Date()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCalendarView()
     setupRealmView()
     
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    kcalTableView.reloadData()
   }
   
   
@@ -63,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   func setupRealmView(){
     let realm = try! Realm()
-    kcalItem = realm.objects(RealmDateDB.self)
+    dateItem = realm.objects(RealmDateDB.self)
   }
   
   func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
@@ -85,11 +90,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     if cellState.isSelected {
       validCell.selectedView.isHidden = false
-      validCell.selectedView.layer.cornerRadius =  30
+      validCell.selectedView.layer.cornerRadius = 18
       validCell.selectedView.backgroundColor = currentDateSelectedViewColor
-      selectDate = cellState.date
-      print(selectDate)
-      print(cellState.date)
+      
+      formatter.dateFormat = "yyyyMMdd"
+      let selectDate = formatter.string(from: cellState.date)
+      appDelegate.selectDate = selectDate
+      
+      let realmSelect = try! Realm()
+      dateItem = realmSelect.objects(RealmDateDB.self)
+      dateItems = dateItem.filter("date == %@", selectDate)
+
+//      DispatchQueue.main.async {
+//        self.loadView()
+//        self.viewDidLoad()
+        self.kcalTableView.reloadData()
+//      }
     }else {
       validCell.selectedView.isHidden = true
     }
@@ -104,12 +120,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //    let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell", for: indexPath) as! CustomTableViewCell
-    //
-    //    cell.setCell(timeZone: timeArray[indexPath.row], kcal: kcalTime[indexPath.row])
+ 
     let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell")
     cell?.textLabel?.text = timeArray[indexPath.row]
-    cell?.detailTextLabel?.text = kcalTime[indexPath.row]
+    if (dateItems?.isEmpty == false) {
+      let object = dateItems?[0]
+      switch indexPath.row {
+      case 0:
+        cell?.detailTextLabel?.text = ("\((object?.morning)!)kcal")
+      case 1:
+        cell?.detailTextLabel?.text = ("\((object?.noon)!)kcal")
+      case 2:
+        cell?.detailTextLabel?.text = ("\((object?.night)!)kcal")
+      default:
+        break
+      }
+    }else{
+      cell?.detailTextLabel?.text = ("\(kcalTime[indexPath.row])kcal")
+    }
     return cell!
   }
   

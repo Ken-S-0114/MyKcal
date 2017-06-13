@@ -11,12 +11,10 @@ import RealmSwift
 
 class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
   
-  @IBOutlet weak var menuProgress: UIProgressView!
   @IBOutlet weak var kindPicker: UIPickerView!
   @IBOutlet weak var menuTextField: UITextField!
   @IBOutlet weak var kcalTextField: UITextField!
   
-  @IBOutlet weak var rateLabel: UILabel!
   @IBOutlet weak var kindLabel: UILabel!
   @IBOutlet weak var menuLabel: UILabel!
   @IBOutlet weak var kcalLabel: UILabel!

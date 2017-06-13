@@ -26,6 +26,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   
   
   var menuItem: Results<RealmMenuDB>!
+ 
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   var selectId: [Int] = []  // 選択されたメニュー番号
