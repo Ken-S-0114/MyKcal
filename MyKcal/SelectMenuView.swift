@@ -86,27 +86,25 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         newDate.noon = (object?.noon)!
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
-//        newDate.total = sum + (Int(object?.noon)!) + (Int(object?.night)!) + (Int(object?.snack)!) + (Int(object?.snack)!)
+        newDate.total = String(sum + (Int((object?.noon)!)!) + (Int((object?.night)!)!) + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
       case 1:
         newDate.morning = (object?.morning)!
         newDate.noon = String(sum)
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
-//        newDate.total = (Int(object?.morning)!) + sum + (Int(object?.night)!) + (Int(object?.snack)!) + (Int(object?.snack)!)
+        newDate.total = String((Int((object?.morning)!)!) + sum + (Int((object?.night)!)!) + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
       case 2:
         newDate.morning = (object?.morning)!
         newDate.noon = (object?.morning)!
         newDate.night = String(sum)
         newDate.snack = (object?.snack)!
-//        newDate.total = (Int(object?.morning)!) + (Int(object?.noon)!) + sum + (Int(object?.snack) + Int(object?.snack)!
-
+        newDate.total = String((Int((object?.morning)!)!) + (Int((object?.noon)!)!) + sum + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
       case 3:
         newDate.morning = (object?.morning)!
         newDate.noon = (object?.morning)!
         newDate.night = (object?.night)!
         newDate.snack = String(sum)
-//        newDate.total = Int(object?.morning) + Int(object?.noon) + Int(object?.night) + sum + Int(object?.snack)
-
+        newDate.total = String((Int((object?.morning)!)!) + (Int((object?.noon)!)!) + (Int((object?.night)!)!) + sum)
       default:
         print("時間帯が指定されていません!")
       }

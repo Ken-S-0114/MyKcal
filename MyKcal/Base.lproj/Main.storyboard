@@ -436,6 +436,34 @@
             </objects>
             <point key="canvasLocation" x="1471" y="97"/>
         </scene>
+        <!--Charts View-->
+        <scene sceneID="FHH-F8-MWt">
+            <objects>
+                <viewController id="gDn-Il-hDB" customClass="ChartsView" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7gV-ko-GwL"/>
+                        <viewControllerLayoutGuide type="bottom" id="uiw-ii-AE3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a7d-Dd-iuY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJB-dG-wxl" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="67" y="127" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChartView" destination="kJB-dG-wxl" id="XBO-Be-ksO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bS-Bc-SfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="756"/>
+        </scene>
         <!--編集-->
         <scene sceneID="IPf-O6-CUT">
             <objects>

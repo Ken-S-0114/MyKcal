@@ -8,5 +8,6 @@ target 'MyKcal' do
 
   # Pods for MyKcal
   pod 'JTAppleCalendar', '~> 7.0'
+  pod ‘Charts’
   pod ‘RealmSwift’
 end
