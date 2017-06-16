@@ -92,6 +92,7 @@
 				B29DEE541EED760700E8B951 /* MenuTableView.swift */,
 				B29DEE581EED7E6700E8B951 /* AddMenuView.swift */,
 				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
+				B28D35501EF0F98500E3CDA7 /* ChartsView.swift */,
 				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
 				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
 				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
@@ -99,7 +100,6 @@
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
 				B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */,
-				B28D35501EF0F98500E3CDA7 /* ChartsView.swift */,
 				B2859DF31EE989A1006E78CA /* Assets.xcassets */,
 				B2859DF81EE989A1006E78CA /* Info.plist */,
 			);

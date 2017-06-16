@@ -66,7 +66,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let realmSave = try! Realm()
     dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
-    print(dateItem)
 
   }
   
@@ -82,29 +81,29 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       newDate.date = selectDate
       switch indexPath {
       case 0:
-        newDate.morning = String(sum)
+        newDate.morning = sum
         newDate.noon = (object?.noon)!
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
-        newDate.total = String(sum + (Int((object?.noon)!)!) + (Int((object?.night)!)!) + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
+        newDate.total = sum + (object?.noon)! + (object?.night)! + (object?.snack)! + (object?.snack)!
       case 1:
         newDate.morning = (object?.morning)!
-        newDate.noon = String(sum)
+        newDate.noon = sum
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
-        newDate.total = String((Int((object?.morning)!)!) + sum + (Int((object?.night)!)!) + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
+        newDate.total = (object?.morning)! + sum + (object?.night)! + (object?.snack)! + (object?.snack)!
       case 2:
         newDate.morning = (object?.morning)!
         newDate.noon = (object?.morning)!
-        newDate.night = String(sum)
+        newDate.night = sum
         newDate.snack = (object?.snack)!
-        newDate.total = String((Int((object?.morning)!)!) + (Int((object?.noon)!)!) + sum + (Int((object?.snack)!)!) + (Int((object?.snack)!)!))
+        newDate.total = (object?.morning)! + (object?.noon)! + sum + (object?.snack)! + (object?.snack)!
       case 3:
         newDate.morning = (object?.morning)!
         newDate.noon = (object?.morning)!
         newDate.night = (object?.night)!
-        newDate.snack = String(sum)
-        newDate.total = String((Int((object?.morning)!)!) + (Int((object?.noon)!)!) + (Int((object?.night)!)!) + sum)
+        newDate.snack = sum
+        newDate.total = (object?.morning)! + (object?.noon)! + (object?.night)! + sum
       default:
         print("時間帯が指定されていません!")
       }
@@ -113,17 +112,17 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       newDate.date = selectDate
       switch indexPath {
       case 0:
-        newDate.morning = String(sum)
+        newDate.morning = sum
       case 1:
-        newDate.noon = String(sum)
+        newDate.noon = sum
       case 2:
-        newDate.night = String(sum)
+        newDate.night = sum
       case 3:
-        newDate.snack = String(sum)
+        newDate.snack = sum
       default:
         print("時間帯が指定されていません!")
       }
-      newDate.total = String(sum)
+      newDate.total = sum
     }
     //既にデータが他に作成してある場合
     if self.dateItem.count != 0 {
