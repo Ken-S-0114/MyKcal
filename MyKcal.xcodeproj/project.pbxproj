@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0444B20898E9EC3BC850FADD /* Pods_MyKcal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */; };
+		B26FAF311EF547D9006CBF0D /* noonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26FAF301EF547D9006CBF0D /* noonList.swift */; };
+		B26FAF331EF547FA006CBF0D /* nightList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26FAF321EF547FA006CBF0D /* nightList.swift */; };
 		B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DEC1EE989A1006E78CA /* AppDelegate.swift */; };
 		B2859DEF1EE989A1006E78CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DEE1EE989A1006E78CA /* ViewController.swift */; };
 		B2859DF21EE989A1006E78CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2859DF01EE989A1006E78CA /* Main.storyboard */; };
@@ -15,6 +17,7 @@
 		B2859DF71EE989A1006E78CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */; };
 		B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DFE1EE98C0D006E78CA /* CustomCell.swift */; };
 		B28D35511EF0F98500E3CDA7 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D35501EF0F98500E3CDA7 /* ChartsView.swift */; };
+		B28D35531EF3B6EC00E3CDA7 /* morningList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D35521EF3B6EC00E3CDA7 /* morningList.swift */; };
 		B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */; };
 		B29DEE4F1EEC3B4A00E8B951 /* Geotica_2012.otf in Resources */ = {isa = PBXBuildFile; fileRef = B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */; };
 		B29DEE551EED760700E8B951 /* MenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE541EED760700E8B951 /* MenuTableView.swift */; };
@@ -26,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyKcal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B26FAF301EF547D9006CBF0D /* noonList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noonList.swift; sourceTree = "<group>"; };
+		B26FAF321EF547FA006CBF0D /* nightList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nightList.swift; sourceTree = "<group>"; };
 		B2859DE91EE989A1006E78CA /* MyKcal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKcal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2859DEC1EE989A1006E78CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2859DEE1EE989A1006E78CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +40,7 @@
 		B2859DF81EE989A1006E78CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2859DFE1EE98C0D006E78CA /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B28D35501EF0F98500E3CDA7 /* ChartsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
+		B28D35521EF3B6EC00E3CDA7 /* morningList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morningList.swift; sourceTree = "<group>"; };
 		B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDateDB.swift; sourceTree = "<group>"; };
 		B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Geotica_2012.otf; sourceTree = "<group>"; };
 		B29DEE541EED760700E8B951 /* MenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableView.swift; sourceTree = "<group>"; };
@@ -93,12 +99,15 @@
 				B29DEE581EED7E6700E8B951 /* AddMenuView.swift */,
 				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
 				B28D35501EF0F98500E3CDA7 /* ChartsView.swift */,
+				B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */,
 				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
 				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
 				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
-				B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */,
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
+				B28D35521EF3B6EC00E3CDA7 /* morningList.swift */,
+				B26FAF301EF547D9006CBF0D /* noonList.swift */,
+				B26FAF321EF547FA006CBF0D /* nightList.swift */,
 				B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */,
 				B2859DF31EE989A1006E78CA /* Assets.xcassets */,
 				B2859DF81EE989A1006E78CA /* Info.plist */,
@@ -241,15 +250,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				B29DEE571EED77FB00E8B951 /* RealmMenuDB.swift in Sources */,
+				B28D35531EF3B6EC00E3CDA7 /* morningList.swift in Sources */,
 				B2859DEF1EE989A1006E78CA /* ViewController.swift in Sources */,
 				B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */,
 				B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */,
 				B29DEE591EED7E6700E8B951 /* AddMenuView.swift in Sources */,
 				B29DEE5B1EED835500E8B951 /* RealmKindDB.swift in Sources */,
 				B29DEE5D1EEEF3C100E8B951 /* SelectMenuView.swift in Sources */,
+				B26FAF331EF547FA006CBF0D /* nightList.swift in Sources */,
 				B28D35511EF0F98500E3CDA7 /* ChartsView.swift in Sources */,
 				B29DEE551EED760700E8B951 /* MenuTableView.swift in Sources */,
 				B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */,
+				B26FAF311EF547D9006CBF0D /* noonList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

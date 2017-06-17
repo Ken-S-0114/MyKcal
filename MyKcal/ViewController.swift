@@ -105,6 +105,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //      DispatchQueue.main.async {
 //        self.loadView()
 //        self.viewDidLoad()
+        print(dateItems.self!)
         self.kcalTableView.reloadData()
 //      }
     }else {

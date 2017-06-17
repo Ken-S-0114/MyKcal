@@ -23,22 +23,28 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   var menuItem: Results<RealmMenuDB>!
+  var menuItems: Results<RealmMenuDB>?
   var dateItem: Results<RealmDateDB>!
   var dateItems: Results<RealmDateDB>?
+  
   
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   var selectId: [Int] = []  // 選択されたメニュー番号
   var indexPath = Int()
+  var selectList: [String] = []
   var sum: Int = 0
   var i: Int = 0
   var timeText = String()
   var selectDate = String()
   
+  var selected: [String] = []
+  var cnt: Int = 0
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupIndex()
-    setKcal()
     setupRealm()
+    setKcal()
     selectDate = appDelegate.selectDate!
   }
   
@@ -49,6 +55,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    selectList = []
     selectId = appDelegate.selectId
     i = 0
     sum = 0
@@ -57,7 +64,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     setupRealm()
     setKcal()
     selectDate = appDelegate.selectDate!
-
   }
   
   func setupRealm(){
@@ -66,36 +72,249 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let realmSave = try! Realm()
     dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
-
+    
   }
   
   func saveRealm(){
     let realmSave = try! Realm()
     dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
     dateItems = dateItem.filter("date == %@", selectDate)
+
+
     let newDate = RealmDateDB()
     
     if(dateItems?.isEmpty == false){
       let object = dateItems?[0]
-      // textField等に入力したデータをeditRealmDBに代入
+      
       newDate.date = selectDate
+      
+      print(selectList)
       switch indexPath {
       case 0:
+        // 朝ごはんのメニュー追加
+        let menuList = List<morningList>()
+        for list in selectList {
+          let newList = morningList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList.append(newList)
+        }
+        
+        newDate.mlist.append(objectsIn: menuList)
+        // 朝ごはんの合計kcal
         newDate.morning = sum
+        
+        
+        // 昼ごはんのメニュー追加（コピー）
+        var noItem = List<noonList>()
+        noItem = (object?.nolist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(noItem.count) {
+          let ob = noItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+
+        let menuList2 = List<noonList>()
+        for list in selected {
+          let newList = noonList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList2.append(newList)
+        }
+        
+        newDate.nolist.append(objectsIn: menuList2)
+        // 昼ごはんの合計kcal
         newDate.noon = (object?.noon)!
+        
+        
+        // 夕ごはんのメニュー追加（コピー）
+        var niItem = List<nightList>()
+        niItem = (object?.nilist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(niItem.count) {
+          let ob = niItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+        
+        let menuList3 = List<nightList>()
+        for list in selected {
+          let newList = nightList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList3.append(newList)
+        }
+        
+        newDate.nilist.append(objectsIn: menuList3)
+        // 夕ごはんの合計kcal
         newDate.night = (object?.night)!
+        
         newDate.snack = (object?.snack)!
         newDate.total = sum + (object?.noon)! + (object?.night)! + (object?.snack)! + (object?.snack)!
       case 1:
+        // 朝ごはんのメニュー追加（コピー）
+        var mItem = List<morningList>()
+        mItem = (object?.mlist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(mItem.count) {
+          let ob = mItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+        
+        let menuList11 = List<morningList>()
+        for list in selected {
+          let newList = morningList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList11.append(newList)
+        }
+        
+        newDate.mlist.append(objectsIn: menuList11)
+        
+        
         newDate.morning = (object?.morning)!
+        
+        
+        let menuList12 = List<noonList>()
+        for list in selectList {
+          let newList = noonList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList12.append(newList)
+        }
+        
+        newDate.nolist.append(objectsIn: menuList12)
+
         newDate.noon = sum
+        
+        // 夕ごはんのメニュー追加（コピー）
+        var niItem = List<nightList>()
+        niItem = (object?.nilist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(niItem.count) {
+          let ob = niItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+        
+        let menuList3 = List<nightList>()
+        for list in selected {
+          let newList = nightList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList3.append(newList)
+        }
+        
+        newDate.nilist.append(objectsIn: menuList3)
+        
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
         newDate.total = (object?.morning)! + sum + (object?.night)! + (object?.snack)! + (object?.snack)!
       case 2:
+        
+        let menuList = List<nightList>()
+        for list in selectList {
+          let newList = nightList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList.append(newList)
+        }
+        
+        newDate.nilist.append(objectsIn: menuList)
+        
+            newDate.night = sum
+
+        // 朝ごはんのメニュー追加（コピー）
+        var mItem = List<morningList>()
+        mItem = (object?.mlist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(mItem.count) {
+          let ob = mItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+        
+        let menuList21 = List<morningList>()
+        for list in selected {
+          let newList = morningList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList21.append(newList)
+        }
+        
+        newDate.mlist.append(objectsIn: menuList21)
+        
         newDate.morning = (object?.morning)!
+        
+        // 昼ごはんのメニュー追加（コピー）
+        var noItem = List<noonList>()
+        noItem = (object?.nolist)!
+        
+        selected = []
+        cnt = 0
+        while cnt<(noItem.count) {
+          let ob = noItem[cnt]
+          selected += [(ob.name)!]
+          cnt += 1
+        }
+        
+        let menuList22 = List<noonList>()
+        for list in selected {
+          let newList = noonList()
+          newList.name = list
+          print(newList.name)
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList22.append(newList)
+        }
+        
+        newDate.nolist.append(objectsIn: menuList22)
+
         newDate.noon = (object?.morning)!
-        newDate.night = sum
         newDate.snack = (object?.snack)!
         newDate.total = (object?.morning)! + (object?.noon)! + sum + (object?.snack)! + (object?.snack)!
       case 3:
@@ -107,15 +326,61 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       default:
         print("時間帯が指定されていません!")
       }
+
     }else{
-      // textField等に入力したデータをeditRealmDBに代入
+
       newDate.date = selectDate
+      
       switch indexPath {
       case 0:
+        
+        let menuList = List<morningList>()
+        for list in selectList {
+          let newList = morningList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+
+          menuList.append(newList)
+        }
+        
+        newDate.mlist.append(objectsIn: menuList)
+
         newDate.morning = sum
+        
       case 1:
+        
+        let menuList = List<noonList>()
+        for list in selectList {
+          let newList = noonList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList.append(newList)
+        }
+        
+        newDate.nolist.append(objectsIn: menuList)
+
         newDate.noon = sum
+        
       case 2:
+        
+        let menuList = List<nightList>()
+        for list in selectList {
+          let newList = nightList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList.append(newList)
+        }
+        
+        newDate.nilist.append(objectsIn: menuList)
+
         newDate.night = sum
       case 3:
         newDate.snack = sum
@@ -132,7 +397,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // 上記で代入したテキストデータを永続化
-      try! realmSave.write({ () -> Void in
+    try! realmSave.write({ () -> Void in
       realmSave.add(newDate, update: true)
     })
     
@@ -141,27 +406,46 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func resetupTableView(){
-//    DispatchQueue.main.async {
-//      self.loadView()
-//      self.viewDidLoad()
-      self.selectMenuTableView.reloadData()
-//    }
+    //    DispatchQueue.main.async {
+    //      self.loadView()
+    //      self.viewDidLoad()
+    self.selectMenuTableView.reloadData()
+    //    }
   }
   
   func setKcal(){
-//    print(String(describing: type(of: object.kcal)))
+    //    print(String(describing: type(of: object.kcal)))
     
     // suuzigenntei
     
     var l :Int = 0
     sum = 0
-
+    
+    dateItems = dateItem.filter("date == %@", selectDate)
+    
+    if(dateItems?.isEmpty == false){
+      let object = dateItems?[0]
+      switch indexPath {
+      case 0:
+        sum = (object?.morning)!
+      case 1:
+        sum = (object?.noon)!
+      case 2:
+        sum = (object?.night)!
+      case 3:
+        sum = (object?.snack)!
+      default:
+        print("kcalがない!")
+      }
+//      print(object?.mlist.self)
+    }
+    
     while (l < selectId.count){
       let object = menuItem[selectId[l]]
+      selectList += [object.menu]
       sum += object.kcal
       l += 1
     }
-    
     kcalLabel.text = ("\(timeText)  :  \(sum)kcal")
   }
   
@@ -180,6 +464,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       print("時間帯が指定されていません!")
     }
   }
+  
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return selectId.count
