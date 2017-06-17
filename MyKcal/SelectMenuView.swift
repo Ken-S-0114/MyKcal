@@ -79,17 +79,18 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     let realmSave = try! Realm()
     dateItem = realmSave.objects(RealmDateDB.self).sorted(byKeyPath: "id", ascending: true)
     dateItems = dateItem.filter("date == %@", selectDate)
-
-
+    
+    
     let newDate = RealmDateDB()
     
     if(dateItems?.isEmpty == false){
       let object = dateItems?[0]
-      
+      newDate.id = (object?.id)!
       newDate.date = selectDate
       
       print(selectList)
       switch indexPath {
+      // 朝ごはん選択時
       case 0:
         // 朝ごはんのメニュー追加
         let menuList = List<morningList>()
@@ -120,7 +121,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
           selected += [(ob.name)!]
           cnt += 1
         }
-
+        
         let menuList2 = List<noonList>()
         for list in selected {
           let newList = noonList()
@@ -168,6 +169,8 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         newDate.snack = (object?.snack)!
         newDate.total = sum + (object?.noon)! + (object?.night)! + (object?.snack)! + (object?.snack)!
+      
+      // 昼ごはん選択時
       case 1:
         // 朝ごはんのメニュー追加（コピー）
         var mItem = List<morningList>()
@@ -211,7 +214,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         newDate.nolist.append(objectsIn: menuList12)
-
+        
         newDate.noon = sum
         
         // 夕ごはんのメニュー追加（コピー）
@@ -243,23 +246,11 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         newDate.night = (object?.night)!
         newDate.snack = (object?.snack)!
         newDate.total = (object?.morning)! + sum + (object?.night)! + (object?.snack)! + (object?.snack)!
+      
+      // 夕ごはん選択時
       case 2:
         
-        let menuList = List<nightList>()
-        for list in selectList {
-          let newList = nightList()
-          newList.name = list
-          let menuItems = menuItem.filter("menu == %@", list)
-          let ob = menuItems[0]
-          newList.kcal = ob.kcal
-          
-          menuList.append(newList)
-        }
         
-        newDate.nilist.append(objectsIn: menuList)
-        
-            newDate.night = sum
-
         // 朝ごはんのメニュー追加（コピー）
         var mItem = List<morningList>()
         mItem = (object?.mlist)!
@@ -313,8 +304,25 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         newDate.nolist.append(objectsIn: menuList22)
-
-        newDate.noon = (object?.morning)!
+        
+        newDate.noon = (object?.noon)!
+        
+        
+        let menuList = List<nightList>()
+        for list in selectList {
+          let newList = nightList()
+          newList.name = list
+          let menuItems = menuItem.filter("menu == %@", list)
+          let ob = menuItems[0]
+          newList.kcal = ob.kcal
+          
+          menuList.append(newList)
+        }
+        
+        newDate.nilist.append(objectsIn: menuList)
+        
+        newDate.night = sum
+        
         newDate.snack = (object?.snack)!
         newDate.total = (object?.morning)! + (object?.noon)! + sum + (object?.snack)! + (object?.snack)!
       case 3:
@@ -326,9 +334,9 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       default:
         print("時間帯が指定されていません!")
       }
-
+      
     }else{
-
+      
       newDate.date = selectDate
       
       switch indexPath {
@@ -341,12 +349,12 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
-
+          
           menuList.append(newList)
         }
         
         newDate.mlist.append(objectsIn: menuList)
-
+        
         newDate.morning = sum
         
       case 1:
@@ -363,7 +371,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         newDate.nolist.append(objectsIn: menuList)
-
+        
         newDate.noon = sum
         
       case 2:
@@ -380,7 +388,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         newDate.nilist.append(objectsIn: menuList)
-
+        
         newDate.night = sum
       case 3:
         newDate.snack = sum
@@ -388,11 +396,12 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("時間帯が指定されていません!")
       }
       newDate.total = sum
-    }
-    //既にデータが他に作成してある場合
-    if self.dateItem.count != 0 {
-      if dateItems?.isEmpty != false {
-        newDate.id = self.dateItem.max(ofProperty: "id")! + 1
+      
+      //既にデータが他に作成してある場合
+      if self.dateItem.count != 0 {
+        if dateItems?.isEmpty != false {
+          newDate.id = self.dateItem.max(ofProperty: "id")! + 1
+        }
       }
     }
     
@@ -437,7 +446,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       default:
         print("kcalがない!")
       }
-//      print(object?.mlist.self)
+      //      print(object?.mlist.self)
     }
     
     while (l < selectId.count){
