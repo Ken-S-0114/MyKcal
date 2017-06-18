@@ -40,7 +40,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   
   var setupOnly: Bool = false
   var check: Bool = true              // 同じジャンル名があるかチェックする変数
-  var fini: Bool = false
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupPickerView()

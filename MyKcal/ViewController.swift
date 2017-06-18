@@ -44,6 +44,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    setupRealmView()
+    setupCalendarView()
     calendarView.reloadData()
     kcalTableView.reloadData()
   }
@@ -170,6 +172,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     performSegue(withIdentifier: "selectSegue", sender: nil)
     }
   }
+  
+  // 削除
+//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//    if editingStyle == UITableViewCellEditingStyle.delete {
+//      let object = dateItems?[0]
+//      print(dateItems.self)
+//      let realm = try! Realm()
+//      tableView.reloadData()
+//      switch indexPath.row {
+//      case 0:
+//        try! realm.write {
+//          realm.delete((object?.mlist)!)
+//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+//        }
+//      case 1:
+//        try! realm.write {
+//          realm.delete((object?.nolist)!)
+//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+//        }
+//      case 2:
+//        try! realm.write {
+//          realm.delete((object?.nilist)!)
+//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+//        }
+//      default:
+//        print("削除エラー")
+//      }
+//    }
+//  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

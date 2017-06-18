@@ -80,6 +80,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     resetupTableView()
     setupRealm()
     setKcal()
+    print(dateItems.self as Any)
   }
   
   func setupRealm(){
@@ -159,29 +160,25 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //    print("selected\(selected.count)")
-    //    print("selectId\(selectId.count)")
+        print("selected:\(selected.count)")
+        print("selectId:\(selectId.count)")
     return (selected.count + selectId.count)
   }
   
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "selectMenuCell")
-    
+    // 既存データが存在する場合
     if (((morningItem.isEmpty == false) || (noonItem.isEmpty == false)  || (nightItem.isEmpty == false)) && (check == false)) {
       switch indexTime {
       case 0:
-        print(morningItem.isEmpty)
         if (morningItem.isEmpty == false){
-          
-          let objMorning = morningItem[l]
-          
           if (l <= morningItem.count) {
             // 既存のが終了
             if (l == morningItem.count && check == false){
               check = true
             }else{
-              print(objMorning.name)
+              let objMorning = morningItem[l]
               cell?.textLabel?.text = objMorning.name
               cell?.detailTextLabel?.text = ("\(String(objMorning.kcal))kcal")
               //            print(cell?.textLabel?.text as Any)
@@ -190,16 +187,14 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
           }
         }
         
-        
       case 1:
         if (noonItem.isEmpty == false){
-          let objNoon = noonItem[l]
-          
-          if (l < noonItem.count) {
+          if (l <= noonItem.count) {
             // 既存のが終了
             if (l == noonItem.count && check == false){
               check = true
             }else{
+              let objNoon = noonItem[l]
               cell?.textLabel?.text = objNoon.name
               cell?.detailTextLabel?.text = ("\(String(objNoon.kcal))kcal")
               //            print(cell?.textLabel?.text as Any)
@@ -208,16 +203,14 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
           }
         }
         
-        
       case 2:
         if (nightItem.isEmpty == false){
-          let objNight  = nightItem[l]
-          
-          if (l < nightItem.count) {
+          if (l <= nightItem.count) {
             // 既存のが終了
             if (l == nightItem.count && check == false){
               check = true
             }else{
+              let objNight  = nightItem[l]
               cell?.textLabel?.text = objNight.name
               cell?.detailTextLabel?.text = ("\(String(objNight.kcal))kcal")
               //            print(cell?.textLabel?.text as Any)
@@ -229,24 +222,42 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       default:
         print("インデックスエラー")
       }
+    // 既存データがない場合
     }else{
       check = true
     }
-    
+    // 新規データ
     if (selectId.isEmpty == false && check == true) {
       let objectMenu = menuItem[selectId[i]]
       cell?.textLabel?.text = objectMenu.menu
       cell?.detailTextLabel?.text = ("\(String(objectMenu.kcal))kcal")
-      //      print(cell?.textLabel?.text as Any)
+      print(cell?.textLabel?.text as Any)
       i += 1
     }
-    print(cell?.textLabel?.text )
     return cell!
   }
   
+  // 削除
+//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//    if editingStyle == UITableViewCellEditingStyle.delete {
+//      
+//      let realm = try! Realm()
+//      let object = dateItems?[0]
+//      let mItem = object?.mlist
+//      print(mItem?[indexPath.row] as Any)
+//      try! realm.write {
+//        realm.delete((mItem?[indexPath.row])!)
+//        print(mItem as Any)
+//      }
+//      tableView.reloadData()
+//      if(mItem?.count == (selected.count + selectId.count)){
+//      tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+//      }
+//    }
+//  }
+  
   
   func setMenu(){
-    
     if (dateItems?.isEmpty == false){
       let object = dateItems?[0]
       reset()
