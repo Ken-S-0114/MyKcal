@@ -40,7 +40,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   
   var setupOnly: Bool = false
   var check: Bool = true              // 同じジャンル名があるかチェックする変数
-  
+  var fini: Bool = false
   override func viewDidLoad() {
     super.viewDidLoad()
     setupPickerView()
@@ -232,7 +232,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   
   func saveMenu(){
     if ((menuTextField.text != "") && (kcalTextField.text != "")){
-
+      
       // 新しいインスタンスを生成
       let newMenu = RealmMenuDB()
       // textField等に入力したデータをeditRealmDBに代入
@@ -251,7 +251,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       })
       
       // 上書き保存したことを知らせるアラート表示
-      let alertController = UIAlertController(title: "保存しました", message: "nil", preferredStyle: .alert)
+      let alertController = UIAlertController(title: "保存しました", message: ("メニュー名：\(newMenu.menu)\nカロリー：\(newMenu.kcal)kcal"), preferredStyle: .alert)
       let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
       alertController.addAction(alertAction)
       
@@ -261,8 +261,8 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       
       present(alertController, animated: true, completion: nil)
       
-      _ = navigationController?.popViewController(animated: true)
-      
+      menuTextField.text = ""
+      kcalTextField.text = ""
     }else {
       // 未入力を知らせるアラート表示
       let alertController = UIAlertController(title: "未入力項目が存在します", message: nil, preferredStyle: .alert)
@@ -283,5 +283,6 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     textField.resignFirstResponder()
     return true
   }
+
   
 }

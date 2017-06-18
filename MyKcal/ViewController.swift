@@ -34,18 +34,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   let timeArray: [String] = ["朝", "昼", "夜", "間食", "合計"]
   var kcalTime: [String] = ["0", "0", "0", "0", "0"]
   
+  var check: Bool = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupCalendarView()
     setupRealmView()
-    
+    setupCalendarView()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    calendarView.reloadData()
     kcalTableView.reloadData()
-    print(dateItem)
   }
   
   
@@ -72,6 +72,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     dateItem = realm.objects(RealmDateDB.self)
   }
   
+  func setRealmColor(view: JTAppleCell?, cellState: CellState){
+    guard let validCell = view as? CustomCell else { return }
+    
+    formatter.dateFormat = "yyyyMMdd"
+    let selectDate = formatter.string(from: cellState.date)
+    appDelegate.selectDate = selectDate
+    
+    dateItems = dateItem.filter("date == %@", selectDate)
+
+    
+    if dateItems?.isEmpty == false {
+      validCell.markView.isHidden = false
+      validCell.markView.backgroundColor = UIColor.green
+    }else{
+      validCell.markView.isHidden = true
+    }
+  }
+  
   func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
     guard let validCell = view as? CustomCell else { return }
     
@@ -90,6 +108,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     guard let validCell = view as? CustomCell else { return }
     
     if cellState.isSelected {
+      
       validCell.selectedView.isHidden = false
       validCell.selectedView.layer.cornerRadius = 18
       validCell.selectedView.backgroundColor = currentDateSelectedViewColor
@@ -108,6 +127,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(dateItems.self!)
         self.kcalTableView.reloadData()
 //      }
+      check = true
+      
     }else {
       validCell.selectedView.isHidden = true
     }
@@ -144,8 +165,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    appDelegate.index = indexPath.row
+    if check == true {
+    appDelegate.indexTime = indexPath.row
     performSegue(withIdentifier: "selectSegue", sender: nil)
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -174,8 +197,9 @@ extension ViewController: JTAppleCalendarViewDataSource {
 extension ViewController: JTAppleCalendarViewDelegate {
   func calendar(_ calendar: JTAppleCalendarView, cellForItemAt: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
     let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
-    
     cell.dateLabel.text = cellState.text
+    
+    setRealmColor(view: cell, cellState: cellState);
     
     handleCellSelected(view: cell, cellState: cellState);
     handleCellTextColor(view: cell, cellState: cellState);
@@ -187,11 +211,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     handleCellSelected(view: cell, cellState: cellState);
     handleCellTextColor(view: cell, cellState: cellState);
-    
-    //    let object = kcalItem.filter(date == cellState.date)
-    //    kcalTime += [object.morning]
-    //    kcalTime += [object.noon]
-    //    kcalTime += [object.night]
+  
   }
   
   // 日付非選択時

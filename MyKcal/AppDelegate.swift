@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-  var index: Int?
+  var indexTime: Int?
   var selectId: [Int] = []  // 選択されたメニュー番号
   var selectDate: String?
 

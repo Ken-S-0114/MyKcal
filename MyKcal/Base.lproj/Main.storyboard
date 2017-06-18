@@ -138,21 +138,30 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdu-1M-T44">
-                                                            <rect key="frame" x="28" y="34" width="52.5" height="32"/>
-                                                            <fontDescription key="fontDescription" name="Geotica2012-Regular" family="Geotica 2012" pointSize="27"/>
+                                                            <rect key="frame" x="30.5" y="34" width="47.5" height="32"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0av-Gr-6no">
+                                                            <rect key="frame" x="48.5" y="77.5" width="11" height="10"/>
+                                                            <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
                                                     </subviews>
                                                 </view>
                                                 <constraints>
+                                                    <constraint firstItem="0av-Gr-6no" firstAttribute="height" secondItem="8gx-bj-Hlg" secondAttribute="height" multiplier="0.1" id="1iw-hS-4uA"/>
                                                     <constraint firstItem="Lf2-Ss-h2p" firstAttribute="centerY" secondItem="8gx-bj-Hlg" secondAttribute="centerY" id="AVx-Ek-PX6"/>
+                                                    <constraint firstItem="0av-Gr-6no" firstAttribute="centerX" secondItem="8gx-bj-Hlg" secondAttribute="centerX" id="QbV-GI-Pqq"/>
+                                                    <constraint firstItem="0av-Gr-6no" firstAttribute="width" secondItem="8gx-bj-Hlg" secondAttribute="width" multiplier="0.1" id="RFP-Oy-yxq"/>
                                                     <constraint firstItem="pdu-1M-T44" firstAttribute="centerY" secondItem="8gx-bj-Hlg" secondAttribute="centerY" id="VSh-do-qY7"/>
                                                     <constraint firstItem="pdu-1M-T44" firstAttribute="centerX" secondItem="8gx-bj-Hlg" secondAttribute="centerX" id="Wdg-pX-Scp"/>
+                                                    <constraint firstItem="0av-Gr-6no" firstAttribute="centerY" secondItem="8gx-bj-Hlg" secondAttribute="centerY" multiplier="1.65" constant="1" id="Zlm-id-Z3v"/>
                                                     <constraint firstItem="Lf2-Ss-h2p" firstAttribute="centerX" secondItem="8gx-bj-Hlg" secondAttribute="centerX" id="brD-6N-hih"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dateLabel" destination="pdu-1M-T44" id="Vx7-5B-a4n"/>
+                                                    <outlet property="markView" destination="0av-Gr-6no" id="wKj-a2-ner"/>
                                                     <outlet property="selectedView" destination="Lf2-Ss-h2p" id="Nbx-Bn-LvX"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -295,12 +304,12 @@
                                     <action selector="addMenuButton:" destination="ZJH-bm-sgS" eventType="touchUpInside" id="zya-Hi-DW3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHD-Rg-krl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHD-Rg-krl">
                                 <rect key="frame" x="46" y="84" width="283" height="95"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="95" id="8DM-yf-WqJ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -322,6 +331,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="5Cm-D2-yYA">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="oCC-o5-R4D">
+                            <connections>
+                                <action selector="backButton:" destination="ZJH-bm-sgS" id="lwg-Cr-437"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="wJ4-Dg-5FT">
                             <connections>
                                 <action selector="saveButton:" destination="ZJH-bm-sgS" id="D3A-nI-ugZ"/>

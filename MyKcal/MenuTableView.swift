@@ -30,7 +30,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   var selectId: [Int] = []  // 選択されたメニュー番号
-  var indexPath = Int()
+  var indexTime = Int()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,7 +38,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuSearch.enablesReturnKeyAutomatically = false
     // Do any additional setup after loading the view.
     
-    indexPath = appDelegate.index!
+    indexTime = appDelegate.indexTime!
   }
   
   override func didReceiveMemoryWarning() {
