@@ -16,6 +16,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   @IBOutlet weak var calendarView: JTAppleCalendarView!
   @IBOutlet weak var year: UILabel!
   @IBOutlet weak var month: UILabel!
+  @IBAction func deleteButton(_ sender: UIBarButtonItem) {
+    delete()
+  }
   
   @IBOutlet weak var kcalTableView: UITableView!
   
@@ -86,7 +89,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     if dateItems?.isEmpty == false {
       validCell.markView.isHidden = false
-      validCell.markView.backgroundColor = UIColor.green
+      validCell.markView.backgroundColor = UIColor.red
     }else{
       validCell.markView.isHidden = true
     }
@@ -157,6 +160,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell?.detailTextLabel?.text = ("\((object?.noon)!)kcal")
       case 2:
         cell?.detailTextLabel?.text = ("\((object?.night)!)kcal")
+      case 4:
+         cell?.detailTextLabel?.text = ("\((object?.morning)!+(object?.noon)!+(object?.night)!)kcal")
       default:
         break
       }
@@ -201,6 +206,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //      }
 //    }
 //  }
+  
+  func delete(){
+    let realm = try! Realm()
+    try! realm.write {
+      realm.delete((self.dateItems?[0])!)
+      kcalTableView.reloadData()
+      calendarView.reloadData()
+    }
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

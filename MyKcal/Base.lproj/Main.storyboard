@@ -221,7 +221,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="dYD-U9-bK5"/>
-                    <navigationItem key="navigationItem" id="B4P-CE-Rkn"/>
+                    <navigationItem key="navigationItem" title="Kcal calendar" id="B4P-CE-Rkn">
+                        <barButtonItem key="rightBarButtonItem" title="削除" id="lgy-47-4Tg">
+                            <connections>
+                                <action selector="deleteButton:" destination="BYZ-38-t0r" id="cUz-xQ-DzJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendarView" destination="S2A-gq-Hqa" id="0JG-HQ-z7t"/>
                         <outlet property="kcalTableView" destination="z9j-5v-fh9" id="Z2h-yj-WWl"/>
@@ -238,9 +244,9 @@
         <scene sceneID="j7D-ei-TJk">
             <objects>
                 <navigationController id="nXj-BC-wHz" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Item" id="8sN-Ob-IiT"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qr3-a8-HVR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qr3-a8-HVR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

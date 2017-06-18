@@ -245,13 +245,14 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
 //      let object = dateItems?[0]
 //      let mItem = object?.mlist
 //      print(mItem?[indexPath.row] as Any)
+//      tableView.reloadData()
 //      try! realm.write {
 //        realm.delete((mItem?[indexPath.row])!)
 //        print(mItem as Any)
-//      }
-//      tableView.reloadData()
-//      if(mItem?.count == (selected.count + selectId.count)){
+////      }
+////      if(mItem?.count == (selected.count + selectId.count)){
 //      tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+////      }
 //      }
 //    }
 //  }
