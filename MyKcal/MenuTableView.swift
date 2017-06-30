@@ -87,7 +87,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    if (searchBar.text == ""){
+    if searchBar.text == "" {
       menuItem = try! Realm().objects(RealmMenuDB.self).sorted(byKeyPath: "id", ascending: true)
       menuTableView.reloadData()
     }
@@ -108,7 +108,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     // 選択済みの問題にはチェックマークを初期値としてつける
     for _ in 0..<menuItem.count{
       for i in 0..<selectId.count {
-        if (indexPath.row == selectId[i]){
+        if indexPath.row == selectId[i] {
           cell?.accessoryType = .checkmark
         }
       }

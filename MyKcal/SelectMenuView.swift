@@ -72,6 +72,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     selectList = []
     selectId = appDelegate.selectId
     selectDate = appDelegate.selectDate!
+    print("選択済日：\(selectDate)")
     l = 0
     i = 0
     sum = 0
@@ -80,7 +81,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     resetupTableView()
     setupRealm()
     setKcal()
-    print(dateItems.self as Any)
   }
   
   func setupRealm(){
@@ -105,18 +105,12 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func setKcal(){
-    //    print(String(describing: type(of: object.kcal)))
-    
-    // suuzigenntei
-    
     var l :Int = 0
     sum = 0
-    
     //    dateItems = dateItem.filter("date == %@", selectDate)
-    
     if(dateItems?.isEmpty == false){
       let object = dateItems?[0]
-      //      print(String(describing: type(of: object)))
+//      print(String(describing: type(of: object)))
       switch indexTime {
       case 0:
         sum = (object?.morning)!
@@ -129,7 +123,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       default:
         print("kcalがない!")
       }
-      //      print(object?.mlist.self)
     }
     
     while (l < selectId.count){
@@ -160,8 +153,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("selected:\(selected.count)")
-        print("selectId:\(selectId.count)")
     return (selected.count + selectId.count)
   }
   
@@ -169,51 +160,48 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "selectMenuCell")
     // 既存データが存在する場合
-    if (((morningItem.isEmpty == false) || (noonItem.isEmpty == false)  || (nightItem.isEmpty == false)) && (check == false)) {
+    if ((morningItem.isEmpty == false) || (noonItem.isEmpty == false)  || (nightItem.isEmpty == false)) && (check == false) {
       switch indexTime {
       case 0:
-        if (morningItem.isEmpty == false){
-          if (l <= morningItem.count) {
+        if morningItem.isEmpty == false {
+          if l <= morningItem.count {
             // 既存のが終了
-            if (l == morningItem.count && check == false){
+            if l == morningItem.count && check == false {
               check = true
             }else{
               let objMorning = morningItem[l]
               cell?.textLabel?.text = objMorning.name
               cell?.detailTextLabel?.text = ("\(String(objMorning.kcal))kcal")
-              //            print(cell?.textLabel?.text as Any)
               l += 1
             }
           }
         }
         
       case 1:
-        if (noonItem.isEmpty == false){
-          if (l <= noonItem.count) {
+        if noonItem.isEmpty == false {
+          if l <= noonItem.count {
             // 既存のが終了
-            if (l == noonItem.count && check == false){
+            if l == noonItem.count && check == false {
               check = true
             }else{
               let objNoon = noonItem[l]
               cell?.textLabel?.text = objNoon.name
               cell?.detailTextLabel?.text = ("\(String(objNoon.kcal))kcal")
-              //            print(cell?.textLabel?.text as Any)
               l += 1
             }
           }
         }
         
       case 2:
-        if (nightItem.isEmpty == false){
-          if (l <= nightItem.count) {
+        if nightItem.isEmpty == false {
+          if l <= nightItem.count {
             // 既存のが終了
-            if (l == nightItem.count && check == false){
+            if l == nightItem.count && check == false {
               check = true
             }else{
               let objNight  = nightItem[l]
               cell?.textLabel?.text = objNight.name
               cell?.detailTextLabel?.text = ("\(String(objNight.kcal))kcal")
-              //            print(cell?.textLabel?.text as Any)
               l += 1
             }
           }
@@ -227,11 +215,10 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       check = true
     }
     // 新規データ
-    if (selectId.isEmpty == false && check == true) {
+    if selectId.isEmpty == false && check == true {
       let objectMenu = menuItem[selectId[i]]
       cell?.textLabel?.text = objectMenu.menu
       cell?.detailTextLabel?.text = ("\(String(objectMenu.kcal))kcal")
-      print(cell?.textLabel?.text as Any)
       i += 1
     }
     return cell!
@@ -257,9 +244,9 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
 //    }
 //  }
   
-  
+  // 選択済みのメニュー
   func setMenu(){
-    if (dateItems?.isEmpty == false){
+    if dateItems?.isEmpty == false {
       let object = dateItems?[0]
       reset()
       
@@ -325,12 +312,11 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let newDate = RealmDateDB()
     
-    if(dateItems?.isEmpty == false){
+    if dateItems?.isEmpty == false {
       let object = dateItems?[0]
       newDate.id = (object?.id)!
       newDate.date = selectDate
-      
-      print(selectList)
+      print(selectDate)
       switch indexTime {
       // 朝ごはん選択時
       case 0:
@@ -359,7 +345,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selectedList {
           let newList = morningList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -385,7 +370,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = noonList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -411,7 +395,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = nightList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -442,7 +425,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = morningList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -505,7 +487,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = nightList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -536,7 +517,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = morningList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal
@@ -563,7 +543,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
         for list in selected {
           let newList = noonList()
           newList.name = list
-          print(newList.name)
           let menuItems = menuItem.filter("menu == %@", list)
           let ob = menuItems[0]
           newList.kcal = ob.kcal

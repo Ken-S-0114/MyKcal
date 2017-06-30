@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0444B20898E9EC3BC850FADD /* Pods_MyKcal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */; };
+		B21349C01EFCEF4E00FD5BE2 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21349BF1EFCEF4E00FD5BE2 /* BorderView.swift */; };
 		B26FAF311EF547D9006CBF0D /* noonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26FAF301EF547D9006CBF0D /* noonList.swift */; };
 		B26FAF331EF547FA006CBF0D /* nightList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26FAF321EF547FA006CBF0D /* nightList.swift */; };
 		B2859DED1EE989A1006E78CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2859DEC1EE989A1006E78CA /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		651D9B9A2291A195D958F3A9 /* Pods_MyKcal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyKcal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21349BF1EFCEF4E00FD5BE2 /* BorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		B26FAF301EF547D9006CBF0D /* noonList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noonList.swift; sourceTree = "<group>"; };
 		B26FAF321EF547FA006CBF0D /* nightList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nightList.swift; sourceTree = "<group>"; };
 		B2859DE91EE989A1006E78CA /* MyKcal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKcal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,7 @@
 				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
 				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
 				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
+				B21349BF1EFCEF4E00FD5BE2 /* BorderView.swift */,
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
 				B28D35521EF3B6EC00E3CDA7 /* morningList.swift */,
@@ -255,6 +258,7 @@
 				B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */,
 				B2859DFF1EE98C0D006E78CA /* CustomCell.swift in Sources */,
 				B29DEE591EED7E6700E8B951 /* AddMenuView.swift in Sources */,
+				B21349C01EFCEF4E00FD5BE2 /* BorderView.swift in Sources */,
 				B29DEE5B1EED835500E8B951 /* RealmKindDB.swift in Sources */,
 				B29DEE5D1EEEF3C100E8B951 /* SelectMenuView.swift in Sources */,
 				B26FAF331EF547FA006CBF0D /* nightList.swift in Sources */,

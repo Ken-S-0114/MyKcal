@@ -16,8 +16,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   @IBOutlet weak var calendarView: JTAppleCalendarView!
   @IBOutlet weak var year: UILabel!
   @IBOutlet weak var month: UILabel!
+  @IBOutlet weak var deleteButtonView: UIBarButtonItem!
+  
   @IBAction func deleteButton(_ sender: UIBarButtonItem) {
-    delete()
+    if dateItems?.isEmpty == false {
+      naviDeleteAlert()
+    }else{
+      naviCheck = false
+      naviNoDateAlert()
+    }
   }
   
   @IBOutlet weak var kcalTableView: UITableView!
@@ -37,12 +44,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   let timeArray: [String] = ["朝", "昼", "夜", "間食", "合計"]
   var kcalTime: [String] = ["0", "0", "0", "0", "0"]
   
+  var selectDateView: String = ""
+  var selectDate: String = ""
+  
   var check: Bool = false
+  
+  var naviCheck: Bool = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupRealmView()
     setupCalendarView()
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -81,17 +94,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     guard let validCell = view as? CustomCell else { return }
     
     formatter.dateFormat = "yyyyMMdd"
-    let selectDate = formatter.string(from: cellState.date)
-    appDelegate.selectDate = selectDate
+    selectDate = formatter.string(from: cellState.date)
+//    print("選択日：\(selectDate)")
+//    appDelegate.selectDate = selectDate
     
     dateItems = dateItem.filter("date == %@", selectDate)
-
+    
     
     if dateItems?.isEmpty == false {
       validCell.markView.isHidden = false
       validCell.markView.backgroundColor = UIColor.red
+      
     }else{
       validCell.markView.isHidden = true
+      
     }
   }
   
@@ -119,19 +135,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       validCell.selectedView.backgroundColor = currentDateSelectedViewColor
       
       formatter.dateFormat = "yyyyMMdd"
-      let selectDate = formatter.string(from: cellState.date)
+      selectDate = formatter.string(from: cellState.date)
       appDelegate.selectDate = selectDate
+      print("選択日：\(selectDate)")
+      
+      formatter.dateFormat = "yyyy年MM月dd日"
+      selectDateView = formatter.string(from: cellState.date)
       
       let realmSelect = try! Realm()
       dateItem = realmSelect.objects(RealmDateDB.self)
       dateItems = dateItem.filter("date == %@", selectDate)
-
-//      DispatchQueue.main.async {
-//        self.loadView()
-//        self.viewDidLoad()
-        print(dateItems.self!)
-        self.kcalTableView.reloadData()
-//      }
+      
+      //      DispatchQueue.main.async {
+      //        self.loadView()
+      //        self.viewDidLoad()
+      
+      print(dateItems.self!)
+      self.kcalTableView.reloadData()
+      
+      //      }
       check = true
       
     }else {
@@ -148,10 +170,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- 
+    
     let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell")
     cell?.textLabel?.text = timeArray[indexPath.row]
-    if (dateItems?.isEmpty == false) {
+    if dateItems?.isEmpty == false {
       let object = dateItems?[0]
       switch indexPath.row {
       case 0:
@@ -161,7 +183,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       case 2:
         cell?.detailTextLabel?.text = ("\((object?.night)!)kcal")
       case 4:
-         cell?.detailTextLabel?.text = ("\((object?.morning)!+(object?.noon)!+(object?.night)!)kcal")
+        cell?.detailTextLabel?.text = ("\((object?.morning)!+(object?.noon)!+(object?.night)!)kcal")
       default:
         break
       }
@@ -173,39 +195,92 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if check == true {
-    appDelegate.indexTime = indexPath.row
-    performSegue(withIdentifier: "selectSegue", sender: nil)
+      appDelegate.indexTime = indexPath.row
+      performSegue(withIdentifier: "selectSegue", sender: nil)
     }
   }
   
   // 削除
-//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//    if editingStyle == UITableViewCellEditingStyle.delete {
-//      let object = dateItems?[0]
-//      print(dateItems.self)
-//      let realm = try! Realm()
-//      tableView.reloadData()
-//      switch indexPath.row {
-//      case 0:
-//        try! realm.write {
-//          realm.delete((object?.mlist)!)
-//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-//        }
-//      case 1:
-//        try! realm.write {
-//          realm.delete((object?.nolist)!)
-//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-//        }
-//      case 2:
-//        try! realm.write {
-//          realm.delete((object?.nilist)!)
-//          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-//        }
-//      default:
-//        print("削除エラー")
-//      }
-//    }
-//  }
+  //  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+  //    if editingStyle == UITableViewCellEditingStyle.delete {
+  //      let object = dateItems?[0]
+  //      print(dateItems.self)
+  //      let realm = try! Realm()
+  //      tableView.reloadData()
+  //      switch indexPath.row {
+  //      case 0:
+  //        try! realm.write {
+  //          realm.delete((object?.mlist)!)
+  //          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+  //        }
+  //      case 1:
+  //        try! realm.write {
+  //          realm.delete((object?.nolist)!)
+  //          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+  //        }
+  //      case 2:
+  //        try! realm.write {
+  //          realm.delete((object?.nilist)!)
+  //          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+  //        }
+  //      default:
+  //        print("削除エラー")
+  //      }
+  //    }
+  //  }
+  
+  func naviDeleteAlert(){
+    let alert = UIAlertController(title: "\(selectDateView)のデータを\n削除しますか？", message: nil, preferredStyle: .alert)
+    let deleteAction = UIAlertAction(title: "OK", style: .destructive, handler: {
+      (action:UIAlertAction!) -> Void in
+      
+      // アクションシートの親となる UIView を設定
+      alert.popoverPresentationController?.sourceView = self.view
+      
+      // 吹き出しの出現箇所を CGRect で設定 （これはナビゲーションバーから吹き出しを出す例）
+      alert.popoverPresentationController?.sourceRect = (self.navigationController?.navigationBar.frame)!
+      let alertController = UIAlertController(title: "削除しました", message: nil, preferredStyle: .actionSheet)
+      let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alertController.addAction(alertAction)
+      
+      //　iPad用クラッシュさせないために
+      alertController.popoverPresentationController?.sourceView = self.view;
+      alertController.popoverPresentationController?.sourceRect = (self.navigationController?.navigationBar.frame)!
+      
+      self.present(alertController, animated: true, completion: nil)
+      
+      self.naviCheck = true
+      self.delete()
+    })
+    alert.addAction(deleteAction)
+    
+  
+    // キャンセルボタンの設定
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    alert.addAction(cancelAction)
+    
+    //　iPad用クラッシュさせないために
+    alert.popoverPresentationController?.sourceView = self.view;
+    alert.popoverPresentationController?.sourceRect = (self.navigationController?.navigationBar.frame)!
+    
+    // 親View表示
+    present(alert, animated: true, completion: nil)
+  }
+  
+  func naviNoDateAlert(){
+    if naviCheck == false{
+      let alertController = UIAlertController(title: "指定した日のデータが存在しません", message: nil, preferredStyle: .actionSheet)
+      let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alertController.addAction(alertAction)
+      
+      //　iPad用クラッシュさせないために
+      alertController.popoverPresentationController?.sourceView = self.view;
+      alertController.popoverPresentationController?.sourceRect = (self.navigationController?.navigationBar.frame)!
+      
+      present(alertController, animated: true, completion: nil)
+    }
+    
+  }
   
   func delete(){
     let realm = try! Realm()
@@ -245,7 +320,6 @@ extension ViewController: JTAppleCalendarViewDelegate {
     cell.dateLabel.text = cellState.text
     
     setRealmColor(view: cell, cellState: cellState);
-    
     handleCellSelected(view: cell, cellState: cellState);
     handleCellTextColor(view: cell, cellState: cellState);
     
@@ -256,7 +330,6 @@ extension ViewController: JTAppleCalendarViewDelegate {
   func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
     handleCellSelected(view: cell, cellState: cellState);
     handleCellTextColor(view: cell, cellState: cellState);
-  
   }
   
   // 日付非選択時

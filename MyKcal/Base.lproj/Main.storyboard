@@ -16,6 +16,23 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Item-->
+        <scene sceneID="yr8-ep-3KN">
+            <objects>
+                <navigationController id="AIb-kn-h7r" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="tJF-dQ-UGR"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="w4e-sP-PKU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gDn-Il-hDB" kind="relationship" relationship="rootViewController" id="4Zq-yv-1BL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gQF-s3-hcN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2766" y="932"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="5u1-wz-URR">
             <objects>
@@ -27,7 +44,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="nXj-BC-wHz" kind="relationship" relationship="viewControllers" id="cbw-B5-QA0"/>
-                        <segue destination="gDn-Il-hDB" kind="relationship" relationship="viewControllers" id="OrH-7l-N6B"/>
+                        <segue destination="AIb-kn-h7r" kind="relationship" relationship="viewControllers" id="cyz-RP-Up5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFo-Ed-Ikf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,9 +237,9 @@
                             <constraint firstItem="BNz-Ce-01t" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="g8Z-kb-zgd"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="dYD-U9-bK5"/>
+                    <tabBarItem key="tabBarItem" title="" id="dYD-U9-bK5"/>
                     <navigationItem key="navigationItem" title="Kcal calendar" id="B4P-CE-Rkn">
-                        <barButtonItem key="rightBarButtonItem" title="削除" id="lgy-47-4Tg">
+                        <barButtonItem key="rightBarButtonItem" image="delete" id="lgy-47-4Tg">
                             <connections>
                                 <action selector="deleteButton:" destination="BYZ-38-t0r" id="cUz-xQ-DzJ"/>
                             </connections>
@@ -230,6 +247,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="calendarView" destination="S2A-gq-Hqa" id="0JG-HQ-z7t"/>
+                        <outlet property="deleteButtonView" destination="lgy-47-4Tg" id="6GS-Oo-cmE"/>
                         <outlet property="kcalTableView" destination="z9j-5v-fh9" id="Z2h-yj-WWl"/>
                         <outlet property="month" destination="bW3-rd-Op8" id="ziC-K8-xcv"/>
                         <outlet property="year" destination="Dzu-r0-URS" id="Apr-ZU-0SK"/>
@@ -240,13 +258,13 @@
             </objects>
             <point key="canvasLocation" x="-199.19999999999999" y="96.7016491754123"/>
         </scene>
-        <!--Item-->
+        <!--calendar-->
         <scene sceneID="j7D-ei-TJk">
             <objects>
                 <navigationController id="nXj-BC-wHz" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Item" id="8sN-Ob-IiT"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qr3-a8-HVR">
+                    <tabBarItem key="tabBarItem" title="calendar" image="calendar" id="8sN-Ob-IiT"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qr3-a8-HVR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -457,10 +475,10 @@
             </objects>
             <point key="canvasLocation" x="1471" y="97"/>
         </scene>
-        <!--Item-->
+        <!--Title-->
         <scene sceneID="FHH-F8-MWt">
             <objects>
-                <viewController id="gDn-Il-hDB" customClass="ChartsView" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gDn-Il-hDB" customClass="ChartsView" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7gV-ko-GwL"/>
                         <viewControllerLayoutGuide type="bottom" id="uiw-ii-AE3"/>
@@ -469,22 +487,122 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJB-dG-wxl" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="6" y="95" width="362" height="238"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dtW-7b-BMC">
+                                <rect key="frame" x="31" y="393" width="312" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="１日ごと"/>
+                                    <segment title="１週間ごと"/>
+                                    <segment title="１ヶ月ごと"/>
+                                </segments>
+                                <connections>
+                                    <action selector="periodSegment:" destination="gDn-Il-hDB" eventType="valueChanged" id="KFj-wD-CSm"/>
+                                </connections>
+                            </segmentedControl>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-j4-e8h">
+                                <rect key="frame" x="29" y="445" width="317" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gDn-Il-hDB" id="L6m-AP-0PG"/>
+                                </connections>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJB-dG-wxl" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="114" width="343" height="267"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kJB-dG-wxl" firstAttribute="trailing" secondItem="a7d-Dd-iuY" secondAttribute="trailingMargin" id="39W-CB-9f4"/>
+                            <constraint firstItem="kJB-dG-wxl" firstAttribute="top" secondItem="7gV-ko-GwL" secondAttribute="bottom" constant="50" id="6Gs-cP-qAB"/>
+                            <constraint firstItem="kJB-dG-wxl" firstAttribute="leading" secondItem="a7d-Dd-iuY" secondAttribute="leadingMargin" id="Kw6-sN-clA"/>
+                            <constraint firstItem="kJB-dG-wxl" firstAttribute="centerX" secondItem="a7d-Dd-iuY" secondAttribute="centerX" id="aX8-fI-cQn"/>
+                            <constraint firstItem="kJB-dG-wxl" firstAttribute="height" secondItem="a7d-Dd-iuY" secondAttribute="height" multiplier="0.4" id="yvn-I4-LDK"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="zis-Rx-DCB"/>
+                    <tabBarItem key="tabBarItem" title="graph" image="graph" id="zis-Rx-DCB"/>
+                    <navigationItem key="navigationItem" title="Title" id="2ES-82-7Da">
+                        <barButtonItem key="rightBarButtonItem" image="configuration" id="GkD-QD-npG">
+                            <connections>
+                                <action selector="settingButton:" destination="gDn-Il-hDB" id="e9t-6n-e0x"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="barChartView" destination="kJB-dG-wxl" id="XBO-Be-ksO"/>
+                        <outlet property="barChartView" destination="kJB-dG-wxl" id="mRX-VR-eeN"/>
+                        <outlet property="dateTextField" destination="5vy-j4-e8h" id="3II-M9-Eea"/>
+                        <outlet property="periodSegmentedControl" destination="dtW-7b-BMC" id="1LB-pb-QXU"/>
+                        <segue destination="ayg-0r-7zc" kind="show" identifier="borderSegue" id="CWC-Qs-WkA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bS-Bc-SfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1978.4000000000001" y="933.28335832083962"/>
+            <point key="canvasLocation" x="-1689" y="1602"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="DlE-RE-dh6">
+            <objects>
+                <viewController id="ayg-0r-7zc" customClass="BorderView" customModule="MyKcal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NHh-e0-Dfy"/>
+                        <viewControllerLayoutGuide type="bottom" id="K9O-Cq-EZE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cv2-MF-HYB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1日の理想摂取カロリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5k-lg-Ehc">
+                                <rect key="frame" x="98" y="157" width="217" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="男性の理想摂取カロリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVU-Nv-adu">
+                                <rect key="frame" x="94" y="349" width="192" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="女性の理想摂取カロリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-BG-R0f">
+                                <rect key="frame" x="98" y="406" width="188" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数値を入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLs-2z-4U7">
+                                <rect key="frame" x="98" y="208" width="177" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ayg-0r-7zc" id="ql5-hY-cF9"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="psy-tb-f6E">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="7RO-gG-SJY">
+                            <connections>
+                                <action selector="saveButton:" destination="ayg-0r-7zc" id="9J7-lY-6LT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="borderTextField" destination="BLs-2z-4U7" id="Ngz-ga-58l"/>
+                        <outlet property="kcalLabelView" destination="l5k-lg-Ehc" id="m69-am-tJz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q3O-rX-JO8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-890.39999999999998" y="965.6671664167917"/>
         </scene>
         <!--編集-->
         <scene sceneID="IPf-O6-CUT">
@@ -646,4 +764,10 @@
             <point key="canvasLocation" x="2239" y="-197"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" width="32" height="32"/>
+        <image name="configuration" width="32" height="32"/>
+        <image name="delete" width="32" height="32"/>
+        <image name="graph" width="32" height="32"/>
+    </resources>
 </document>

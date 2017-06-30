@@ -66,7 +66,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     menuItem = realmMenu.objects(RealmMenuDB.self)
     kindItem = realmKind.objects(RealmKindDB.self)
     
-    if(setupOnly == false){
+    if setupOnly == false {
       count = kindItem.count
       setupOnly = true
     }
@@ -78,7 +78,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       i += 1
     }
     
-    if (kindString.isEmpty == false) {
+    if kindString.isEmpty == false {
       kindPicker.selectRow(0, inComponent: 0, animated: true)
       kindSelect = kindString[0]!
     }
@@ -90,7 +90,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     var i: Int = 0
     
     // 変更前の数と比べる
-    if(recount != count){
+    if recount != count {
       // 配列の中身を初期化
       kindString = []
       // 再度格納
@@ -143,7 +143,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       
       while_i: while self.kindItem.count > i {
         // 同じジャンル名があるかDB上でチェック
-        if (new.kind == self.kindItem[i].kind){
+        if new.kind == self.kindItem[i].kind {
           // アクションシートの親となる UIView を設定
           alert.popoverPresentationController?.sourceView = self.view
           // 吹き出しの出現箇所を CGRect で設定 （これはナビゲーションバーから吹き出しを出す例）
@@ -165,7 +165,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         self.check = true
       }
       
-      if((new.kind.isEmpty == false) && (self.check == true)){
+      if(new.kind.isEmpty == false) && (self.check == true) {
         // アクションシートの親となる UIView を設定
         alert.popoverPresentationController?.sourceView = self.view
         
@@ -192,7 +192,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         })
         self.viewWillAppear(true)
       }
-      else if(new.kind.isEmpty == true){
+      else if new.kind.isEmpty == true {
         // アクションシートの親となる UIView を設定
         alert.popoverPresentationController?.sourceView = self.view
         
@@ -231,7 +231,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   }
   
   func saveMenu(){
-    if ((menuTextField.text != "") && (kcalTextField.text != "")){
+    if (menuTextField.text != "") && (kcalTextField.text != "") {
       
       // 新しいインスタンスを生成
       let newMenu = RealmMenuDB()
