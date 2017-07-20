@@ -11,9 +11,8 @@ import RealmSwift
 import Charts
 
 class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
-  @IBAction func settingButton(_ sender: UIBarButtonItem) {
-    performSegue(withIdentifier: "borderSegue", sender: nil)
-  }
+  
+  
   @IBOutlet weak var periodSegmentedControl: UISegmentedControl!
   @IBAction func periodSegment(_ sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
@@ -33,11 +32,18 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     }
     
   }
-  var toolBar:UIToolbar!
-  var myDatePicker: UIDatePicker!
+  
+  @IBOutlet weak var borderLabel: UILabel!
   @IBOutlet weak var dateTextField: UITextField!
   @IBOutlet weak var barChartView: BarChartView!
+  @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet weak var goalLabel: UILabel!
+  @IBOutlet weak var practicalLabel: UILabel!
+  @IBOutlet weak var goalView: UILabel!
+  @IBOutlet weak var practicalView: UILabel!
   
+  var toolBar:UIToolbar!
+  var myDatePicker: UIDatePicker!
   var dateItem: Results<RealmDateDB>!
   
   var kcal: [Int] = []        // 棒グラフに使用（値）
@@ -48,41 +54,90 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
   var periodIndex = Int()    // 期間の切り替え
   var labelDate: String = ""
   var dateText: String = ""
-  let settingKey = "value"
-  var borderValue: Int = 0
   
+  var borderValue: Int = 0              // 設定値
+  var kcalSwitchValue: Bool = true      // 設定値を入れるか
+  var animationSwitchValue: Bool = true // アニメーション処理をするか
+  
+  
+  var total: Int = 0;
   var today = Int()
+  
+  let image1 = UIImage(named: "figure_question")
+  let image2 = UIImage(named: "figure_hand_maru")
+  let image3 = UIImage(named: "figure_hand_batsu")
+  let image4 = UIImage(named: "figure_zasetsu")
+  
+  let setting = UserDefaults.standard
+  let settingKey = "value"
+  let settingSwitchKey = "switchValue"
+  let animationSwitchKey = "animationValue"
   
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   
   override func viewDidLoad() {
     super.viewDidLoad()
-//    let settings = UserDefaults.standard
-//    settings.register(defaults: [settingKey:1000])
+    setting.register(defaults: [settingKey:300])
+    setting.register(defaults: [settingSwitchKey:true])
+    setting.register(defaults: [animationSwitchKey:true])
     
+    kcalSwitchValue = setting.bool(forKey: settingSwitchKey)
+    animationSwitchValue = setting.bool(forKey: animationSwitchKey)
+    
+    borderLabel.text = String("1日あたりの設定カロリー：\(Int(borderValue))kcal")
     setKcal()
     setChart(y: kcal)
     settool()
-    
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    _ = displayUpdate()
+    dispatch()
   }
   
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-//    let settings = UserDefaults.standard
-//    borderValue = settings.integer(forKey: settingKey)
-  }
+  //  override func viewWillAppear(_ animated: Bool) {
+  //    super.viewWillAppear(animated)
+  //    let settings = UserDefaults.standard
+  //    borderValue = settings.integer(forKey: settingKey)
+  //    self.viewDidLoad()
+  //  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
+  func displayUpdate() {
+    borderValue = setting.integer(forKey: settingKey)
+    kcalSwitchValue = setting.bool(forKey: settingSwitchKey)
+  }
+  
   func dispatch(){
-//    self.loadView()
+    //  self.loadView()
     self.viewDidLoad()
-    
     self.dateTextField.text = self.dateText
+    self.total = 0
+    self.goalLabel.text = String("???kcal")
+    self.practicalLabel.text = String("???kcal")
+    for i in 0..<kcal.count {
+      total += kcal[i]
+    }
+    
+    imageView.image = nil
+    
+    if kcalSwitchValue == true {
+      imageView.image = image1
+      // アニメーション処理をするか
+      if animationSwitchValue == true {
+        // 2秒後に実行したい処理
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+          self.resultView()
+        }
+      } else {
+        self.resultView()
+      }
+    }
   }
   
   func setChart(y: [Int]){
@@ -93,9 +148,9 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
       dataEntries.append(dataEntry)
     }
     // グラフをUIViewにセット
-    let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
+    let chartDataSet = BarChartDataSet(values: dataEntries, label: "Kcal")
     barChartView.data = BarChartData(dataSet: chartDataSet)
-    //     print(dataEntries)
+    
     // X軸のラベルを設定
     let xaxis = XAxis()
     
@@ -117,14 +172,21 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
     // グラフの背景色
     barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
-    // グラフの棒をニョキッとアニメーションさせる
-    barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+    // アニメーション処理をするか
+    if animationSwitchValue == true {
+      // グラフの棒をニョキッとアニメーションさせる
+      barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+    }
     // 横に赤いボーダーラインを描く
-    let ll = ChartLimitLine(limit: Double(borderValue), label: " ")
-    barChartView.rightAxis.addLimitLine(ll)
+    barChartView.rightAxis.removeAllLimitLines()
+    if kcalSwitchValue == true {
+      let ll = ChartLimitLine(limit: Double(borderValue), label: "")
+      barChartView.rightAxis.addLimitLine(ll)
+    }
     // グラフのタイトル
-    barChartView.chartDescription?.text = "Kcal Graph!"
+    barChartView.chartDescription?.text = nil
   }
+  
   
   func settool(){
     // 入力欄の設定
@@ -155,10 +217,8 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
   
   // 「完了」を押すと閉じる
   func tappedToolBarBtn(sender: UIBarButtonItem) {
-    
     dateTextField.resignFirstResponder()
     self.dispatch()
-    
   }
   
   
@@ -180,7 +240,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     let dateInt = (dateText.components(separatedBy: NSCharacterSet.decimalDigits.inverted))
     labelDate = dateInt.joined()
     appDelegate.labelDate = labelDate
-//    print("日程：\(labelDate)")
+    //    print("日程：\(labelDate)")
   }
   
   func dateToString(date: Date) -> String {
@@ -197,25 +257,39 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     changeLabelDate(date: Date() as NSDate)  //<-Date型の引数に現在時刻を渡すときも同じく`Date()`だけでOK
   }
   
+  // Viewに表示する内容
+  func resultView() {
+    if self.total == 0 {
+      self.imageView.image = self.image4
+    }else{
+      if self.total/7 < self.borderValue {
+        self.imageView.image = self.image2
+      }else{
+        self.imageView.image = self.image3
+      }
+    }
+    // 平均値
+    self.goalLabel.text = String("\(self.total/7)kcal")
+    // 設定値
+    self.practicalLabel.text = String("\(self.borderValue)kcal")
+    
+  }
+  
   func setKcal(){
+    let realm = try! Realm()
     kcal = []         // カロリー値蓄積
     datePlus = ""     // 日程を検索用で使う
     setCheck = false  // 初日のみ検出
     l = 0             // 日数をカウント
     plus = 0          // 日数プラス分
-//    let obj :Results<RealmDateDB>
     
     if dateTextField.text?.isEmpty == true {
       todaySet()
     }
     
-    let realm = try! Realm()
-    
-    //    dateItem = realm.objects(RealmDateDB.self).sorted(byKeyPath: "date", ascending: true)
     dateItem = realm.objects(RealmDateDB.self).filter("date == %@", labelDate)
-   
+    
     switch periodIndex {
-      
     case 0:
       // １週間分のtotalkcalデータ
       while l < 7 {
@@ -228,8 +302,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         }else{
           kcal += [0]
         }
-        
-        // 日付+1日ずつ増やしていく
+        // 日付1日ずつ増やしていく
         if setCheck == false {
           plus = Int(labelDate)! + 1
           setCheck = true
@@ -238,12 +311,12 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         }
         dateCheck()
         datePlus = String(plus)
-        
+        // 次の日のデータ
         l += 1
       }
       
     case 1:
-      //１ヶ月分のtotalkcalデータ
+      //7週間分のtotalkcalデータ
       var memory1: Int = 0
       var memory2: Int = 0
       var memory3: Int = 0
@@ -252,10 +325,9 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
       var memory6: Int = 0
       var memory7: Int = 0
       
-      var i = 0
+      var i = 0   // １週間分
       
       while l < 49 {
-        
         if l != 0 {
           dateItem = realm.objects(RealmDateDB.self).filter("date == %@", datePlus)
         }
@@ -294,7 +366,6 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
             memory7 += 0
           }
         }
-        
         // 日付+1日ずつ増やしていく
         if setCheck == false {
           plus = Int(labelDate)! + 1
@@ -302,7 +373,6 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         }else{
           plus = Int(plus) + 1
         }
-        
         datePlus = String(plus)
         l += 1
       }
@@ -402,7 +472,6 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
 public class BarChartFormatter: NSObject, IAxisValueFormatter{
   
   // x軸のラベル
-  //  var months: [String]! = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   var months: [String]! = []
   var check: Bool = false
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -411,13 +480,12 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
   var dateView2: Int = 0
   var labelDate: String = ""
   
-  var week: Bool = false
+  var week: Bool = false  // 最初の週と最後の週のみを検出
   var intDate: Int = 0
   
   // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
   public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
     xView()
-//    print(months[Int(value)])
     // 0 -> Jan, 1 -> Feb...
     return months[Int(value)]
     //    return months[Int(value)]
@@ -432,7 +500,6 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
       if appDelegate.labelDate.isEmpty == false {
         labelDate = appDelegate.labelDate
         intDate = Int(labelDate)!
-        print("すたーと日\(labelDate)")
       }
       switch periodIndex {
       case 0:
@@ -489,26 +556,26 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
           }
           i += 1
         }
-//        print("X軸：\(months)")
+        //        print("X軸：\(months)")
         check = true
-//      case 2:
-//        while i < 365 {
-//          if (i == 0){
-//            let ob = dateItem[i]
-//            dateView = Int(ob.date)!
-//            months.append(ob.date)
-//          }else if (i == 364){
-//            dateView += 1
-//            dateCheck()
-//            months.append(String(dateView))
-//          }else{
-//            dateView += 1
-//            dateCheck()
-//            months.append(String())
-//          }
-//          i += 1
-//        }
-//        check = true
+        //      case 2:
+        //        while i < 365 {
+        //          if (i == 0){
+        //            let ob = dateItem[i]
+        //            dateView = Int(ob.date)!
+        //            months.append(ob.date)
+        //          }else if (i == 364){
+        //            dateView += 1
+        //            dateCheck()
+        //            months.append(String(dateView))
+        //          }else{
+        //            dateView += 1
+        //            dateCheck()
+        //            months.append(String())
+        //          }
+        //          i += 1
+        //        }
+      //        check = true
       default:
         print("期間が指定されていません")
       }
@@ -522,7 +589,6 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     } else{
       dateView = String(self.dateView)
     }
-//    print("更新：\(dateView)")
     
     let startIndex = dateView.index(dateView.startIndex, offsetBy: 4)
     let endIndex = dateView.index(dateView.endIndex, offsetBy: 0)
@@ -558,6 +624,6 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     }else{
       self.dateView = Int(dateView)!
     }
-
+    
   }
 }

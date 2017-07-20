@@ -10,22 +10,9 @@ import UIKit
 import RealmSwift
 import JTAppleCalendar
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
-{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var calendarView: JTAppleCalendarView!
-  @IBOutlet weak var year: UILabel!
-  @IBOutlet weak var month: UILabel!
-  @IBOutlet weak var deleteButtonView: UIBarButtonItem!
-  
-  @IBAction func deleteButton(_ sender: UIBarButtonItem) {
-    if dateItems?.isEmpty == false {
-      naviDeleteAlert()
-    }else{
-      naviCheck = false
-      naviNoDateAlert()
-    }
-  }
   
   @IBOutlet weak var kcalTableView: UITableView!
   
@@ -36,53 +23,77 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   let formatter = DateFormatter()
   var testCalendar = Calendar.current
   
-  let outsideMonthColor = UIColor.gray
-  let monthColor = UIColor.white
-  let selectedMonthColor = UIColor.black
-  let currentDateSelectedViewColor = UIColor.cyan
-  
-  let timeArray: [String] = ["朝", "昼", "夜", "間食", "合計"]
-  var kcalTime: [String] = ["0", "0", "0", "0", "0"]
+  let timeArray: [String] = ["朝", "昼", "夜", "合計"]
+  var kcalTime: [String] = ["0", "0", "0", "0"]
+  let header: [String] = ["時間帯"]
   
   var selectDateView: String = ""
   var selectDate: String = ""
   
   var check: Bool = false
-  
   var naviCheck: Bool = false
+  
+  let backgroundColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+  let outsideMonthColor: UIColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+  let monthColor: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+  let selectedMonthColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+  var currentDateSelectedViewColor: UIColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+  var realmCheckColor: UIColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupRealmView()
     setupCalendarView()
-    
+    setupLongPress()
+    // Cellの高さ自動調整
+    kcalTableView.rowHeight = UITableViewAutomaticDimension
+    // 初期値設定
+    appDelegate.selectColor = currentDateSelectedViewColor
+    appDelegate.selectMarkColor = realmCheckColor
+    // スクロールさせない
+    kcalTableView.isScrollEnabled = false
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    //    if let indexPathForSelectedRow = kcalTableView.indexPathForSelectedRow {
+    //      kcalTableView.deselectRow(at: indexPathForSelectedRow, animated: true)
+    //    }
     setupRealmView()
     setupCalendarView()
     calendarView.reloadData()
     kcalTableView.reloadData()
+    
+    if appDelegate.selectColor != nil {
+      currentDateSelectedViewColor = appDelegate.selectColor!
+    }
+    if appDelegate.selectMarkColor != nil {
+      realmCheckColor = appDelegate.selectMarkColor!
+    }
   }
   
   
   func setupCalendarView(){
     calendarView.minimumLineSpacing = 0
     calendarView.minimumInteritemSpacing = 0
+    calendarView.backgroundColor = backgroundColor
     
     calendarView.visibleDates { (visibleDates) in
       self.setupViewOfCalendar(from: visibleDates)
     }
   }
   
-  func setupViewOfCalendar(from visibleDates: DateSegmentInfo){
-    let date = visibleDates.monthDates.first!.date
-    self.formatter.dateFormat = "yyyy"
-    self.year.text! = self.formatter.string(from: date)
-    
-    self.formatter.dateFormat = "MMMM"
-    self.month.text! = self.formatter.string(from: date)
+  func setupLongPress(){
+    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.onLongPressAction))
+    // 指のズレを許容する範囲 10px
+    longPressRecognizer.allowableMovement = 10
+    // イベントが発生するまでタップする時間
+    longPressRecognizer.minimumPressDuration = 0.5
+    // タップする回数 1回の場合は[0] 2回の場合は[1]を指定
+    longPressRecognizer.numberOfTapsRequired = 0;
+    // タップする指の数
+    longPressRecognizer.numberOfTouchesRequired = 1;
+    self.calendarView.addGestureRecognizer(longPressRecognizer)
   }
   
   func setupRealmView(){
@@ -90,24 +101,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     dateItem = realm.objects(RealmDateDB.self)
   }
   
+  func setupViewOfCalendar(from visibleDates: DateSegmentInfo){
+    let date = visibleDates.monthDates.first!.date
+    
+    self.formatter.dateFormat = "yyyy  MMMM"
+    self.navigationItem.title = self.formatter.string(from: date)
+  }
+  
   func setRealmColor(view: JTAppleCell?, cellState: CellState){
     guard let validCell = view as? CustomCell else { return }
     
     formatter.dateFormat = "yyyyMMdd"
     selectDate = formatter.string(from: cellState.date)
-//    print("選択日：\(selectDate)")
-//    appDelegate.selectDate = selectDate
     
     dateItems = dateItem.filter("date == %@", selectDate)
     
     
     if dateItems?.isEmpty == false {
       validCell.markView.isHidden = false
-      validCell.markView.backgroundColor = UIColor.red
-      
+      validCell.markView.backgroundColor = realmCheckColor
     }else{
       validCell.markView.isHidden = true
-      
     }
   }
   
@@ -137,7 +151,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       formatter.dateFormat = "yyyyMMdd"
       selectDate = formatter.string(from: cellState.date)
       appDelegate.selectDate = selectDate
-      print("選択日：\(selectDate)")
       
       formatter.dateFormat = "yyyy年MM月dd日"
       selectDateView = formatter.string(from: cellState.date)
@@ -146,14 +159,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       dateItem = realmSelect.objects(RealmDateDB.self)
       dateItems = dateItem.filter("date == %@", selectDate)
       
-      //      DispatchQueue.main.async {
-      //        self.loadView()
-      //        self.viewDidLoad()
-      
-      print(dateItems.self!)
-      self.kcalTableView.reloadData()
-      
-      //      }
+      DispatchQueue.main.async {
+        //        self.loadView()
+        //        self.viewDidLoad()
+        
+        //      print(dateItems.self!)
+        self.kcalTableView.reloadData()
+        
+      }
       check = true
       
     }else {
@@ -166,12 +179,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return 4
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell")
+    // cellの背景を透過
+    cell?.backgroundColor = UIColor.clear
+    // cell内のcontentViewの背景を透過
+    cell?.contentView.backgroundColor = UIColor.clear
+    
     cell?.textLabel?.text = timeArray[indexPath.row]
     if dateItems?.isEmpty == false {
       let object = dateItems?[0]
@@ -182,7 +200,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell?.detailTextLabel?.text = ("\((object?.noon)!)kcal")
       case 2:
         cell?.detailTextLabel?.text = ("\((object?.night)!)kcal")
-      case 4:
+      case 3:
         cell?.detailTextLabel?.text = ("\((object?.morning)!+(object?.noon)!+(object?.night)!)kcal")
       default:
         break
@@ -194,10 +212,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if check == true {
-      appDelegate.indexTime = indexPath.row
-      performSegue(withIdentifier: "selectSegue", sender: nil)
+    if indexPath.row != 3 {
+      if check == true {
+        appDelegate.indexTime = indexPath.row
+        performSegue(withIdentifier: "selectSegue", sender: nil)
+      }
+    }else{
+      performSegue(withIdentifier: "totalSegue", sender: nil)
     }
+    
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return header[section]
+  }
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      // 使用デバイスがiPhoneの場合
+      return 40
+    } else if UIDevice.current.userInterfaceIdiom == .pad {
+      // 使用デバイスがiPadの場合
+      return 70
+    } else {
+      return 60
+    }
+    
   }
   
   // 削除
@@ -254,7 +293,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     })
     alert.addAction(deleteAction)
     
-  
+    
     // キャンセルボタンの設定
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     alert.addAction(cancelAction)
@@ -266,6 +305,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 親View表示
     present(alert, animated: true, completion: nil)
   }
+  
   
   func naviNoDateAlert(){
     if naviCheck == false{
@@ -291,10 +331,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  func onLongPressAction(sender: UILongPressGestureRecognizer) {
+    let point: CGPoint = sender.location(in: self.calendarView)
+    let indexPath = self.calendarView.indexPathForItem(at: point)
+    
+    if indexPath != nil {
+      switch sender.state {
+      case .ended:
+        if dateItems?.isEmpty == false {
+          naviDeleteAlert()
+        }else{
+          naviCheck = false
+          naviNoDateAlert()
+        }
+      // 例えばTimerをstopさせる
+      default:
+        break
+      }
+    }
   }
+  
   
 }
 
@@ -342,22 +398,19 @@ extension ViewController: JTAppleCalendarViewDelegate {
   func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
     let date = visibleDates.monthDates.first!.date
     
-    formatter.dateFormat = "yyyy"
-    year.text! = formatter.string(from: date)
+    formatter.dateFormat = "yyyy  MMMM"
+    navigationItem.title = formatter.string(from: date)
     
-    formatter.dateFormat = "MMMM"
-    month.text! = formatter.string(from: date)
   }
+  
+  //  public func setColor() -> [UIColor] {
+  //
+  //    let outsideMonthColor: UIColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+  //    let monthColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+  //    let selectedMonthColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+  //    let currentDateSelectedViewColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+  //    
+  //  }
 }
 
-extension UIColor {
-  convenience init(colorWithHexValue value: Int, alpha: CGFloat = 1.0) {
-    self.init(
-      red: CGFloat((value & 0xFF0000) >> 16) / 255.0,
-      green: CGFloat((value & 0x00FF00) >> 8) / 255.0,
-      blue: CGFloat(value & 0x0000FF) / 255.0,
-      alpha: alpha
-    )
-  }
-}
 

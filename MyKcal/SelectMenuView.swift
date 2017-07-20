@@ -39,6 +39,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   var nightItem = List<nightList>()
   
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+  let header: [String] = ["選択済みのメニュー"]
   var selectId: [Int] = []  // 選択されたメニュー番号
   var indexTime = Int()
   var selectList: [String] = []
@@ -60,6 +61,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     setupRealm()
     setKcal()
     setMenu()
+    selectMenuTableView.isScrollEnabled = false
   }
   
   override func didReceiveMemoryWarning() {
@@ -107,7 +109,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   func setKcal(){
     var l :Int = 0
     sum = 0
-    //    dateItems = dateItem.filter("date == %@", selectDate)
     if(dateItems?.isEmpty == false){
       let object = dateItems?[0]
 //      print(String(describing: type(of: object)))
@@ -119,7 +120,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       case 2:
         sum = (object?.night)!
       case 3:
-        sum = (object?.snack)!
+        sum = (object?.morning)! + (object?.noon)! + (object?.night)!
       default:
         print("kcalがない!")
       }
@@ -145,7 +146,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     case 2:
       self.navigationItem.title = "夕食"
     case 3:
-      self.navigationItem.title = "間食"
+      self.navigationItem.title = "合計"
     default:
       print("時間帯が指定されていません!")
     }
@@ -154,6 +155,18 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return (selected.count + selectId.count)
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      // 使用デバイスがiPhoneの場合
+      return 40
+    } else if UIDevice.current.userInterfaceIdiom == .pad {
+      // 使用デバイスがiPadの場合
+      return 70
+    } else {
+      return 60
+    }
   }
   
   
@@ -222,6 +235,10 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       i += 1
     }
     return cell!
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return header[section]
   }
   
   // 削除

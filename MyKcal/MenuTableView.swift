@@ -9,15 +9,12 @@
 import UIKit
 import RealmSwift
 
-class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
   
-  @IBOutlet weak var kindSearch: UISearchBar!
   @IBOutlet weak var menuSearch: UISearchBar!
   @IBOutlet weak var menuTableView: UITableView!
-  
-  @IBAction func backButton(_ sender: UIBarButtonItem) {
-    appDelegate.selectId = selectId
-    _ = navigationController?.popViewController(animated: true)
+  @IBAction func kindButton(_ sender: UIButton) {
+    kindSearch()
   }
 
   @IBAction func addMenuButton(_ sender: UIBarButtonItem) {
@@ -26,29 +23,45 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   
   
   var menuItem: Results<RealmMenuDB>!
- 
-  let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+  var kindItem: Results<RealmKindDB>!
   
+  let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
   var selectId: [Int] = []  // 選択されたメニュー番号
   var indexTime = Int()
   
+  var kindString: [String?] = []  // Pickerに格納されている文字列
+  var kindSelect = String()    // Pickerで選択した文字列の格納場所
+   let header: [String] = ["メニュー一覧"]
+  var count = Int()
+  
+  var setupOnly: Bool = false
+  
+  let kindPicker = UIPickerView()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupRealm()
+    setupPickerView()
     menuSearch.enablesReturnKeyAutomatically = false
-    // Do any additional setup after loading the view.
-    
     indexTime = appDelegate.indexTime!
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    if (self.navigationController?.viewControllers) != nil {
+      appDelegate.selectId = selectId
+    }
+    super.viewWillDisappear(animated)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     setupRealm()
+    setupPickerView()
+    resetupPickerView()
     selectId = appDelegate.selectId
     menuTableView.reloadData()
   }
@@ -58,7 +71,53 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuItem = realm.objects(RealmMenuDB.self).sorted(byKeyPath: "id", ascending: true)
   }
   
+  func setupPickerView(){
+    let realmKind = try! Realm()
+    var i: Int = 0
+    kindItem = realmKind.objects(RealmKindDB.self)
+    
+    if setupOnly == false {
+      count = kindItem.count
+      setupOnly = true
+    }
+    
+    // RealmKindDBに保存してある値を配列に格納
+    while count>i {
+      let object = kindItem[i]
+      kindString += [object.kind]
+      i += 1
+    }
+    
+    if kindString.isEmpty == false {
+      kindPicker.selectRow(0, inComponent: 0, animated: true)
+      kindSelect = kindString[0]!
+    }
+  }
   
+  func resetupPickerView(){
+    // 変更後の数
+    let recount: Int = kindItem.count
+    var i: Int = 0
+    
+    // 変更前の数と比べる
+    if recount != count {
+      // 配列の中身を初期化
+      kindString = []
+      // 再度格納
+      while recount > i {
+        let object = kindItem[i]
+        kindString += [object.kind]
+        i += 1
+      }
+      // 更新
+      count = recount
+      
+      kindPicker.reloadAllComponents()
+      kindPicker.selectRow(count-1, inComponent: 0, animated: true)
+      kindSelect = kindString[count-1]!
+    }
+  }
+
   func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     let searchText: String
     if text.isEmpty {
@@ -86,6 +145,11 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuTableView.reloadData()
   }
   
+  func searchKind(text: String){
+    menuItem = try! Realm().objects(RealmMenuDB.self).filter("kind CONTAINS %@", text)
+    menuTableView.reloadData()
+  }
+  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if searchBar.text == "" {
       menuItem = try! Realm().objects(RealmMenuDB.self).sorted(byKeyPath: "id", ascending: true)
@@ -94,9 +158,60 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuSearch.endEditing(true)
   }
   
+  func kindSearch() {
+    let title = "性別・年齢別標準カロリー"
+    let message = "あなたの性別と年齢を選択して下さい\n\n\n\n\n\n\n\n\n\n" //改行入れないとOKがかぶる
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
+      (action: UIAlertAction!) -> Void in
+      self.searchKind(text: self.kindSelect)
+    })
+    
+    // PickerView
+    kindPicker.selectRow(0, inComponent: 0, animated: true) // 初期値
+    kindPicker.frame = CGRect(x: 0, y: 60, width: alert.view.bounds.width, height: 150) // 配置、サイズ
+    kindPicker.autoresizingMask = [.flexibleWidth]
+    kindPicker.dataSource = self
+    kindPicker.delegate = self
+    alert.view.addSubview(kindPicker)
+    
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+
+  }
+  
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return kindItem.count
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return kindString[row]
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    if let kindString = kindString[row] {
+      kindSelect = kindString
+    }
+  }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return  menuItem.count
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      // 使用デバイスがiPhoneの場合
+      return 40
+    } else if UIDevice.current.userInterfaceIdiom == .pad {
+      // 使用デバイスがiPadの場合
+      return 70
+    } else {
+      return 60
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,6 +230,10 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     return cell!
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return header[section]
   }
   
   // セルが選択された時に呼び出される
