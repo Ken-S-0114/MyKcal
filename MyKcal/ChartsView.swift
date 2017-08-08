@@ -481,6 +481,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
   var labelDate: String = ""
   
   var week: Bool = false  // 最初の週と最後の週のみを検出
+
   var intDate: Int = 0
   
   // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
@@ -488,17 +489,23 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     xView()
     // 0 -> Jan, 1 -> Feb...
     return months[Int(value)]
-    //    return months[Int(value)]
   }
   
   public func xView(){
     periodIndex = appDelegate.periodIndex
+    
     if check == false {
       var i = 0
       dateView = 0
       months = []
       if appDelegate.labelDate.isEmpty == false {
         labelDate = appDelegate.labelDate
+        
+        let startIndex = labelDate.index(labelDate.startIndex, offsetBy: 0)
+        let endIndex = labelDate.index(labelDate.endIndex, offsetBy: -4)
+        let range = startIndex..<endIndex
+        labelDate.removeSubrange(range) // 20170101 -> 0101
+        
         intDate = Int(labelDate)!
       }
       switch periodIndex {
@@ -510,6 +517,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
             months.append(labelDate)
           }else if i == 6 {
             dateView += 1
+            print(dateView)
             months.append(String(dateView))
           }else{
             dateView += 1
@@ -584,41 +592,66 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
   
   public func dateCheck(){
     var dateView: String = ""
+    var labelYear = appDelegate.labelDate
+    let startIndex = labelDate.index(labelDate.startIndex, offsetBy: 4)
+    let endIndex = labelDate.index(labelDate.endIndex, offsetBy: 0)
+    let range = startIndex..<endIndex
+    labelYear.removeSubrange(range) // 20170101 -> 2017
+    let Year: Int = Int(labelYear)!
+    
     if week == true {
       dateView = String(self.intDate)
     } else{
       dateView = String(self.dateView)
     }
     
-    let startIndex = dateView.index(dateView.startIndex, offsetBy: 4)
-    let endIndex = dateView.index(dateView.endIndex, offsetBy: 0)
-    let range = startIndex..<endIndex
-    
-    if dateView.hasSuffix("0132"){
-      dateView.replaceSubrange(range, with: "0201")
-    }else if dateView.hasSuffix("0229"){
-      dateView.replaceSubrange(range, with: "0301")
-    }else if dateView.hasSuffix("0332"){
-      dateView.replaceSubrange(range, with: "0401")
-    }else if dateView.hasSuffix("0431"){
-      dateView.replaceSubrange(range, with: "0501")
-    }else if dateView.hasSuffix("0532"){
-      dateView.replaceSubrange(range, with: "0601")
-    }else if dateView.hasSuffix("0631"){
-      dateView.replaceSubrange(range, with: "0701")
-    }else if dateView.hasSuffix("0732"){
-      dateView.replaceSubrange(range, with: "0801")
-    }else if dateView.hasSuffix("0832"){
-      dateView.replaceSubrange(range, with: "0901")
-    }else if dateView.hasSuffix("0931"){
-      dateView.replaceSubrange(range, with: "1001")
-    }else if dateView.hasSuffix("1032"){
-      dateView.replaceSubrange(range, with: "1101")
-    }else if dateView.hasSuffix("1131"){
-      dateView.replaceSubrange(range, with: "1201")
-    }else if dateView.hasSuffix("1232"){
-      dateView.replaceSubrange(range, with: "0101")
+    switch dateView {
+    case "0132":
+      dateView = "0201"
+      break
+    case "0229":
+      if Year/4 != 0 {
+        dateView = "0301"
+      }
+      break
+    case "0230":
+      dateView = "0301"
+      break
+    case "0332":
+      dateView = "0401"
+      break
+    case "0431":
+      dateView = "0501"
+      break
+    case "0532":
+      dateView = "0601"
+      break
+    case "0631":
+      dateView = "0701"
+      break
+    case "0732":
+      dateView = "0301"
+      break
+    case "0832":
+      dateView = "0401"
+      break
+    case "0931":
+      dateView = "0501"
+      break
+    case "1032":
+      dateView = "0601"
+      break
+    case "1131":
+      dateView = "0701"
+      break
+    case "1232":
+      dateView = "0701"
+      break
+    default:
+      print("エラー")
+      break
     }
+   
     if week == true {
       self.intDate = Int(dateView)!
     }else{

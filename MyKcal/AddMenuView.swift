@@ -236,6 +236,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       // 新しいインスタンスを生成
       let newMenu = RealmMenuDB()
       // textField等に入力したデータをeditRealmDBに代入
+      newMenu.kind = kindSelect
       newMenu.menu = menuTextField.text!
       newMenu.kcal = Int(kcalTextField.text!)!
 

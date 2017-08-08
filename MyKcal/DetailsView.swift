@@ -108,6 +108,10 @@ class DetailsView: UIViewController, UITableViewDelegate, UITableViewDataSource 
     switch indexPath.row {
     case 0:
       performSegue(withIdentifier: "colorSegue", sender: nil)
+    case 1:
+      if let indexPathForSelectedRow = detailsTableView.indexPathForSelectedRow {
+        detailsTableView.deselectRow(at: indexPathForSelectedRow, animated: true)
+      }
     default:
       break
     }

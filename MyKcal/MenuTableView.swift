@@ -13,6 +13,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   
   @IBOutlet weak var menuSearch: UISearchBar!
   @IBOutlet weak var menuTableView: UITableView!
+  @IBOutlet weak var kindButtonView: UIButton!
   @IBAction func kindButton(_ sender: UIButton) {
     kindSearch()
   }
@@ -44,6 +45,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     setupPickerView()
     menuSearch.enablesReturnKeyAutomatically = false
     indexTime = appDelegate.indexTime!
+    kindButtonView.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
   }
   
   override func didReceiveMemoryWarning() {
@@ -150,6 +152,11 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     menuTableView.reloadData()
   }
   
+  func resetKind(){
+    menuItem = try! Realm().objects(RealmMenuDB.self)
+    menuTableView.reloadData()
+  }
+  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if searchBar.text == "" {
       menuItem = try! Realm().objects(RealmMenuDB.self).sorted(byKeyPath: "id", ascending: true)
@@ -159,23 +166,38 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   }
   
   func kindSearch() {
-    let title = "性別・年齢別標準カロリー"
-    let message = "あなたの性別と年齢を選択して下さい\n\n\n\n\n\n\n\n\n\n" //改行入れないとOKがかぶる
+    let title = "種類選択"
+    let message = "種類を選択して下さい\n\n\n\n\n\n\n\n" //改行入れないとOKがかぶる
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    // 検索ボタンの設定
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
       (action: UIAlertAction!) -> Void in
       self.searchKind(text: self.kindSelect)
+      for i in 0..<self.kindString.count {
+        if self.kindString[i] == self.kindSelect {
+         // self.kindPicker.selectRow(i, inComponent: 0, animated: false)
+          self.kindSelect = self.kindString[0]!
+        }
+      }
     })
     
     // PickerView
     kindPicker.selectRow(0, inComponent: 0, animated: true) // 初期値
-    kindPicker.frame = CGRect(x: 0, y: 60, width: alert.view.bounds.width, height: 150) // 配置、サイズ
+    kindPicker.frame = CGRect(x: 0, y: 50, width: alert.view.bounds.width, height: 150) // 配置、サイズ
     kindPicker.autoresizingMask = [.flexibleWidth]
     kindPicker.dataSource = self
     kindPicker.delegate = self
     alert.view.addSubview(kindPicker)
     
     alert.addAction(okAction)
+    
+    // キャンセルボタンの設定
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{
+      (action: UIAlertAction!) -> Void in
+      self.resetKind()
+    })
+    alert.addAction(cancelAction)
+    
     present(alert, animated: true, completion: nil)
 
   }

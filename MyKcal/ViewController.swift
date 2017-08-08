@@ -218,7 +218,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         performSegue(withIdentifier: "selectSegue", sender: nil)
       }
     }else{
-      performSegue(withIdentifier: "totalSegue", sender: nil)
+      if dateItem?.isEmpty == false {
+        performSegue(withIdentifier: "totalSegue", sender: nil)
+      }
     }
     
   }
@@ -232,7 +234,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       return 40
     } else if UIDevice.current.userInterfaceIdiom == .pad {
       // 使用デバイスがiPadの場合
-      return 70
+      return 80
     } else {
       return 60
     }
@@ -409,7 +411,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
   //    let monthColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
   //    let selectedMonthColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
   //    let currentDateSelectedViewColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-  //    
+  //
   //  }
 }
 

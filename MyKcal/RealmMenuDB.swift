@@ -12,6 +12,7 @@ import RealmSwift
 class RealmMenuDB: Object {
   
   dynamic var id = Int()
+  dynamic var kind = String()
   dynamic var menu = String()
   dynamic var kcal = Int()
   
