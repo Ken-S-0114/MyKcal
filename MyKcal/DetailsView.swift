@@ -116,4 +116,5 @@ class DetailsView: UIViewController, UITableViewDelegate, UITableViewDataSource 
       break
     }
   }
+  
 }

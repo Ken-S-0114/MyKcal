@@ -25,7 +25,6 @@
 		B28D35531EF3B6EC00E3CDA7 /* morningList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28D35521EF3B6EC00E3CDA7 /* morningList.swift */; };
 		B28E6E8B1F1DDF2700F3769A /* VersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28E6E8A1F1DDF2700F3769A /* VersionView.swift */; };
 		B29DEE4D1EEC33EE00E8B951 /* RealmDateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */; };
-		B29DEE4F1EEC3B4A00E8B951 /* Geotica_2012.otf in Resources */ = {isa = PBXBuildFile; fileRef = B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */; };
 		B29DEE551EED760700E8B951 /* MenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE541EED760700E8B951 /* MenuTableView.swift */; };
 		B29DEE571EED77FB00E8B951 /* RealmMenuDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */; };
 		B29DEE591EED7E6700E8B951 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29DEE581EED7E6700E8B951 /* AddMenuView.swift */; };
@@ -54,7 +53,6 @@
 		B28D35521EF3B6EC00E3CDA7 /* morningList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morningList.swift; sourceTree = "<group>"; };
 		B28E6E8A1F1DDF2700F3769A /* VersionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionView.swift; sourceTree = "<group>"; };
 		B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDateDB.swift; sourceTree = "<group>"; };
-		B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Geotica_2012.otf; sourceTree = "<group>"; };
 		B29DEE541EED760700E8B951 /* MenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableView.swift; sourceTree = "<group>"; };
 		B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMenuDB.swift; sourceTree = "<group>"; };
 		B29DEE581EED7E6700E8B951 /* AddMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMenuView.swift; sourceTree = "<group>"; };
@@ -84,6 +82,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B25038261F3AA80300247149 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B2859DEE1EE989A1006E78CA /* ViewController.swift */,
+				B29DEE541EED760700E8B951 /* MenuTableView.swift */,
+				B29DEE581EED7E6700E8B951 /* AddMenuView.swift */,
+				B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */,
+				B2835E791F0DD20400420711 /* TotalView.swift */,
+				B28D35501EF0F98500E3CDA7 /* ChartsView.swift */,
+				B21DF26D1F15D25700752190 /* SettingView.swift */,
+				B21349BF1EFCEF4E00FD5BE2 /* BorderView.swift */,
+				B24BA21C1F1381740003FDAD /* ColorCollectionView.swift */,
+				B28E6E8A1F1DDF2700F3769A /* VersionView.swift */,
+				B21DF26F1F17484300752190 /* DetailsView.swift */,
+				B25038271F3AA83300247149 /* Realm */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		B25038271F3AA83300247149 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
+				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
+				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
+				B28D35521EF3B6EC00E3CDA7 /* morningList.swift */,
+				B26FAF301EF547D9006CBF0D /* noonList.swift */,
+				B26FAF321EF547FA006CBF0D /* nightList.swift */,
+			);
+			name = Realm;
+			sourceTree = "<group>";
+		};
+		B25038281F3AA84000247149 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		B2859DE01EE989A1006E78CA = {
 			isa = PBXGroup;
 			children = (
@@ -106,27 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				B2859DEC1EE989A1006E78CA /* AppDelegate.swift */,
-				B2859DEE1EE989A1006E78CA /* ViewController.swift */,
-				B29DEE541EED760700E8B951 /* MenuTableView.swift */,
-				B29DEE581EED7E6700E8B951 /* AddMenuView.swift */,
-				B28D35501EF0F98500E3CDA7 /* ChartsView.swift */,
-				B24BA21C1F1381740003FDAD /* ColorCollectionView.swift */,
-				B21349BF1EFCEF4E00FD5BE2 /* BorderView.swift */,
-				B29DEE5C1EEEF3C100E8B951 /* SelectMenuView.swift */,
-				B2835E791F0DD20400420711 /* TotalView.swift */,
-				B21DF26D1F15D25700752190 /* SettingView.swift */,
-				B28E6E8A1F1DDF2700F3769A /* VersionView.swift */,
-				B21DF26F1F17484300752190 /* DetailsView.swift */,
-				B29DEE4C1EEC33EE00E8B951 /* RealmDateDB.swift */,
-				B29DEE561EED77FB00E8B951 /* RealmMenuDB.swift */,
-				B29DEE5A1EED835500E8B951 /* RealmKindDB.swift */,
-				B2859DFE1EE98C0D006E78CA /* CustomCell.swift */,
-				B28D35521EF3B6EC00E3CDA7 /* morningList.swift */,
-				B26FAF301EF547D9006CBF0D /* noonList.swift */,
-				B26FAF321EF547FA006CBF0D /* nightList.swift */,
+				B25038261F3AA80300247149 /* ViewController */,
+				B25038281F3AA84000247149 /* Cell */,
 				B2859DF01EE989A1006E78CA /* Main.storyboard */,
 				B2859DF51EE989A1006E78CA /* LaunchScreen.storyboard */,
-				B29DEE4E1EEC39A400E8B951 /* Geotica_2012.otf */,
 				B2859DF31EE989A1006E78CA /* Assets.xcassets */,
 				B2859DF81EE989A1006E78CA /* Info.plist */,
 			);
@@ -205,7 +226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B29DEE4F1EEC3B4A00E8B951 /* Geotica_2012.otf in Resources */,
 				B2859DF71EE989A1006E78CA /* LaunchScreen.storyboard in Resources */,
 				B2859DF41EE989A1006E78CA /* Assets.xcassets in Resources */,
 				B2859DF21EE989A1006E78CA /* Main.storyboard in Resources */,

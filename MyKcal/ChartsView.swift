@@ -59,7 +59,6 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
   var kcalSwitchValue: Bool = true      // 設定値を入れるか
   var animationSwitchValue: Bool = true // アニメーション処理をするか
   
-  
   var total: Int = 0;
   var today = Int()
   
