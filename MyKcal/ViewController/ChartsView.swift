@@ -430,14 +430,32 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
   }
   
   func dateCheck(){
+    // 日付格納用
     var dateView = String(plus)
-    let startIndex = dateView.index(dateView.startIndex, offsetBy: 4)
-    let endIndex = dateView.index(dateView.endIndex, offsetBy: 0)
-    let range = startIndex..<endIndex
     
+    // 月変換用
+    let startDateIndex = dateView.index(dateView.startIndex, offsetBy: 4)
+    let endDateIndex = dateView.index(dateView.endIndex, offsetBy: 0)
+    let range = startDateIndex..<endDateIndex
+    
+    // 年度変換用
+    let startYearIndex = dateView.index(dateView.startIndex, offsetBy: 0)
+    let endYearIndex = dateView.index(dateView.endIndex, offsetBy: -4)
+    let rangeYear = startYearIndex..<endYearIndex
+    // 年度抽出
+    var year: String = dateView
+    year.removeSubrange(range)
+    // 年度加算　ex) 2017 -> 2017 + 1 = 2018
+    let yearPlus: String = String(Int(year)! + 1)
+    
+    // 最後が特定の文字で終わってる文字
     if dateView.hasSuffix("0132"){
       dateView.replaceSubrange(range, with: "0201")
     }else if dateView.hasSuffix("0229"){
+      if Int(year)!/4 != 0 {
+        dateView.replaceSubrange(range, with: "0301")
+      }
+    }else if dateView.hasSuffix("0230"){
       dateView.replaceSubrange(range, with: "0301")
     }else if dateView.hasSuffix("0332"){
       dateView.replaceSubrange(range, with: "0401")
@@ -458,6 +476,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     }else if dateView.hasSuffix("1131"){
       dateView.replaceSubrange(range, with: "1201")
     }else if dateView.hasSuffix("1232"){
+      dateView.replaceSubrange(rangeYear, with: yearPlus)
       dateView.replaceSubrange(range, with: "0101")
     }
     
@@ -470,23 +489,22 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
 
 public class BarChartFormatter: NSObject, IAxisValueFormatter{
   
-  // x軸のラベル
-  var months: [String]! = []
-  var check: Bool = false
   let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-  var periodIndex: Int = 0
-  var dateView: Int = 0
-  var dateView2: Int = 0
-  var labelDate: String = ""
-  
-  var week: Bool = false  // 最初の週と最後の週のみを検出
 
-  var intDate: Int = 0
+  // x軸のラベル
+  var months: [String]! = []  // 表示する日程
+  var check: Bool = false     // 同じ処理を繰り返し行わないようチェックする変数
+  var periodIndex: Int = 0    // 表示する間隔
+  var dateView: Int = 0       // 表示する日初め
+  var dateViewEnd: Int = 0    // 表示する日終わり
+  var labelDate: String = ""  // Delegateから値を受け取る変数
+  var intDate: Int = 0        // １週間用の終端
+  var week: Bool = false      // 最初の週と最後の週のみを検出
+
   
   // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
   public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
     xView()
-    // 0 -> Jan, 1 -> Feb...
     return months[Int(value)]
   }
   
@@ -494,77 +512,89 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     periodIndex = appDelegate.periodIndex
     
     if check == false {
-      var i = 0
+      var i = 0     // 日付カウント
+      
+      // 初期化
       dateView = 0
       months = []
+      
+      // もし日付が選択されていれば
       if appDelegate.labelDate.isEmpty == false {
         labelDate = appDelegate.labelDate
         
-        let startIndex = labelDate.index(labelDate.startIndex, offsetBy: 0)
-        let endIndex = labelDate.index(labelDate.endIndex, offsetBy: -4)
-        let range = startIndex..<endIndex
-        labelDate.removeSubrange(range) // 20170101 -> 0101
-        
+        // Int型用にコピー
         intDate = Int(labelDate)!
       }
+      
       switch periodIndex {
+      // １日間隔
       case 0:
         while i < 7 {
+          // 初日
           if i == 0 {
-            dateView = Int(labelDate)!
-            dateCheck()
-            months.append(labelDate)
-          }else if i == 6 {
-            dateView += 1
-            print(dateView)
+            dateView = intDate
+            months.append(String(dateView))
+          }
+          // 最終日
+          else if i == 6 {
             months.append(String(dateView))
           }else{
-            dateView += 1
-            dateCheck()
             months.append(String())
           }
           i += 1
+          dateView += 1
+          
+          // 日付チェック
+          dateCheck()
+          print(dateView)
         }
         check = true
-        
+        print(months)
+      
+      // １週間間隔
       case 1:
         while i < 43 {
+          // 初日
           if i == 0 {
+            // 週用の条件適応されるよう設定
             week = true
+            
             for _ in 0..<6 {
               intDate += 1
               self.dateCheck()
             }
-            months.append("\(labelDate)~\(String(intDate))")
+            months.append("\(labelDate)~\(String(intDate))")  // ex) 20170101~0107
+            
+            // 初日 "ex) 20170101" をdateViewに代入
             dateView = Int(labelDate)!
-            dateCheck()
+            
+            // 条件初期化
             week = false
-          }else if i == 42 {
+          }
+          // 最終日
+          else if i == 42 {
+            // 週用の条件適応されるよう設定
             week = true
             intDate = dateView
             for l in 0..<6 {
-              intDate = dateView
               intDate += 1
               self.dateCheck()
               if l == 5 {
-                dateView2 = self.intDate + 6
+                dateViewEnd = self.intDate
               }
             }
-            dateCheck()
-            months.append("\(dateView)~\(String(dateView2))")
+            months.append("\(dateView)~\(String(dateViewEnd))")
+            // 条件初期化
             week = false
           }else if (i == 6) || (i == 13) || (i == 20) || (i == 27) || (i == 35) {
-            dateView += 1
-            dateCheck()
             months.append(String())
-          }else {
-            dateView += 1
-            dateCheck()
           }
           i += 1
+          dateView += 1
+          dateCheck()
         }
-        //        print("X軸：\(months)")
         check = true
+        
         //      case 2:
         //        while i < 365 {
         //          if (i == 0){
@@ -582,7 +612,8 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
         //          }
         //          i += 1
         //        }
-      //        check = true
+        //        check = true
+        
       default:
         print("期間が指定されていません")
       }
@@ -590,65 +621,75 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
   }
   
   public func dateCheck(){
-    var dateView: String = ""
-    var labelYear = appDelegate.labelDate
-    let startIndex = labelDate.index(labelDate.startIndex, offsetBy: 4)
-    let endIndex = labelDate.index(labelDate.endIndex, offsetBy: 0)
-    let range = startIndex..<endIndex
-    labelYear.removeSubrange(range) // 20170101 -> 2017
-    let Year: Int = Int(labelYear)!
-    
+    // 日付格納用
+    var dateView = String()
+    // 日付格納
+    // 日付の終端計算用（１週間用） ex) 2017~0101~"0107"
     if week == true {
       dateView = String(self.intDate)
-    } else{
+    }
+    // １日間隔の場合
+    else {
       dateView = String(self.dateView)
     }
     
-    switch dateView {
-    case "0132":
-      dateView = "0201"
-      break
-    case "0229":
-      if Year/4 != 0 {
-        dateView = "0301"
+    // 月変換用
+    let startIndex = dateView.index(dateView.startIndex, offsetBy: 4)
+    let endIndex = dateView.index(dateView.endIndex, offsetBy: 0)
+    let range = startIndex..<endIndex
+    
+    // 年度変換用
+    let startYearIndex = dateView.index(dateView.startIndex, offsetBy: 0)
+    let endYearIndex = dateView.index(dateView.endIndex, offsetBy: -4)
+    let rangeYear = startYearIndex..<endYearIndex
+    // 年度抽出用
+    var labelYear = appDelegate.labelDate
+    labelYear.removeSubrange(range) // 20170101 -> 2017
+    let year: String = labelYear
+    // 年度加算　ex) 2017 -> 2017 + 1 = 2018
+    let yearPlus: String = String(Int(year)! + 1)
+ 
+    
+    
+//    case "0229":
+//      if Year/4 != 0 {
+//        dateView = "0301"
+//      }
+//      break
+//    case "0230":
+//      dateView = "0301"
+//      break
+
+    // 最後が特定の文字で終わってる文字
+    if dateView.hasSuffix("0132"){
+      dateView.replaceSubrange(range, with: "0201")
+    }else if dateView.hasSuffix("0229"){
+      if Int(year)!/4 != 0 {
+      dateView.replaceSubrange(range, with: "0301")
       }
-      break
-    case "0230":
-      dateView = "0301"
-      break
-    case "0332":
-      dateView = "0401"
-      break
-    case "0431":
-      dateView = "0501"
-      break
-    case "0532":
-      dateView = "0601"
-      break
-    case "0631":
-      dateView = "0701"
-      break
-    case "0732":
-      dateView = "0301"
-      break
-    case "0832":
-      dateView = "0401"
-      break
-    case "0931":
-      dateView = "0501"
-      break
-    case "1032":
-      dateView = "0601"
-      break
-    case "1131":
-      dateView = "0701"
-      break
-    case "1232":
-      dateView = "0701"
-      break
-    default:
-      print("エラー")
-      break
+    }else if dateView.hasSuffix("0230"){
+      dateView.replaceSubrange(range, with: "0301")
+    }else if dateView.hasSuffix("0332"){
+      dateView.replaceSubrange(range, with: "0401")
+    }else if dateView.hasSuffix("0431"){
+      dateView.replaceSubrange(range, with: "0501")
+    }else if dateView.hasSuffix("0532"){
+      dateView.replaceSubrange(range, with: "0601")
+    }else if dateView.hasSuffix("0631"){
+      dateView.replaceSubrange(range, with: "0701")
+    }else if dateView.hasSuffix("0732"){
+      dateView.replaceSubrange(range, with: "0801")
+    }else if dateView.hasSuffix("0832"){
+      dateView.replaceSubrange(range, with: "0901")
+    }else if dateView.hasSuffix("0931"){
+      dateView.replaceSubrange(range, with: "1001")
+    }else if dateView.hasSuffix("1032"){
+      dateView.replaceSubrange(range, with: "1101")
+    }else if dateView.hasSuffix("1131"){
+      dateView.replaceSubrange(range, with: "1201")
+    }else if dateView.hasSuffix("1232"){
+      dateView.replaceSubrange(rangeYear, with: yearPlus)
+      dateView.replaceSubrange(range, with: "0101")
     }
    
     if week == true {
