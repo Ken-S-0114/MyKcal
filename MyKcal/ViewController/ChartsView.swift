@@ -549,7 +549,6 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
           print(dateView)
         }
         check = true
-        print(months)
       
       // １週間間隔
       case 1:
