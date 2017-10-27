@@ -126,7 +126,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
       
       let searchBarText = searchBar.text!
       let index = searchBarText.endIndex
-      searchText = searchBarText.substring(to: index)
+      searchText = searchBarText.substring(to:index)
       
     } else {
       

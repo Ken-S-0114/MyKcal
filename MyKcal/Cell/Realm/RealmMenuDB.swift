@@ -11,10 +11,10 @@ import RealmSwift
 
 class RealmMenuDB: Object {
   
-  dynamic var id = Int()
-  dynamic var kind = String()
-  dynamic var menu = String()
-  dynamic var kcal = Int()
+  @objc dynamic var id = Int()
+  @objc dynamic var kind = String()
+  @objc dynamic var menu = String()
+  @objc dynamic var kcal = Int()
   
   override static func primaryKey() -> String? {
     return "id"

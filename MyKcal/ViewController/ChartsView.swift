@@ -215,19 +215,19 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
   }
   
   // 「完了」を押すと閉じる
-  func tappedToolBarBtn(sender: UIBarButtonItem) {
+  @objc func tappedToolBarBtn(sender: UIBarButtonItem) {
     dateTextField.resignFirstResponder()
     self.dispatch()
   }
   
   
   // 「今日」を押すと今日の日付をセットする
-  func tappedToolBarBtnToday(_ sender: UIBarButtonItem) {
+  @objc func tappedToolBarBtnToday(_ sender: UIBarButtonItem) {
     myDatePicker.date = Date()  //<-Date型のプロパティに現在時刻を入れるなら`Date()`を渡すだけでOK
     changeLabelDate(date: Date() as NSDate)  //<-Date型の引数に現在時刻を渡すときも同じく`Date()`だけでOK
   }
   
-  func changedDateEvent(_ sender: UIDatePicker){
+  @objc func changedDateEvent(_ sender: UIDatePicker){
     //<- `UIDatePicker`からのactionの`sender`は必ず`UIDatePicker`になる
     //`sender`を直接`UIDatePicker`として使えばいいのでキャストは不要
     self.changeLabelDate(date: sender.date as NSDate)

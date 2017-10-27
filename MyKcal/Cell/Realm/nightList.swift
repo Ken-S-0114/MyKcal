@@ -11,8 +11,8 @@ import RealmSwift
 
 class nightList: Object {
     
-  dynamic var name: String!
-  dynamic var kcal = Int()
+  @objc dynamic var name: String!
+  @objc dynamic var kcal = Int()
 //  override static func ignoredProperties() -> [String] {
 //    return []
 //  }

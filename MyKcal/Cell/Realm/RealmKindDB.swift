@@ -11,8 +11,8 @@ import RealmSwift
 
 class RealmKindDB: Object {
     
-  dynamic var id = Int()
-  dynamic var kind = String()
+  @objc dynamic var id = Int()
+  @objc dynamic var kind = String()
   
   override static func primaryKey() -> String? {
     return "id"

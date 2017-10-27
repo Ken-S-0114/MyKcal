@@ -29,12 +29,10 @@ class TotalView: UIViewController {
     selectDate = appDelegate.selectDate!
     setRealm()
     setupPieChartView(dataPoints: times, values: kcal)
-    // Do any additional setup after loading the view.
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   func setRealm() {

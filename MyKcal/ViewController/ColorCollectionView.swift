@@ -169,7 +169,7 @@ class ColorCollectionView: UIViewController,UICollectionViewDataSource, UICollec
     }
   }
   
-  func blinkLabel()
+  @objc func blinkLabel()
   {
     switch colorCount {
     case 0:

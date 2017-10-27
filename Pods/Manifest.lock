@@ -1,25 +1,25 @@
 PODS:
-  - Charts (3.0.2):
-    - Charts/Core (= 3.0.2)
-  - Charts/Core (3.0.2)
-  - JTAppleCalendar (7.0.2)
-  - Realm (2.7.0):
-    - Realm/Headers (= 2.7.0)
-  - Realm/Headers (2.7.0)
-  - RealmSwift (2.7.0):
-    - Realm (= 2.7.0)
+  - Charts (3.0.4):
+    - Charts/Core (= 3.0.4)
+  - Charts/Core (3.0.4)
+  - JTAppleCalendar (7.0.6)
+  - Realm (3.0.0):
+    - Realm/Headers (= 3.0.0)
+  - Realm/Headers (3.0.0)
+  - RealmSwift (3.0.0):
+    - Realm (= 3.0.0)
 
 DEPENDENCIES:
   - Charts
-  - JTAppleCalendar (~> 7.0)
+  - JTAppleCalendar (~> 7.0.6)
   - RealmSwift
 
 SPEC CHECKSUMS:
-  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
-  JTAppleCalendar: c14685634064ef67a68209548ff3443208af48a3
-  Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
-  RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
+  Charts: 0705898046257443f0afbbc3179f4b67507b6e48
+  JTAppleCalendar: 6a942475e33b9ad4dee0a0e14aa4c63adcf4f543
+  Realm: dec0de73be8c57506e39db72694d513c189493b3
+  RealmSwift: 44a7090b16d1b22a406c6bf129bdd602db1bbecc
 
-PODFILE CHECKSUM: 7bfcd5a0ade750d31128ec4508436eaa000b6b96
+PODFILE CHECKSUM: 6aa2c57ba30998c51ea2b60c63e5fbf8de077dac
 
 COCOAPODS: 1.1.1

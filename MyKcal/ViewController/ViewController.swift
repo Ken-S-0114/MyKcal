@@ -63,6 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     setupCalendarView()
     calendarView.reloadData()
     kcalTableView.reloadData()
+  
     
     if appDelegate.selectColor != nil {
       currentDateSelectedViewColor = appDelegate.selectColor!
@@ -72,7 +73,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  
+  // カレンダーの表示
   func setupCalendarView(){
     calendarView.minimumLineSpacing = 0
     calendarView.minimumInteritemSpacing = 0
@@ -83,6 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
+  // 長押しの定義
   func setupLongPress(){
     let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.onLongPressAction))
     // 指のズレを許容する範囲 10px
@@ -96,11 +98,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     self.calendarView.addGestureRecognizer(longPressRecognizer)
   }
   
+  // Realmの読み出し
   func setupRealmView(){
     let realm = try! Realm()
     dateItem = realm.objects(RealmDateDB.self)
   }
   
+  // ナビゲーションに表示する年月
   func setupViewOfCalendar(from visibleDates: DateSegmentInfo){
     let date = visibleDates.monthDates.first!.date
     
@@ -108,6 +112,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     self.navigationItem.title = self.formatter.string(from: date)
   }
   
+  // 選択時の色
   func setRealmColor(view: JTAppleCell?, cellState: CellState){
     guard let validCell = view as? CustomCell else { return }
     
@@ -115,7 +120,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     selectDate = formatter.string(from: cellState.date)
     
     dateItems = dateItem.filter("date == %@", selectDate)
-    
     
     if dateItems?.isEmpty == false {
       validCell.markView.isHidden = false
@@ -183,7 +187,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
     let cell = tableView.dequeueReusableCell(withIdentifier: "kcalCell")
     // cellの背景を透過
     cell?.backgroundColor = UIColor.clear
@@ -333,7 +336,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  func onLongPressAction(sender: UILongPressGestureRecognizer) {
+  @objc func onLongPressAction(sender: UILongPressGestureRecognizer) {
     let point: CGPoint = sender.location(in: self.calendarView)
     let indexPath = self.calendarView.indexPathForItem(at: point)
     

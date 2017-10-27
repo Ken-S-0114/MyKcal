@@ -10,16 +10,16 @@ import Foundation
 import RealmSwift
 
 class RealmDateDB: Object {
-  dynamic var id = Int()
-  dynamic var date = String()
+  @objc dynamic var id = Int()
+  @objc dynamic var date = String()
   let mlist = List<morningList>()
-  dynamic var morning: Int = 0
+  @objc dynamic var morning: Int = 0
   let nolist = List<noonList>()
-  dynamic var noon : Int = 0
+  @objc dynamic var noon : Int = 0
   let nilist = List<nightList>()
-  dynamic var night: Int = 0
-  dynamic var snack: Int = 0
-  dynamic var total: Int = 0
+  @objc dynamic var night: Int = 0
+  @objc dynamic var snack: Int = 0
+  @objc dynamic var total: Int = 0
   
   override static func primaryKey() -> String? {
     return "id"

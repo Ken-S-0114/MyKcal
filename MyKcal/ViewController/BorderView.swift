@@ -122,7 +122,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   }
   
   // 文字入力時
-  func changeTextField (sender: NSNotification) {
+  @objc func changeTextField (sender: NSNotification) {
     let textField = sender.object as! UITextField
     // 入力された文字を取得
     var InputStr = textField.text
@@ -202,7 +202,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
   }
   
-  func setupSwitch(sender:UISwitch!) {
+  @objc func setupSwitch(sender:UISwitch!) {
     let kcalSwitch: Bool = self.kcalSwitch.isOn
     setting.set(kcalSwitch, forKey: settingSwitchKey)
     dispatch()

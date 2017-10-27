@@ -60,6 +60,20 @@ extension JTAppleCalendarView {
         return stateOfCell
     }
     
+    /// Returns the month status for a given date
+    /// - Parameter: date Date of the cell you want to find
+    /// - returns:
+    ///     - Month: The state of the found month
+    public func monthStatus(for date: Date) -> Month? {
+        guard
+            let calendar = cachedConfiguration?.calendar,
+            let startMonth = startOfMonthCache,
+            let monthIndex = calendar.dateComponents([.month], from: startMonth, to: date).month else {
+                return nil
+        }
+        return monthInfo[monthIndex]
+    }
+    
     /// Returns the cell status for a given point
     /// - Parameter: point of the cell you want to find
     /// - returns:
@@ -78,12 +92,17 @@ extension JTAppleCalendarView {
         deselect(dates: selectedDates, triggerSelectionDelegate: triggerSelectionDelegate)
     }
     
-    func deselect(dates: [Date], triggerSelectionDelegate: Bool = true) {
+    /// Deselect dates
+    /// - Parameter: Dates - The dates to deselect
+    /// - Parameter: triggerSelectionDelegate - this funciton triggers a delegate call by default. Set this to false if you do not want this
+    public func deselect(dates: [Date], triggerSelectionDelegate: Bool = true) {
         if allowsMultipleSelection {
             selectDates(dates, triggerSelectionDelegate: triggerSelectionDelegate)
         } else {
-            guard let path = pathsFromDates(dates).first else { return }
-            collectionView(self, didDeselectItemAt: path)
+            let paths = pathsFromDates(dates)
+            guard !paths.isEmpty else { return }
+            if paths.count > 1 { assert(false, "WARNING: you are trying to deselect multiple dates with allowsMultipleSelection == false. Only the first date will be deselected.")}
+            collectionView(self, didDeselectItemAt: paths[0])
         }
     }
     
@@ -154,7 +173,7 @@ extension JTAppleCalendarView {
     /// - Parameter animation: Scroll is animated if this is set to true
     /// - Parameter completionHandler: This closure will run after
     ///                                the reload is complete
-    public func reloadData(completionHandler: (() -> Void)? = nil) {
+    public func reloadData(withanchor date: Date? = nil, completionHandler: (() -> Void)? = nil) {
         if isScrollInProgress || isReloadDataInProgress {
             delayedExecutionClosure.append {[unowned self] in
                 self.reloadData(completionHandler: completionHandler)
@@ -163,12 +182,13 @@ extension JTAppleCalendarView {
         }
         
         isReloadDataInProgress = true
+        initialScrollDate = date
         
         let selectedDates = self.selectedDates
-        let layoutNeedsUpdating = reloadDelegateDataSource()
-        if layoutNeedsUpdating {
+        let data = reloadDelegateDataSource()
+        if data.shouldReload {
             calendarViewLayout.invalidateLayout()
-            setupMonthInfoAndMap()
+            setupMonthInfoAndMap(with: data.configParameters)
             
             self.theSelectedIndexPaths = []
             self.theSelectedDates = []
@@ -186,7 +206,7 @@ extension JTAppleCalendarView {
             delayedExecutionClosure.append(validCompletionHandler)
         }
         
-        if !layoutNeedsUpdating { calendarViewLayout.shouldClearCacheOnInvalidate = false }
+        if !data.shouldReload { calendarViewLayout.shouldClearCacheOnInvalidate = false }
         super.reloadData()
         isReloadDataInProgress = false
         
@@ -274,14 +294,17 @@ extension JTAppleCalendarView {
             let date = calendar.startOfDay(for: date)
             let components = calendar.dateComponents([.year, .month, .day], from: date)
             let firstDayOfDate = calendar.date(from: components)!
+            
             // If the date is not within valid boundaries, then exit
-            if !(firstDayOfDate >= startOfMonthCache! && firstDayOfDate <= endOfMonthCache!) {
-                continue
-            }
+            if !(firstDayOfDate >= startOfMonthCache! && firstDayOfDate <= endOfMonthCache!) { continue }
+            
             let pathFromDates = self.pathsFromDates([date])
             // If the date path youre searching for, doesnt exist, return
             if pathFromDates.isEmpty { continue }
             let sectionIndexPath = pathFromDates[0]
+            
+            if !collectionView(self, shouldSelectItemAt: sectionIndexPath) { continue }
+            
             // Remove old selections
             if self.allowsMultipleSelection == false {
                 // If single selection is ON
@@ -409,7 +432,7 @@ extension JTAppleCalendarView {
         
         scrollTo(point: CGPoint(x: xOffset, y: yOffset),
                  triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                 isAnimationEnabled: true,
+                 isAnimationEnabled: animateScroll,
                  extraAddedOffset: extraAddedOffset,
                  completionHandler: completionHandler)
     }
@@ -471,7 +494,7 @@ extension JTAppleCalendarView {
         
         var point: CGPoint?
         switch self.scrollingMode {
-        case .stopAtEach, .stopAtEachSection, .stopAtEachCalendarFrameWidth:
+        case .stopAtEach, .stopAtEachSection, .stopAtEachCalendarFrameWidth, .nonStopToSection:
             if self.scrollDirection == .horizontal || (scrollDirection == .vertical && !calendarViewLayout.thereAreHeaders) {
                 point = self.targetPointForItemAt(indexPath: sectionIndexPath)
             }
