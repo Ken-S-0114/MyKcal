@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CK6-jp-fK5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CK6-jp-fK5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -934,7 +934,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zxz-vM-mqR">
-                                <rect key="frame" x="0.0" y="180" width="375" height="438"/>
+                                <rect key="frame" x="0.0" y="250" width="375" height="368"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="Mgf-0A-xav">
                                     <size key="itemSize" width="100" height="100"/>
@@ -1032,7 +1032,7 @@
                             <constraint firstItem="vYn-iP-3Lc" firstAttribute="top" secondItem="cCK-IB-bn8" secondAttribute="bottom" constant="10" id="BrB-Q0-jus"/>
                             <constraint firstItem="6Tn-6v-2y8" firstAttribute="centerX" secondItem="PjF-Jx-FSx" secondAttribute="centerX" id="DFT-EP-hBT"/>
                             <constraint firstAttribute="trailing" secondItem="zxz-vM-mqR" secondAttribute="trailing" id="FDB-1K-uQV"/>
-                            <constraint firstItem="zxz-vM-mqR" firstAttribute="top" secondItem="PjF-Jx-FSx" secondAttribute="top" constant="180" id="JbV-Bw-9Fx"/>
+                            <constraint firstItem="zxz-vM-mqR" firstAttribute="top" secondItem="PjF-Jx-FSx" secondAttribute="top" constant="250" id="JbV-Bw-9Fx"/>
                             <constraint firstItem="cCK-IB-bn8" firstAttribute="centerX" secondItem="6Tn-6v-2y8" secondAttribute="centerX" id="KBX-Pf-Dhe"/>
                             <constraint firstItem="MfD-Rz-50g" firstAttribute="centerY" secondItem="vYn-iP-3Lc" secondAttribute="centerY" id="T5L-Xz-5kq"/>
                             <constraint firstItem="cCK-IB-bn8" firstAttribute="centerX" secondItem="6Tn-6v-2y8" secondAttribute="centerX" id="Vnh-ek-j2t"/>

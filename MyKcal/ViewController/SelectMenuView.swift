@@ -74,7 +74,6 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
     selectList = []
     selectId = appDelegate.selectId
     selectDate = appDelegate.selectDate!
-    print("選択済日：\(selectDate)")
     l = 0
     i = 0
     sum = 0
@@ -333,7 +332,7 @@ class SelectMenuView: UIViewController, UITableViewDelegate, UITableViewDataSour
       let object = dateItems?[0]
       newDate.id = (object?.id)!
       newDate.date = selectDate
-      print(selectDate)
+//      print(selectDate)
       switch indexTime {
       // 朝ごはん選択時
       case 0:

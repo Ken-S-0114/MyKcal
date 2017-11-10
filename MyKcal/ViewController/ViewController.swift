@@ -52,6 +52,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     appDelegate.selectMarkColor = realmCheckColor
     // スクロールさせない
     kcalTableView.isScrollEnabled = false
+//    let realm = try! Realm()
+//    dateItem = realm.objects(RealmDateDB.self)
+
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -59,18 +62,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //    if let indexPathForSelectedRow = kcalTableView.indexPathForSelectedRow {
     //      kcalTableView.deselectRow(at: indexPathForSelectedRow, animated: true)
     //    }
+    colorCheck()
     setupRealmView()
     setupCalendarView()
     calendarView.reloadData()
-    kcalTableView.reloadData()
-  
     
+    kcalTableView.reloadData()
+  }
+  
+  func colorCheck(){
     if appDelegate.selectColor != nil {
       currentDateSelectedViewColor = appDelegate.selectColor!
     }
     if appDelegate.selectMarkColor != nil {
       realmCheckColor = appDelegate.selectMarkColor!
     }
+  }
+  
+  // Realmの読み出し
+  func setupRealmView(){
+    let realm = try! Realm()
+    dateItem = realm.objects(RealmDateDB.self)
   }
   
   // カレンダーの表示
@@ -82,26 +94,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     calendarView.visibleDates { (visibleDates) in
       self.setupViewOfCalendar(from: visibleDates)
     }
-  }
-  
-  // 長押しの定義
-  func setupLongPress(){
-    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.onLongPressAction))
-    // 指のズレを許容する範囲 10px
-    longPressRecognizer.allowableMovement = 10
-    // イベントが発生するまでタップする時間
-    longPressRecognizer.minimumPressDuration = 0.5
-    // タップする回数 1回の場合は[0] 2回の場合は[1]を指定
-    longPressRecognizer.numberOfTapsRequired = 0;
-    // タップする指の数
-    longPressRecognizer.numberOfTouchesRequired = 1;
-    self.calendarView.addGestureRecognizer(longPressRecognizer)
-  }
-  
-  // Realmの読み出し
-  func setupRealmView(){
-    let realm = try! Realm()
-    dateItem = realm.objects(RealmDateDB.self)
   }
   
   // ナビゲーションに表示する年月
@@ -119,8 +111,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     formatter.dateFormat = "yyyyMMdd"
     selectDate = formatter.string(from: cellState.date)
     
+    // 表示用のデータ
     dateItems = dateItem.filter("date == %@", selectDate)
-    
+//    print(selectDate)
     if dateItems?.isEmpty == false {
       validCell.markView.isHidden = false
       validCell.markView.backgroundColor = realmCheckColor
@@ -159,6 +152,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       formatter.dateFormat = "yyyy年MM月dd日"
       selectDateView = formatter.string(from: cellState.date)
       
+      // Cell選択時tableViewに表示するデータを取得
       let realmSelect = try! Realm()
       dateItem = realmSelect.objects(RealmDateDB.self)
       dateItems = dateItem.filter("date == %@", selectDate)
@@ -194,6 +188,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     cell?.contentView.backgroundColor = UIColor.clear
     
     cell?.textLabel?.text = timeArray[indexPath.row]
+    
+    // falseにならない！！！！！
+//    print(dateItems!)
+//    print(dateItems?.isEmpty)
+    
     if dateItems?.isEmpty == false {
       let object = dateItems?[0]
       switch indexPath.row {
@@ -418,4 +417,19 @@ extension ViewController: JTAppleCalendarViewDelegate {
   //  }
 }
 
+extension ViewController {
+  // 長押しの定義
+  func setupLongPress(){
+    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.onLongPressAction))
+    // 指のズレを許容する範囲 10px
+    longPressRecognizer.allowableMovement = 10
+    // イベントが発生するまでタップする時間
+    longPressRecognizer.minimumPressDuration = 0.5
+    // タップする回数 1回の場合は[0] 2回の場合は[1]を指定
+    longPressRecognizer.numberOfTapsRequired = 0;
+    // タップする指の数
+    longPressRecognizer.numberOfTouchesRequired = 1;
+    self.calendarView.addGestureRecognizer(longPressRecognizer)
+  }
+}
 

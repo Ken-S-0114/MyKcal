@@ -546,7 +546,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
           
           // 日付チェック
           dateCheck()
-          print(dateView)
+//          print(dateView)
         }
         check = true
       
