@@ -17,7 +17,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   @IBAction func kindButton(_ sender: UIButton) {
     kindSearch()
   }
-
+  
   @IBAction func addMenuButton(_ sender: UIBarButtonItem) {
     performSegue(withIdentifier: "addMenuSegue", sender: nil)
   }
@@ -32,13 +32,13 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
   
   var kindString: [String?] = []  // Pickerに格納されている文字列
   var kindSelect = String()    // Pickerで選択した文字列の格納場所
-   let header: [String] = ["メニュー一覧"]
+  let header: [String] = ["メニュー一覧"]
   var count = Int()
   
   var setupOnly: Bool = false
   
   let kindPicker = UIPickerView()
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupRealm()
@@ -119,7 +119,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
       kindSelect = kindString[count-1]!
     }
   }
-
+  
   func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     let searchText: String
     if text.isEmpty {
@@ -175,7 +175,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
       self.searchKind(text: self.kindSelect)
       for i in 0..<self.kindString.count {
         if self.kindString[i] == self.kindSelect {
-         // self.kindPicker.selectRow(i, inComponent: 0, animated: false)
+          // self.kindPicker.selectRow(i, inComponent: 0, animated: false)
           self.kindSelect = self.kindString[0]!
         }
       }
@@ -199,7 +199,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     alert.addAction(cancelAction)
     
     present(alert, animated: true, completion: nil)
-
+    
   }
   
   func numberOfComponents(in pickerView: UIPickerView) -> Int {

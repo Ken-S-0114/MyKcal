@@ -52,8 +52,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     appDelegate.selectMarkColor = realmCheckColor
     // スクロールさせない
     kcalTableView.isScrollEnabled = false
-//    let realm = try! Realm()
-//    dateItem = realm.objects(RealmDateDB.self)
+    // UITableViewの空セルのseparatorを消す
+    kcalTableView.tableFooterView = UIView(frame: .zero)
 
   }
   
