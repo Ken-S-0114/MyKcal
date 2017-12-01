@@ -16,12 +16,25 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import <Foundation/Foundation.h>
+#ifndef REALM_OS_PARTIAL_SYNC_HPP
+#define REALM_OS_PARTIAL_SYNC_HPP
 
-#import "RLMResults.h"
+#include <functional>
+#include <memory>
+#include <string>
 
-@class RLMSyncPermission;
+namespace realm {
 
-// A private subclass of `RLMResults`.
-@interface RLMSyncPermissionResults : RLMResults<RLMSyncPermission *>
-@end
+class Realm;
+class Results;
+
+namespace partial_sync {
+
+void register_query(std::shared_ptr<Realm>, const std::string &object_class,
+                    const std::string &query,
+                    std::function<void (Results, std::exception_ptr)>);
+
+} // namespace partial_sync
+} // namespace realm
+
+#endif // REALM_OS_PARTIAL_SYNC_HPP

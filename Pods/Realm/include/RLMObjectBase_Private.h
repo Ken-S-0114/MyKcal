@@ -16,12 +16,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import <Foundation/Foundation.h>
+#import <Realm/RLMObjectBase.h>
 
-#import "RLMResults.h"
+NS_ASSUME_NONNULL_BEGIN
 
-@class RLMSyncPermission;
-
-// A private subclass of `RLMResults`.
-@interface RLMSyncPermissionResults : RLMResults<RLMSyncPermission *>
+// RLMObjectBase private
+@interface RLMObjectBase ()
++ (void)initializeLinkedObjectSchemas;
 @end
+
+NS_ASSUME_NONNULL_END

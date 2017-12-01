@@ -16,12 +16,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import <Foundation/Foundation.h>
+#import "RLMSyncPermission.h"
 
-#import "RLMResults.h"
+#import "sync/sync_permission.hpp"
 
-@class RLMSyncPermission;
+@interface RLMSyncPermission ()
 
-// A private subclass of `RLMResults`.
-@interface RLMSyncPermissionResults : RLMResults<RLMSyncPermission *>
+- (instancetype)initWithPermission:(realm::Permission)permission;
+
+- (realm::Permission)rawPermission;
+
 @end

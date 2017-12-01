@@ -9,7 +9,23 @@
 import UIKit
 import RealmSwift
 
-class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+class AddMenuView: UIViewController {
+  
+  var kindString: [String] = []  // Pickerに格納されている文字列
+  var kindSelect = String()    // Pickerで選択した文字列の格納場所
+  var count = Int()
+  var setupOnly: Bool = false
+  var check: Bool = true              // 同じジャンル名があるかチェックする変数
+  
+  struct RealmModel {
+    struct realm {
+      // Realmのインスタンス生成
+      static var realmTry  = try!Realm()
+      static var kindItem: Results<RealmKindDB>! = RealmModel.realm.realmTry.objects(RealmKindDB.self)
+      static var menuItem: Results<RealmMenuDB>! = RealmModel.realm.realmTry.objects(RealmMenuDB.self)
+      
+    }
+  }
   
   @IBOutlet weak var kindPicker: UIPickerView!
   @IBOutlet weak var menuTextField: UITextField!
@@ -19,28 +35,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
   @IBOutlet weak var menuLabel: UILabel!
   @IBOutlet weak var kcalLabel: UILabel!
   
-  @IBAction func addKindButton(_ sender: UIButton) {
-    addKindView()
-  }
-  @IBAction func saveMenuButton(_ sender: UIBarButtonItem) {
-    saveMenu()
-    _ = navigationController?.popViewController(animated: true)
-  }
   
-  @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-    self.view.endEditing(true)
-  }
-  
-  var kindItem: Results<RealmKindDB>!
-  var menuItem: Results<RealmMenuDB>!
-  
-  var kindString: [String?] = []  // Pickerに格納されている文字列
-  var kindSelect = String()    // Pickerで選択した文字列の格納場所
-  var count = Int()
-  
-  var setupOnly: Bool = false
-  var check: Bool = true              // 同じジャンル名があるかチェックする変数
-
   override func viewDidLoad() {
     super.viewDidLoad()
     setupPickerView()
@@ -58,35 +53,46 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     resetupPickerView()
   }
   
+  
+  @IBAction func addKindButton(_ sender: UIButton) {
+    addKindView()
+  }
+  
+  @IBAction func saveMenuButton(_ sender: UIBarButtonItem) {
+    saveMenu()
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
+  @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
+    self.view.endEditing(true)
+  }
+  
+  
   func setupPickerView(){
-    let realmMenu = try! Realm()
-    let realmKind = try! Realm()
+
     var i: Int = 0
     
-    menuItem = realmMenu.objects(RealmMenuDB.self)
-    kindItem = realmKind.objects(RealmKindDB.self)
-    
     if setupOnly == false {
-      count = kindItem.count
+      count = RealmModel.realm.kindItem.count
       setupOnly = true
     }
     
     // RealmKindDBに保存してある値を配列に格納
     while count>i {
-      let object = kindItem[i]
+      let object = RealmModel.realm.kindItem[i]
       kindString += [object.kind]
       i += 1
     }
     
     if kindString.isEmpty == false {
       kindPicker.selectRow(0, inComponent: 0, animated: true)
-      kindSelect = kindString[0]!
+      kindSelect = kindString[0]
     }
   }
   
   func resetupPickerView(){
     // 変更後の数
-    let recount: Int = kindItem.count
+    let recount: Int = RealmModel.realm.kindItem.count
     var i: Int = 0
     
     // 変更前の数と比べる
@@ -95,7 +101,7 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       kindString = []
       // 再度格納
       while recount > i {
-        let object = kindItem[i]
+        let object = RealmModel.realm.kindItem[i]
         kindString += [object.kind]
         i += 1
       }
@@ -104,32 +110,12 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       
       kindPicker.reloadAllComponents()
       kindPicker.selectRow(count-1, inComponent: 0, animated: true)
-      kindSelect = kindString[count-1]!
+      kindSelect = kindString[count-1]
     }
   }
   
-  
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return kindItem.count
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return kindString[row]
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    if let kindString = kindString[row] {
-      kindSelect = kindString
-    }
-  }
   
   func addKindView(){
-    let realmKind = try! Realm()
-    self.kindItem = realmKind.objects(RealmKindDB.self)
     let alert = UIAlertController(title: "新規カテゴリー", message: nil, preferredStyle: .alert)
     
     let saveAction = UIAlertAction(title: "OK", style: .default, handler: {
@@ -141,9 +127,9 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       //textField等に入力したデータをnewAddCategoryに代入
       new.kind = alert.textFields![0].text!
       
-      while_i: while self.kindItem.count > i {
+      while_i: while RealmModel.realm.kindItem.count > i {
         // 同じジャンル名があるかDB上でチェック
-        if new.kind == self.kindItem[i].kind {
+        if new.kind == RealmModel.realm.kindItem[i].kind {
           // アクションシートの親となる UIView を設定
           alert.popoverPresentationController?.sourceView = self.view
           // 吹き出しの出現箇所を CGRect で設定 （これはナビゲーションバーから吹き出しを出す例）
@@ -182,13 +168,13 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         self.present(alertController, animated: true, completion: nil)
         
         //既にデータが他に作成してある場合
-        if self.kindItem.count != 0 {
-          new.id = self.kindItem.max(ofProperty: "id")! + 1
+        if RealmModel.realm.kindItem.count != 0 {
+          new.id = RealmModel.realm.kindItem.max(ofProperty: "id")! + 1
         }
         
         //上記で代入したテキストデータを永続化
-        try! realmKind.write({ () -> Void in
-          realmKind.add(new, update: false)
+        try! RealmModel.realm.realmTry.write({ () -> Void in
+          RealmModel.realm.realmTry.add(new, update: false)
         })
         self.viewWillAppear(true)
       }
@@ -241,8 +227,8 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
       newMenu.kcal = Int(kcalTextField.text!)!
 
       //既にデータが他に作成してある場合
-      if self.menuItem.count != 0 {
-        newMenu.id = self.menuItem.max(ofProperty: "id")! + 1
+      if RealmModel.realm.menuItem.count != 0 {
+        newMenu.id = RealmModel.realm.menuItem.max(ofProperty: "id")! + 1
       }
 
       // 上記で代入したテキストデータを永続化
@@ -278,12 +264,36 @@ class AddMenuView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     }
 
   }
+
   
+}
+
+extension AddMenuView: UIPickerViewDelegate {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    if let kindString = kindString[row].first {
+      kindSelect = String(kindString)
+    }
+  }
+}
+
+extension AddMenuView: UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return RealmModel.realm.kindItem.count
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return kindString[row]
+  }
+}
+
+extension AddMenuView: UITextFieldDelegate {
   // Doneボタンを押した際キーボードを閉じる
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
   }
-
-  
 }

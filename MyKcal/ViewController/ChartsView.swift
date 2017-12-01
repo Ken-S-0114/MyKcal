@@ -648,16 +648,6 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     // 年度加算　ex) 2017 -> 2017 + 1 = 2018
     let yearPlus: String = String(Int(year)! + 1)
  
-    
-    
-//    case "0229":
-//      if Year/4 != 0 {
-//        dateView = "0301"
-//      }
-//      break
-//    case "0230":
-//      dateView = "0301"
-//      break
 
     // 最後が特定の文字で終わってる文字
     if dateView.hasSuffix("0132"){

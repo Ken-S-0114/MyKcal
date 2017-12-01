@@ -125,9 +125,9 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   @objc func changeTextField (sender: NSNotification) {
     let textField = sender.object as! UITextField
     // 入力された文字を取得
-    var InputStr = textField.text
+    let InputStr = textField.text
     // 0文字でないか確認
-    if InputStr?.characters.count == 0 {
+    if InputStr?.count == 0 {
       alertCheck = false
     } else {
       alertCheck = true
