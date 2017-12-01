@@ -83,8 +83,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   
   func setupTextField(){
     let title = "1日の理想摂取カロリー"
-    let message = "以下に入力して下さい\n\n\n\n" //改行入れないとOKCancelがかぶる
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
     // 決定ボタンの設定
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
       (action: UIAlertAction!) -> Void in
