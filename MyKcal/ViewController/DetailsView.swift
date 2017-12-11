@@ -25,11 +25,11 @@ class DetailsView: UIViewController, UITableViewDelegate, UITableViewDataSource 
     super.viewDidLoad()
     setupIndex()
     
-   let animationSwitchValue = setting.bool(forKey: animationSwitchKey)
+    let animationSwitchValue = setting.bool(forKey: animationSwitchKey)
     animationSwitch.isOn = Bool(animationSwitchValue)
     // UISwitch操作時
     animationSwitch.addTarget(self, action: #selector(BorderView.setupSwitch(sender:)), for: .valueChanged)
-  
+    
   }
   
   override func didReceiveMemoryWarning() {
@@ -81,16 +81,18 @@ class DetailsView: UIViewController, UITableViewDelegate, UITableViewDataSource 
     //    cell?.backgroundColor = UIColor.clear
     //    // cell内のcontentViewの背景を透過
     //    cell?.contentView.backgroundColor = UIColor.clear
-    switch detailsIndex {
-    case 0:
-      cell?.textLabel?.text = settingScreen[indexPath.row]
-    default:
-      break
-    }
-    if cell?.accessoryView == nil {
-      if indexPath.row == 1 {
-        // UISwitch
-        cell?.accessoryView = self.animationSwitch
+    if let cell = cell {
+      switch detailsIndex {
+      case 0:
+        cell.textLabel?.text = settingScreen[indexPath.row]
+      default:
+        break
+      }
+      if cell.accessoryView == nil {
+        if indexPath.row == 1 {
+          // UISwitch
+          cell.accessoryView = animationSwitch
+        }
       }
     }
     return cell!

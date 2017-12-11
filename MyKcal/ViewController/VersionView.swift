@@ -47,8 +47,10 @@ class VersionView: UIViewController, UITableViewDelegate, UITableViewDataSource 
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = versionTableView.dequeueReusableCell(withIdentifier: "versionCell")
-    cell?.textLabel?.text = settingVersion[indexPath.row]
-    cell?.detailTextLabel?.text = version[indexPath.row]
+    if let cell = cell {
+      cell.textLabel?.text = settingVersion[indexPath.row]
+      cell.detailTextLabel?.text = version[indexPath.row]
+    }
     return cell!
   }
   
