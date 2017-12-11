@@ -37,7 +37,7 @@ class ColorCollectionView: UIViewController,UICollectionViewDataSource, UICollec
 //    selectLabel.backgroundColor = appDelegate.selectColor
 //    markLabel.backgroundColor = appDelegate.selectMarkColor
 
-    if blinkCheck == false {
+    if !blinkCheck {
       blinkLabelTimer = Timer.scheduledTimer(
         timeInterval: 0.8,
         target: self,
@@ -63,8 +63,8 @@ class ColorCollectionView: UIViewController,UICollectionViewDataSource, UICollec
   @IBOutlet weak var colorCollection: UICollectionView!
   
   @IBAction func backButton(_ sender: UIBarButtonItem) {
-    if (self.navigationController?.viewControllers) != nil {
-      if checkIndex.isEmpty == false {
+    if self.navigationController?.viewControllers != nil {
+      if !checkIndex.isEmpty {
         let alert = UIAlertController(title: "変更が確定されていませんがよろしいですか？", message: nil, preferredStyle: .alert)
         let backAction = UIAlertAction(title: "OK", style: .default, handler: {
           (action:UIAlertAction!) -> Void in
@@ -100,7 +100,7 @@ class ColorCollectionView: UIViewController,UICollectionViewDataSource, UICollec
   }
   
   @IBAction func doneButton(_ sender: UIBarButtonItem) {
-    if checkIndex.isEmpty == false {
+    if !checkIndex.isEmpty {
       if colorCount == 0 {
         appDelegate.selectColorPre = color[checkIndex[1]]
         appDelegate.colorCount = 1
@@ -174,9 +174,9 @@ class ColorCollectionView: UIViewController,UICollectionViewDataSource, UICollec
     switch colorCount {
     case 0:
       self.selectView.isHidden = !self.selectView.isHidden
-      if self.selectView.isHidden == true {
+      if self.selectView.isHidden {
         self.dateLabel.textColor = color[14]
-      } else if self.selectView.isHidden == false{
+      } else if !self.selectView.isHidden {
         self.dateLabel.textColor = white
       }
     case 1:

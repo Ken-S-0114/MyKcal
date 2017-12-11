@@ -78,7 +78,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var i: Int = 0
     kindItem = realmKind.objects(RealmKindDB.self)
     
-    if setupOnly == false {
+    if !setupOnly {
       count = kindItem.count
       setupOnly = true
     }
@@ -90,7 +90,7 @@ class MenuTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
       i += 1
     }
     
-    if kindString.isEmpty == false {
+    if !kindString.isEmpty {
       kindPicker.selectRow(0, inComponent: 0, animated: true)
       kindSelect = kindString[0]!
     }

@@ -125,10 +125,10 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     
     imageView.image = nil
     
-    if kcalSwitchValue == true {
+    if kcalSwitchValue {
       imageView.image = image1
       // アニメーション処理をするか
-      if animationSwitchValue == true {
+      if animationSwitchValue {
         // 2秒後に実行したい処理
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
           self.resultView()
@@ -172,13 +172,13 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     // グラフの背景色
     barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
     // アニメーション処理をするか
-    if animationSwitchValue == true {
+    if animationSwitchValue {
       // グラフの棒をニョキッとアニメーションさせる
       barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
     }
     // 横に赤いボーダーラインを描く
     barChartView.rightAxis.removeAllLimitLines()
-    if kcalSwitchValue == true {
+    if kcalSwitchValue {
       let ll = ChartLimitLine(limit: Double(borderValue), label: "")
       barChartView.rightAxis.addLimitLine(ll)
     }
@@ -282,7 +282,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
     l = 0             // 日数をカウント
     plus = 0          // 日数プラス分
     
-    if dateTextField.text?.isEmpty == true {
+    if !(dateTextField.text?.isEmpty)! {
       todaySet()
     }
     
@@ -295,14 +295,14 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         if l != 0 {
           dateItem = realm.objects(RealmDateDB.self).filter("date == %@", datePlus)
         }
-        if dateItem.isEmpty == false {
+        if !dateItem.isEmpty {
           let ob = dateItem[0]
           kcal += [ob.total]
         }else{
           kcal += [0]
         }
         // 日付1日ずつ増やしていく
-        if setCheck == false {
+        if !setCheck {
           plus = Int(labelDate)! + 1
           setCheck = true
         }else{
@@ -330,7 +330,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         if l != 0 {
           dateItem = realm.objects(RealmDateDB.self).filter("date == %@", datePlus)
         }
-        if dateItem.isEmpty == false {
+        if !dateItem.isEmpty {
           let ob = dateItem[0]
           if l < 7 {
             memory1 += ob.total
@@ -366,7 +366,7 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
           }
         }
         // 日付+1日ずつ増やしていく
-        if setCheck == false {
+        if !setCheck {
           plus = Int(labelDate)! + 1
           setCheck = true
         }else{
@@ -405,14 +405,14 @@ class ChartsView: UIViewController ,UIToolbarDelegate, UITextFieldDelegate{
         if l != 0 {
           dateItem = realm.objects(RealmDateDB.self).filter("date == %@", datePlus)
         }
-        if dateItem.isEmpty == false {
+        if !dateItem.isEmpty {
           let ob = dateItem[0]
           kcal += [ob.total]
         }else{
           kcal += [0]
         }
         // 日付+1日ずつ増やしていく
-        if setCheck == false {
+        if !setCheck {
           plus = Int(labelDate)! + 1
           setCheck = true
         }else{
@@ -511,7 +511,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
   public func xView(){
     periodIndex = appDelegate.periodIndex
     
-    if check == false {
+    if !check {
       var i = 0     // 日付カウント
       
       // 初期化
@@ -519,7 +519,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
       months = []
       
       // もし日付が選択されていれば
-      if appDelegate.labelDate.isEmpty == false {
+      if !appDelegate.labelDate.isEmpty {
         labelDate = appDelegate.labelDate
         
         // Int型用にコピー
@@ -624,7 +624,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
     var dateView = String()
     // 日付格納
     // 日付の終端計算用（１週間用） ex) 2017~0101~"0107"
-    if week == true {
+    if week {
       dateView = String(self.intDate)
     }
     // １日間隔の場合
@@ -681,7 +681,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter{
       dateView.replaceSubrange(range, with: "0101")
     }
    
-    if week == true {
+    if week {
       self.intDate = Int(dateView)!
     }else{
       self.dateView = Int(dateView)!

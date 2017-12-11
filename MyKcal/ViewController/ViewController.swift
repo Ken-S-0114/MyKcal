@@ -54,7 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     kcalTableView.isScrollEnabled = false
     // UITableViewの空セルのseparatorを消す
     kcalTableView.tableFooterView = UIView(frame: .zero)
-
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -113,12 +113,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // 表示用のデータ
     dateItems = dateItem.filter("date == %@", selectDate)
-//    print(selectDate)
-    if dateItems?.isEmpty == false {
-      validCell.markView.isHidden = false
-      validCell.markView.backgroundColor = realmCheckColor
-    }else{
-      validCell.markView.isHidden = true
+    if let dateItems = dateItems {
+      if !dateItems.isEmpty {
+        validCell.markView.isHidden = false
+        validCell.markView.backgroundColor = realmCheckColor
+      }else{
+        validCell.markView.isHidden = true
+      }
     }
   }
   
@@ -189,39 +190,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     cell?.textLabel?.text = timeArray[indexPath.row]
     
-    // falseにならない！！！！！
-//    print(dateItems!)
-//    print(dateItems?.isEmpty)
-    
-    if dateItems?.isEmpty == false {
-      let object = dateItems?[0]
-      switch indexPath.row {
-      case 0:
-        cell?.detailTextLabel?.text = ("\((object?.morning)!)kcal")
-      case 1:
-        cell?.detailTextLabel?.text = ("\((object?.noon)!)kcal")
-      case 2:
-        cell?.detailTextLabel?.text = ("\((object?.night)!)kcal")
-      case 3:
-        cell?.detailTextLabel?.text = ("\((object?.morning)!+(object?.noon)!+(object?.night)!)kcal")
-      default:
-        break
+    if let dateItems = dateItems {
+      if !dateItems.isEmpty {
+        let object = dateItems[0]
+        switch indexPath.row {
+        case 0:
+          cell?.detailTextLabel?.text = ("\(object.morning)kcal")
+        case 1:
+          cell?.detailTextLabel?.text = ("\(object.noon)kcal")
+        case 2:
+          cell?.detailTextLabel?.text = ("\(object.night)kcal")
+        case 3:
+          cell?.detailTextLabel?.text = ("\(object.morning + object.noon + object.night)kcal")
+        default:
+          break
+        }
+      }else{
+        cell?.detailTextLabel?.text = ("\(kcalTime[indexPath.row])kcal")
       }
-    }else{
-      cell?.detailTextLabel?.text = ("\(kcalTime[indexPath.row])kcal")
     }
     return cell!
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if indexPath.row != 3 {
-      if check == true {
-        appDelegate.indexTime = indexPath.row
-        performSegue(withIdentifier: "selectSegue", sender: nil)
-      }
-    }else{
-      if dateItem?.isEmpty == false {
-        performSegue(withIdentifier: "totalSegue", sender: nil)
+    if let dateItem = dateItem {
+      if indexPath.row != 3 {
+        if check {
+          appDelegate.indexTime = indexPath.row
+          performSegue(withIdentifier: "selectSegue", sender: nil)
+        }
+      }else{
+        if !dateItem.isEmpty {
+          performSegue(withIdentifier: "totalSegue", sender: nil)
+        }
       }
     }
     
@@ -312,7 +313,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   
   func naviNoDateAlert(){
-    if naviCheck == false{
+    if !naviCheck {
       let alertController = UIAlertController(title: "指定した日のデータが存在しません", message: nil, preferredStyle: .actionSheet)
       let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
       alertController.addAction(alertAction)
@@ -327,9 +328,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   }
   
   func delete(){
-    let realm = try! Realm()
-    try! realm.write {
-      realm.delete((self.dateItems?[0])!)
+    if let dateItems = dateItems {
+      let realm = try! Realm()
+      try! realm.write {
+        realm.delete(dateItems[0])
+      }
       kcalTableView.reloadData()
       calendarView.reloadData()
     }
@@ -342,8 +345,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     if indexPath != nil {
       switch sender.state {
       case .ended:
-        if dateItems?.isEmpty == false {
-          naviDeleteAlert()
+        if let dateItems = dateItems {
+          if !dateItems.isEmpty {
+            naviDeleteAlert()
+          }
         }else{
           naviCheck = false
           naviNoDateAlert()
@@ -407,14 +412,6 @@ extension ViewController: JTAppleCalendarViewDelegate {
     
   }
   
-  //  public func setColor() -> [UIColor] {
-  //
-  //    let outsideMonthColor: UIColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-  //    let monthColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-  //    let selectedMonthColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
-  //    let currentDateSelectedViewColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-  //
-  //  }
 }
 
 extension ViewController {

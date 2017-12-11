@@ -72,7 +72,7 @@ class AddMenuView: UIViewController {
 
     var i: Int = 0
     
-    if setupOnly == false {
+    if !setupOnly {
       count = RealmModel.realm.kindItem.count
       setupOnly = true
     }
@@ -84,7 +84,7 @@ class AddMenuView: UIViewController {
       i += 1
     }
     
-    if kindString.isEmpty == false {
+    if !kindString.isEmpty {
       kindPicker.selectRow(0, inComponent: 0, animated: true)
       kindSelect = kindString[0]
     }
@@ -151,7 +151,7 @@ class AddMenuView: UIViewController {
         self.check = true
       }
       
-      if(new.kind.isEmpty == false) && (self.check == true) {
+      if !new.kind.isEmpty && self.check {
         // アクションシートの親となる UIView を設定
         alert.popoverPresentationController?.sourceView = self.view
         
@@ -178,7 +178,7 @@ class AddMenuView: UIViewController {
         })
         self.viewWillAppear(true)
       }
-      else if new.kind.isEmpty == true {
+      else if new.kind.isEmpty {
         // アクションシートの親となる UIView を設定
         alert.popoverPresentationController?.sourceView = self.view
         

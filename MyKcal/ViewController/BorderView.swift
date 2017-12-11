@@ -91,7 +91,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
       if let textFields = alert.textFields {
         // アラートに含まれるすべてのテキストフィールドを調べる
         for textField in textFields {
-          if self.alertCheck == true {
+          if self.alertCheck {
             self.border = Int(textField.text!)!
           }else {
             self.border = 0
@@ -148,7 +148,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     if indexPath.row == 2 {
       cell?.detailTextLabel?.text = String("\(border)kcal")
-      if kcalSwitch.isOn == false {
+      if !kcalSwitch.isOn {
         cell?.isHidden = true
       } else {
         cell?.isHidden = false
@@ -160,7 +160,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if kcalSwitch.isOn == false {
+    if !kcalSwitch.isOn {
       return 2
     } else {
       return 3
@@ -188,7 +188,7 @@ class BorderView: UIViewController, UITableViewDelegate, UITableViewDataSource, 
       self.setupPicker()
     }
     // 1日の理想摂取カロリーのCell
-    if kcalSwitch.isOn == true {
+    if kcalSwitch.isOn {
       if indexPath.row == 2 {
         self.setupTextField()
         self.settingKcalTableView.reloadData()
